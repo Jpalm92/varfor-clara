@@ -1,0 +1,174 @@
+<html lang="sv"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OEM Scroll</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #000;
+      color: #fff;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .section {
+      position: relative;
+    }
+    .sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+    .sticky video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .overlay .text {
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .overlay .text.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .overlay .text h2 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 700;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+      margin-bottom: 0.5rem;
+    }
+    .overlay .text p {
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      font-weight: 300;
+      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
+      max-width: 600px;
+    }
+  </style>
+</head>
+<body>
+  <div class="section" style="height: 10423.7px;">
+    <div class="sticky">
+      <video src="scroll-video-1.mp4" muted="" autoplay="" playsinline="" preload="auto"></video>
+      <div class="overlay">
+        <div class="text visible">
+          <h2>Sektion 1</h2>
+          <p>Första videon</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="sticky">
+      <video src="scroll-video-2.mp4" muted="" autoplay="" playsinline="" preload="auto"></video>
+      <div class="overlay">
+        <div class="text">
+          <h2>Sektion 2</h2>
+          <p>Andra videon</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="sticky">
+      <video src="scroll-video-3.mp4" muted="" autoplay="" playsinline="" preload="auto"></video>
+      <div class="overlay">
+        <div class="text">
+          <h2>Sektion 3</h2>
+          <p>Tredje videon</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const MAX_STEP = 0.1;
+    const VH_PER_SECOND = 50;
+    // Per-section state
+    const state = [];
+    sections.forEach((section) => {
+      const video = section.querySelector('video');
+      const s = { video, smoothTime: 0, ready: false, seeking: false, pendingTime: null };
+      state.push(s);
+      video.addEventListener('playing', () => {
+        video.pause();
+        video.currentTime = 0;
+        s.ready = true;
+        sizeSections();
+      }, { once: true });
+      video.addEventListener('seeked', () => {
+        s.seeking = false;
+        if (s.pendingTime !== null) {
+          const next = s.pendingTime;
+          s.pendingTime = null;
+          if (Math.abs(video.currentTime - next) > 0.01) {
+            s.seeking = true;
+            video.currentTime = next;
+          }
+        }
+      });
+    });
+    let lastWidth = window.innerWidth;
+    function sizeSections() {
+      const vh = window.innerHeight;
+      state.forEach((s, i) => {
+        if (!s.ready) return;
+        sections[i].style.height = `${vh + s.video.duration * vh * VH_PER_SECOND / 100}px`;
+      });
+    }
+    window.addEventListener('resize', () => {
+      if (window.innerWidth !== lastWidth) {
+        lastWidth = window.innerWidth;
+        sizeSections();
+      }
+    });
+    function tick() {
+      const vh = window.innerHeight;
+      sections.forEach((section, i) => {
+        const s = state[i];
+        if (!s.ready) return;
+        const text = section.querySelector('.text');
+        const rect = section.getBoundingClientRect();
+        const scrollRange = rect.height - vh;
+        const progress = Math.max(0, Math.min(1, -rect.top / scrollRange));
+        const targetTime = progress * s.video.duration;
+        const diff = targetTime - s.smoothTime;
+        // Move linearly towards target, capped at MAX_STEP per frame
+        s.smoothTime += Math.sign(diff) * Math.min(Math.abs(diff), MAX_STEP);
+        const newTime = Math.max(0, Math.min(s.smoothTime, s.video.duration));
+        if (s.seeking) {
+          s.pendingTime = newTime;
+        } else if (Math.abs(s.video.currentTime - newTime) > 0.01) {
+          s.seeking = true;
+          s.video.currentTime = newTime;
+        }
+        const active = rect.top <= 0 && rect.bottom >= vh;
+        text.classList.toggle('visible', active);
+      });
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  </script>
+</body>
+</html>
