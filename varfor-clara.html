@@ -502,7 +502,7 @@
   <!-- Section 2 -->
   <div class="section">
     <div class="sticky">
-      <video src="scroll-video-3.mp4" muted autoplay playsinline preload="auto"></video>
+      <video src="scroll-video-3.mp4" muted autoplay playsinline preload="auto" data-vh-per-second="20"></video>
       <div class="overlay pos-right">
         <div class="text" style="transform: translateX(60px);">
           <div class="accent-line"></div>
@@ -516,7 +516,7 @@
   <!-- Section 3 -->
   <div class="section">
     <div class="sticky">
-      <video src="scroll-video-2.mp4" muted autoplay playsinline preload="auto"></video>
+      <video src="scroll-video-2.mp4" muted autoplay playsinline preload="auto" data-vh-per-second="60"></video>
       <div class="overlay pos-left">
         <div class="text" style="transform: translateX(-60px);">
           <div class="accent-line"></div>
@@ -608,7 +608,8 @@
     var state = [];
     sections.forEach(function (section) {
       var video = section.querySelector('video');
-      var s = { video: video, smoothTime: 0, ready: false, seeking: false, pendingTime: null };
+      var vhps = video.hasAttribute('data-vh-per-second') ? Number(video.getAttribute('data-vh-per-second')) : VH_PER_SECOND;
+      var s = { video: video, vhps: vhps, smoothTime: 0, ready: false, seeking: false, pendingTime: null };
       state.push(s);
       video.addEventListener('playing', function () {
         video.pause();
@@ -633,7 +634,7 @@
       var vh = window.innerHeight;
       state.forEach(function (s, i) {
         if (!s.ready) return;
-        sections[i].style.height = (vh + s.video.duration * vh * VH_PER_SECOND / 100) + 'px';
+        sections[i].style.height = (vh + s.video.duration * vh * s.vhps / 100) + 'px';
       });
     }
     window.addEventListener('resize', function () {
