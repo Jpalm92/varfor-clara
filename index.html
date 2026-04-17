@@ -4,10 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Clara</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     ::selection { background: rgba(255,255,255,0.2); color: #fff; }
-    body { background: #000; color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    body { background: #000; color: #fff; font-family: 'Space Grotesk', arial, sans-serif; -webkit-font-smoothing: antialiased; }
 
     /* Navbar */
     .nav-bar { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; background: rgba(0,0,0,0.85); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); padding: 0.75rem 1.5rem; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
@@ -24,29 +27,32 @@
     #nav-overlay { position: fixed; inset: 0; z-index: 150; background: rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
     #nav-menu.nav-visible ~ #nav-overlay { opacity: 1; pointer-events: auto; }
 
-    /* Hero */
-    .hero { position: relative; width: 100%; height: 100vh; height: 100dvh; overflow: hidden; }
-    .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; }
+    /* Hero scroll wrapper */
+    .hero-scroll-wrapper { position: relative; margin-top: 72px; height: 200vh; height: 200dvh; }
+    .hero { position: sticky; top: 72px; width: 100%; height: calc(100vh - 72px); height: calc(100dvh - 72px); overflow: hidden; }
+    .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 40%, transparent 70%); z-index: 1; }
-    .hero-content { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 2rem 8vh; }
-    .hero-content .tagline { font-size: clamp(1rem, 2vw, 1.35rem); font-weight: 300; color: rgba(255,255,255,0.7); max-width: 520px; line-height: 1.5; margin-bottom: 2.5rem; }
-    .hero-buttons { display: flex; gap: 1rem; }
+    .hero-content { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; padding: 0 6rem; padding-bottom: 12vh; }
+    .hero-heading { font-family: 'Space Grotesk', arial, sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; font-style: normal; line-height: 1.2; letter-spacing: 0.04em; color: #fff; opacity: 0; transform: translateY(30px); animation: fadeUp 1s ease 0.4s forwards; }
+    .hero-heading .btn-inline { display: inline-flex; align-items: center; vertical-align: middle; margin: 0 0.3em; padding: 0.4em 1.2em; background: #e8772e; color: #000; font-family: 'Space Grotesk', arial, sans-serif; font-size: 0.32em; font-weight: 300; font-style: normal; letter-spacing: 0.04em; text-decoration: none; border-radius: 4px; transition: background 0.3s, transform 0.3s; cursor: pointer; border: none; white-space: nowrap; position: relative; top: -0.2em; }
+    .hero-heading .btn-inline:hover { background: #d4691e; transform: scale(1.04); }
     .btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem 2.2rem; border-radius: 980px; font-size: 1rem; font-weight: 500; text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none; letter-spacing: -0.01em; }
     .btn-primary { background: #F9F7F4; color: #000; }
     .btn-primary:hover { background: #fff; transform: scale(1.04); }
     .btn-secondary { background: rgba(255,255,255,0.15); color: #F9F7F4; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
     .btn-secondary:hover { background: rgba(255,255,255,0.25); transform: scale(1.04); }
-    .hero-content .tagline, .hero-buttons { opacity: 0; transform: translateY(30px); animation: fadeUp 1s ease forwards; }
-    .hero-content .tagline { animation-delay: 0.4s; }
-    .hero-buttons { animation-delay: 0.8s; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* Intro */
-    .intro-section { padding: 10rem 2rem; text-align: center; }
-    .intro-inner { max-width: 720px; margin: 0 auto; }
+    /* Intro overlay inside hero */
+    .hero-intro { position: absolute; inset: 0; z-index: 3; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 2rem; padding-bottom: 8vh; opacity: 0; transform: translateY(300px); will-change: opacity, transform; pointer-events: none; }
+    .hero-intro.active { pointer-events: auto; }
+    .intro-inner { max-width: 720px; }
     .intro-label { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 1.5rem; }
-    .intro-section h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .hero-intro h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
     .intro-body { font-size: clamp(1rem, 1.5vw, 1.15rem); font-weight: 300; line-height: 1.7; color: rgba(255,255,255,0.55); }
+    .intro-buttons { display: flex; gap: 2.5rem; justify-content: center; margin-top: 2.5rem; }
+    .intro-buttons .btn-orange { display: inline-flex; align-items: center; justify-content: center; padding: 0.85rem 2.2rem; background: #e8772e; color: #000; font-family: 'Space Grotesk', arial, sans-serif; font-size: 1rem; font-weight: 400; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; transition: background 0.3s, transform 0.3s; }
+    .intro-buttons .btn-orange:hover { background: #d4691e; transform: scale(1.04); }
 
     /* LightSwitcher */
     .light-switcher { position: relative; height: 100vh; height: 100dvh; width: 100%; overflow: hidden; background: #000; }
@@ -134,14 +140,15 @@
     .fade-in { opacity: 0; transform: translateY(40px); transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
     
-    .intro-section h2, .cta-section h2, .models-heading, .light-switcher-intro h2 { background: linear-gradient(to bottom, #fff 30%, rgba(255,255,255,0.6)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-intro h2, .cta-section h2, .models-heading, .light-switcher-intro h2 { background: linear-gradient(to bottom, #fff 30%, rgba(255,255,255,0.6)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
     /* Mobile */
     @media (max-width: 768px) {
-      .hero-content { padding: 0 1.5rem 6vh; }
-      .hero-buttons { flex-direction: column; width: 100%; max-width: 320px; gap: 0.75rem; }
-      .btn { width: 100%; padding: 1rem 2rem; }
-      .intro-section { padding: 5rem 1.5rem; }
+      .hero-scroll-wrapper { height: 200vh; height: 200dvh; }
+      .hero-content { padding: 0 1.5rem; }
+      .hero-heading { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+      .hero-intro { padding: 0 1.5rem; padding-bottom: 8vh; }
+
       .light-switcher { height: auto; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
       .light-switcher .lamp-container { position: relative; inset: auto; width: 100%; height: 30dvh; flex-shrink: 0; min-height: 0; overflow: hidden; }
       .light-switcher-intro { position: relative; bottom: auto; right: auto; left: auto; padding: 2rem 1.5rem 1rem; max-width: none; opacity: 1; transform: none; }
@@ -176,26 +183,26 @@
   <div id="nav-overlay" onclick="document.getElementById('nav-menu').classList.remove('nav-visible')"></div>
 
   <!-- Hero -->
-  <div class="hero">
-    <video src="Clara-3D-Animation-1920X1080-1.mp4" muted autoplay loop playsinline preload="auto"></video>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <p class="tagline">Ljusergonomi f&#246;r det flexibla kontoret. Designad f&#246;r m&#228;nniskor som vill jobba b&#228;ttre.</p>
-      <div class="hero-buttons">
-        <a href="varfor-clara.html" class="btn btn-primary">Varf&#246;r Clara</a>
-        <a href="#" class="btn btn-secondary">Produkter</a>
+  <div class="hero-scroll-wrapper" id="hero-scroll-wrapper">
+    <div class="hero" id="hero">
+      <video src="Clara-3D-Animation-1920X1080-1.mp4" muted autoplay loop playsinline preload="auto"></video>
+      <div class="hero-overlay"></div>
+      <div class="hero-content" id="hero-content">
+        <h1 class="hero-heading">Framtidens belysning<br><a href="varfor-clara.html" class="btn-inline">Varf&#246;r Clara?</a> f&#246;r kontor</h1>
+      </div>
+      <div class="hero-intro" id="hero-intro">
+        <div class="intro-inner">
+          <p class="intro-label">Ljusergonomi</p>
+          <h2>Ljusare tider f&#246;r flexibla kontor</h2>
+          <p class="intro-body">Gl&#246;m nedpendlande lampor. Gl&#246;m fasta installationer. Gl&#246;m statiska milj&#246;er. Vi p&#229; Clara g&#246;r ljusergonomi tillg&#228;nglig f&#246;r alla, &#228;ven p&#229; de mest ombytliga kontoren. V&#229;ra funktionella, minimalistiskt designade armaturer ger optimalt arbetsljus &#8211; p&#229; r&#228;tt plats, i r&#228;tt h&#246;jd och med r&#228;tt ljustemperatur.</p>
+          <div class="intro-buttons">
+            <a href="#" class="btn-orange">Produkter</a>
+            <a href="#" class="btn-orange">Om ljus</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- Intro -->
-  <section class="intro-section">
-    <div class="intro-inner fade-in">
-      <p class="intro-label">Ljusergonomi</p>
-      <h2>Ljusare tider f&#246;r flexibla kontor</h2>
-      <p class="intro-body">Gl&#246;m nedpendlande lampor. Gl&#246;m fasta installationer. Gl&#246;m statiska milj&#246;er. Vi p&#229; Clara g&#246;r ljusergonomi tillg&#228;nglig f&#246;r alla, &#228;ven p&#229; de mest ombytliga kontoren. V&#229;ra funktionella, minimalistiskt designade armaturer ger optimalt arbetsljus &#8211; p&#229; r&#228;tt plats, i r&#228;tt h&#246;jd och med r&#228;tt ljustemperatur.</p>
-    </div>
-  </section>
 
   <div class="section-divider"></div>
 
@@ -336,6 +343,26 @@
   </footer>
 
   <script>
+    /* -- Hero scroll crossfade -- */
+    (function () {
+      var wrapper = document.getElementById('hero-scroll-wrapper');
+      var heroContent = document.getElementById('hero-content');
+      var heroIntro = document.getElementById('hero-intro');
+      function onScroll() {
+        var rect = wrapper.getBoundingClientRect();
+        var scrollable = wrapper.offsetHeight - window.innerHeight + 72;
+        var scrolled = -rect.top + 72;
+        var progress = Math.max(0, Math.min(1, scrolled / scrollable));
+        heroContent.style.opacity = 1 - progress;
+        heroContent.style.transform = 'translateX(' + (-progress * 80) + 'px)';
+        heroIntro.style.opacity = progress;
+        heroIntro.style.transform = 'translateY(' + (300 * (1 - progress)) + 'px)';
+        heroIntro.classList.toggle('active', progress > 0.5);
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
     /* Staggered fade-in: cards within a grid get sequential delays */
     var obs = new IntersectionObserver(function(entries) {
       entries.forEach(function(e) {
