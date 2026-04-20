@@ -7,153 +7,305 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: #000;
-      color: #fff;
-      font-family: 'Space Grotesk', arial, sans-serif;
+      color: #F9F7F4;
+      font-family: 'Space Grotesk', sans-serif;
     }
-    .section {
+
+    /* ===== SECTION WRAPPER (tall, drives scroll-scrub) ===== */
+    /* ===== HERO ===== */
+    .hero {
       position: relative;
+      height: 60vh;
+      overflow: hidden;
+      border-bottom: 2px solid #fff;
     }
-    .sticky {
+    .hero video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.15) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: clamp(2rem, 4vw, 4rem) clamp(4rem, 10vw, 12rem);
+    }
+    .hero-overlay h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      text-shadow: 0 2px 30px rgba(0,0,0,0.5);
+    }
+    .hero-overlay p {
+      font-size: clamp(0.8rem, 1vw, 0.95rem);
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.6);
+      max-width: 620px;
+    }
+
+    /* ===== SCROLL DRIVER (tall, invisible) ===== */
+    .sections-scroll {
+      position: relative;
+      /* height set by JS */
+    }
+
+    /* ===== SECTIONS WRAPPER (sticky viewport) ===== */
+    .sections-wrapper {
       position: sticky;
       top: 72px;
       height: calc(100vh - 72px);
-      height: calc(100dvh - 72px);
-      width: 100%;
       overflow: hidden;
-      z-index: 1;
-    }
-    .sticky video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-      transform: translate(-50%, -50%);
-      object-fit: cover;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* -- Overlay base -- */
-    .overlay {
+    /* ===== SECTION ===== */
+    .section {
+      position: relative;
+      flex: none;
+      width: 100%;
+      min-height: 0;
+      will-change: transform, flex;
+      overflow: hidden;
+    }
+    /* sec-1: 60% of viewport initially */
+    #sec-1 {
+      flex: 0 0 60%;
+    }
+    #sec-1 .sticky {
+      height: 100%;
+    }
+    /* sec-2: fills remaining 40% initially */
+    #sec-2 {
+      flex: 0 0 40%;
+    }
+    /* sec-3: 70% with light-switcher peeking below */
+    #sec-3 {
+      flex: 0 0 0%;
+    }
+    #sec-3 .sticky {
+      height: 100%;
+    }
+    /* light-switcher inline in flex */
+    .light-switcher-wrapper {
+      flex: 0 0 0%;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    /* ===== SPLIT VIEWPORT ===== */
+    .sticky {
+      height: calc(100vh - 72px);
+      width: 100%;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 30% 70%;
+    }
+    /* Section 2: video left (70%), text right (30%) */
+    #sec-2 .sticky {
+      grid-template-columns: 70% 30%;
+    }
+    /* Section 3: text left (35%), video right (65%) */
+    #sec-3 .sticky {
+      grid-template-columns: 35% 65%;
+    }
+
+    /* ===== PANELS ===== */
+    .panel {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+    /* Vertical divider line between panels */
+    .sticky > .panel + .panel {
+      border-left: 2px solid #fff;
+    }
+    .panel-text {
+      padding: clamp(2rem, 3.5vw, 3.5rem);
+      max-width: 420px;
+    }
+    /* Horizontal rule above buttons */
+    .panel-text .btn-row {
+      padding-top: 2rem;
+      border-top: 2px solid #fff;
+    }
+    .bg-cream .btn-row {
+      border-top-color: rgba(0,0,0,0.15);
+    }
+    .bg-orange .btn-row {
+      border-top-color: rgba(255,255,255,0.4);
+    }
+
+    /* Backgrounds */
+    .bg-grey   { background: #2e2d2d; }
+    .bg-dark   { background: #0a0a0a; }
+    .bg-orange { background: #f15a25; }
+    .bg-cream  { background: #F9F7F4; color: #1a1a1a; }
+
+    /* ===== VIDEO PANEL ===== */
+    .panel-video { position: relative; }
+    .panel-video video {
       position: absolute;
       inset: 0;
-      display: flex;
-      z-index: 2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .vid-gradient {
+      position: absolute;
+      inset: 0;
       pointer-events: none;
-      padding: 3rem;
     }
-    .overlay .text {
-      opacity: 0;
-      transition: opacity 0.8s ease, transform 0.8s ease;
+    .vid-gradient-bottom {
+      background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, transparent 50%);
     }
-    .overlay .text.visible {
-      opacity: 1;
-      transform: translate(0, 0) !important;
+    .vid-gradient-left {
+      background: linear-gradient(90deg, rgba(0,0,0,0.35) 0%, transparent 40%);
     }
-    .overlay .chapter {
+
+    /* ===== TYPOGRAPHY ===== */
+    .accent-line {
+      width: 3rem;
+      height: 1px;
+      background: rgba(255,255,255,0.15);
+      margin-bottom: 2rem;
+    }
+    .accent-line.dark { background: rgba(0,0,0,0.1); }
+
+    .heading {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.2rem;
+    }
+
+    .desc {
+      font-size: clamp(0.8rem, 1vw, 0.95rem);
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.5);
+      max-width: 340px;
+      margin-bottom: 2rem;
+    }
+    .desc.on-dark { color: rgba(0,0,0,0.7); }
+    .desc.on-orange { color: rgba(255,255,255,0.8); }
+
+    .chapter-label {
       font-size: 0.7rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 1rem;
-    }
-    .overlay .text h2 {
-      font-size: clamp(2rem, 5vw, 4rem);
-      font-weight: 600;
-      line-height: 1.1;
-      text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
-      margin-bottom: 1rem;
-    }
-    .overlay .text p {
-      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-      font-weight: 300;
-      line-height: 1.6;
-      color: rgba(255,255,255,0.5);
-      max-width: 380px;
-    }
-    .overlay .accent-line {
-      width: 2.5rem;
-      height: 2px;
-      background: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.35);
       margin-bottom: 1rem;
     }
 
-    /* -- Section 1: center -- */
-    .overlay.pos-center {
+    /* ===== BUTTONS ===== */
+    .btn-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-    }
-    .overlay.pos-center .text {
-      transform: translateY(50px);
-    }
-    .overlay.pos-center .text p:not(.chapter) {
-      max-width: 540px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .overlay.pos-center .text h2 {
-      font-size: clamp(2.5rem, 6vw, 5rem);
+      padding: 0.6rem 1.8rem;
+      border-radius: 100px;
+      font-family: inherit;
+      font-size: 0.8rem;
       font-weight: 500;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
     }
-    .overlay.pos-center .text h2 span {
-      color: rgba(255,255,255,0.35);
+    .btn-orange {
+      background: transparent;
+      border: 1.5px solid #f15a25;
+      color: #f15a25;
     }
-    .overlay.pos-center .accent-line {
-      margin-left: auto;
-      margin-right: auto;
+    .btn-orange:hover { background: #f15a25; color: #fff; }
+    .btn-white {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      color: #F9F7F4;
+    }
+    .btn-white:hover { background: rgba(255,255,255,0.08); border-color: #fff; }
+
+    /* ===== FLOATING LABELS ON VIDEO ===== */
+    .float-label {
+      position: absolute;
+      z-index: 2;
+    }
+    .float-heading {
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 600;
+      line-height: 1.2;
+      color: #f15a25;
+    }
+    .float-sub {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8rem;
+      font-weight: 300;
+      margin-top: 0.4rem;
+    }
+    .float-tag {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .float-tag-desc {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.25rem;
+      line-height: 1.5;
     }
 
-    /* -- Section 2: bottom-left -- */
-    .overlay.pos-left {
-      align-items: flex-end;
-      justify-content: flex-start;
-      padding-bottom: 6rem;
-      padding-left: 4rem;
+    /* ===== REVEAL ANIMATIONS ===== */
+    .rv {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
-    .overlay.pos-left .text {
-      transform: translateX(-60px);
-      text-align: left;
-    }
-
-    /* -- Section 3: bottom-right -- */
-    .overlay.pos-right {
-      align-items: flex-end;
-      justify-content: flex-end;
-      padding-bottom: 6rem;
-      padding-right: 4rem;
-    }
-    .overlay.pos-right .text {
-      transform: translateX(60px);
-      text-align: left;
+    .rv.d1 { transition-delay: 0.1s; }
+    .rv.d2 { transition-delay: 0.2s; }
+    .rv.d3 { transition-delay: 0.35s; }
+    .rv.d4 { transition-delay: 0.5s; }
+    .section.in-view .rv {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    /* -- LightSwitcher: fullscreen image with overlays -- */
+    /* ===== SECTION DIVIDER LINE ===== */
+    .section-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      width: 100%;
+    }
+
+    /* ===== LIGHTSWITCHER ===== */
     .light-switcher {
-      position: sticky;
-      top: 72px;
       height: calc(100vh - 72px);
-      height: calc(100dvh - 72px);
       width: 100%;
       overflow: hidden;
-      z-index: 1;
+      position: relative;
     }
     .light-switcher .lamp-container {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      max-width: none;
-      aspect-ratio: auto;
-      margin: 0;
     }
     .light-switcher .lamp-container img {
       position: absolute;
@@ -161,14 +313,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 0;
       transition: opacity 0.15s linear;
     }
-    .light-switcher .lamp-container.dimming img {
-      transition: none;
-    }
-
-    /* -- Text overlay: bottom-right, hidden by default -- */
+    .light-switcher .lamp-container.dimming img { transition: none; }
     .light-switcher-intro {
       position: absolute;
       bottom: 14rem;
@@ -180,16 +327,13 @@
       transform: translateY(30px);
       transition: opacity 1.2s ease, transform 1.2s ease;
     }
-    .light-switcher-intro.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .light-switcher-intro.visible { opacity: 1; transform: translateY(0); }
     .light-switcher-intro h2 {
       font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 600;
       line-height: 1.1;
       margin-bottom: 1rem;
-      text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 2px 30px rgba(0,0,0,0.5);
     }
     .light-switcher-intro p {
       font-size: clamp(0.85rem, 1.3vw, 1rem);
@@ -197,8 +341,6 @@
       line-height: 1.6;
       color: rgba(255,255,255,0.5);
     }
-
-    /* -- Controls overlay: center-bottom -- */
     .light-switcher-controls {
       position: absolute;
       bottom: 2rem;
@@ -228,14 +370,6 @@
       font-size: 0.875rem;
       letter-spacing: 0.05em;
     }
-    .light-switcher-controls .hint-text {
-      margin-top: 0.5rem;
-      color: rgba(255,255,255,0.2);
-      font-size: 0.75rem;
-      letter-spacing: 0.05em;
-    }
-
-    /* -- Dimmer & temp buttons -- */
     .controls {
       display: flex;
       align-items: center;
@@ -262,11 +396,7 @@
       height: 100%;
       transform: rotate(-90deg);
     }
-    .dimmer-touch .ring-bg {
-      fill: none;
-      stroke: rgba(255,255,255,0.12);
-      stroke-width: 2;
-    }
+    .dimmer-touch .ring-bg { fill: none; stroke: rgba(255,255,255,0.12); stroke-width: 2; }
     .dimmer-touch .ring-fill {
       fill: none;
       stroke: rgba(255,255,255,0.8);
@@ -277,12 +407,7 @@
     }
     .dimmer-touch.active .ring-fill { stroke: #fff; }
     .dimmer-touch.holding { transform: scale(1.08); }
-    .dimmer-icon {
-      z-index: 1;
-      pointer-events: none;
-      color: rgba(255,255,255,0.5);
-      transition: color 0.3s;
-    }
+    .dimmer-icon { z-index: 1; pointer-events: none; color: rgba(255,255,255,0.5); transition: color 0.3s; }
     .dimmer-touch.active .dimmer-icon { color: #fff; }
     .dimmer-touch .dimmer-pct {
       font-size: 9px;
@@ -306,100 +431,74 @@
       transition: all 0.5s;
       background: transparent;
     }
-    .temp-btn.cold {
-      border-color: rgba(147,197,253,0.5);
-      background: rgba(147,197,253,0.1);
-      color: rgb(191,219,254);
-    }
-    .temp-btn.warm {
-      border-color: rgb(251,191,36);
-      background: rgba(251,191,36,0.2);
-      color: rgb(252,211,77);
-    }
+    .temp-btn.cold { border-color: rgba(147,197,253,0.5); background: rgba(147,197,253,0.1); color: rgb(191,219,254); }
+    .temp-btn.warm { border-color: rgb(251,191,36); background: rgba(251,191,36,0.2); color: rgb(252,211,77); }
 
-    /* ------------------------------------------------------
-       -- Mobil: kvadratisk video/bild (1:1), text under --
-       Scroll-scrub bevaras - sticky + JS-hojd finns kvar.
-       Inuti sticky-ytan: flexbox kolumn med video i toppen
-       (1:1) och texten centrerad under.
-       ------------------------------------------------------ */
+    /* ===== MOBILE ===== */
     @media (max-width: 768px) {
 
-      /* -- Video-sektioner -- */
-      .sticky {
-        display: flex;
-        flex-direction: column;
-        top: 72px;
-        height: calc(100vh - 72px);
-        height: calc(100dvh - 72px);
+      /* Scroll-driver still works, just reset visual overrides */
+      .sections-wrapper {
+        border: none;
       }
-      .sticky video {
-        position: relative;
-        top: auto;
-        left: auto;
-        transform: none;
+      /* Mobile: start with sec-1 full, sec-2 hidden */
+      #sec-1 { flex: 0 0 100%; }
+      #sec-2 { flex: 0 0 0%; }
+
+      /* Sticky becomes flex column: video top, text below */
+      .sticky,
+      #sec-2 .sticky,
+      #sec-3 .sticky {
+        display: flex !important;
+        flex-direction: column;
+        grid-template-columns: none;
+      }
+
+      /* Video: relative, fills top portion */
+      .panel-video {
+        position: relative !important;
+        flex-shrink: 0;
+        order: -1;
+      }
+      .panel-video video {
+        position: relative !important;
+        inset: auto;
         width: 100%;
-        min-width: 0;
-        min-height: 0;
         height: auto;
         object-fit: cover;
-        flex-shrink: 0;
       }
-      .overlay {
-        position: relative;
-        inset: auto;
+
+      /* Text panel: fills remaining space */
+      .panel {
         flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        padding: 1rem 1.5rem 1rem;
         overflow-y: auto;
       }
-      .overlay .text {
-        opacity: 0;
-        transform: translateY(20px);
+      .sticky > .panel + .panel {
+        border-left: none !important;
+        border-top: none;
       }
-      .overlay .text.visible {
-        opacity: 1;
-        transform: translateY(0) !important;
-      }
-      .overlay .text p {
-        max-width: none;
-      }
-
-      /* pos-center */
-      .overlay.pos-center {
-        text-align: left;
-        align-items: center;
-        justify-content: flex-start;
-      }
-      .overlay.pos-center .text p:not(.chapter) {
-        max-width: none;
-        margin-left: 0;
-        margin-right: 0;
-      }
-      .overlay.pos-center .accent-line {
-        margin-left: 0;
-        margin-right: 0;
-      }
-
-      /* pos-left / pos-right */
-      .overlay.pos-left,
-      .overlay.pos-right {
-        align-items: center;
-        justify-content: flex-start;
+      .panel-text {
         padding: 1.5rem 1.5rem 2rem;
+        max-width: none;
       }
-      .overlay.pos-left .text,
-      .overlay.pos-right .text {
-        text-align: left;
+      .desc { max-width: none; }
+      .heading { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+
+      /* Float labels */
+      .float-label {
+        bottom: 1.5rem !important;
+        right: 1.5rem !important;
+        left: auto !important;
+        top: auto !important;
       }
 
-      /* -- LightSwitcher -- */
+      /* Light-switcher-wrapper inherits flex from desktop, just remove border */
+      .light-switcher-wrapper {
+        border-top: none !important;
+      }
+
+      /* LightSwitcher mobile */
       .light-switcher {
-        position: sticky;
-        top: 72px;
-        z-index: 1;
         height: auto;
         min-height: calc(100vh - 72px);
         min-height: calc(100dvh - 72px);
@@ -426,21 +525,17 @@
         opacity: 1;
         transform: none;
       }
-      .light-switcher-intro.visible {
-        transform: none;
-      }
+      .light-switcher-intro.visible { transform: none; }
       .light-switcher-controls {
         position: relative;
         bottom: auto;
         left: auto;
         transform: none;
-        padding: 1.5rem 1.5rem 1.5rem;
+        padding: 1.5rem;
         width: 100%;
         opacity: 1;
       }
-      .light-switcher-controls.visible {
-        transform: none;
-      }
+      .light-switcher-controls.visible { transform: none; }
     }
   </style>
 </head>
@@ -449,32 +544,26 @@
   <!-- ===== NAVBAR ===== -->
   <nav style="position:fixed;top:0;left:0;width:100%;z-index:100;">
     <div style="background:#000;padding:0.75rem 1.5rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;">
-      <!-- Hamburger -->
       <div style="justify-self:start;">
         <button id="nav-open-btn" onclick="document.getElementById('nav-menu').classList.add('nav-visible')" style="background:none;border:none;cursor:pointer;padding:0.5rem;">
           <svg style="width:2rem;height:2rem;fill:#F9F7F4;" viewBox="0 0 640 640"><path d="M96 152C96 138.7 106.7 128 120 128L520 128C533.3 128 544 138.7 544 152C544 165.3 533.3 176 520 176L120 176C106.7 176 96 165.3 96 152zM96 320C96 306.7 106.7 296 120 296L520 296C533.3 296 544 306.7 544 320C544 333.3 533.3 344 520 344L120 344C106.7 344 96 333.3 96 320zM544 488C544 501.3 533.3 512 520 512L120 512C106.7 512 96 501.3 96 488C96 474.7 106.7 464 120 464L520 464C533.3 464 544 474.7 544 488z"/></svg>
         </button>
       </div>
-      <!-- Logo -->
       <a href="index.html" style="justify-self:center;display:flex;align-items:center;">
         <svg width="100" height="34" viewBox="0 0 100 34" fill="none"><path d="M7.82525 26.4863C6.73988 25.3837 6.20083 24.0145 6.20083 22.3731C6.20083 20.7318 6.73988 19.3626 7.82525 18.26C8.90516 17.1574 10.2874 16.6051 11.9701 16.6051C13.3104 16.6051 14.4722 16.9585 15.452 17.6595C16.4336 18.3566 17.1074 19.3008 17.4771 20.4884L22.8092 17.2481C21.9952 15.487 20.7714 14.0271 19.1288 12.8724C17.1219 11.455 14.7327 10.7444 11.9701 10.7444C8.46445 10.7444 5.59805 11.8663 3.37995 14.0986C1.12544 16.3367 0 19.0942 0 22.3731C0 25.6521 1.11997 28.4135 3.35628 30.6458C5.59258 32.8839 8.46263 34 11.9682 34C13.966 34 15.767 33.6331 17.3678 32.8935C17.9851 32.6077 18.5697 32.2678 19.127 31.8778C20.7696 30.7191 21.997 29.2573 22.8129 27.4924L17.4807 24.2521C17.4497 24.3621 17.4133 24.4664 17.3678 24.5707C16.9854 25.6154 16.3462 26.4515 15.4502 27.0907C14.4686 27.7917 13.3086 28.1412 11.9682 28.1412C10.2855 28.1412 8.90516 27.5928 7.82343 26.4863M25.5627 33.552H31.545V0L25.5627 3.6381V33.552ZM51.7792 24.3525C51.7574 24.4239 51.73 24.4954 51.6973 24.5668C51.3112 25.6173 50.6756 26.4554 49.7815 27.0965C48.7963 27.7975 47.6344 28.1412 46.2941 28.1412C44.615 28.1412 43.2346 27.5928 42.1493 26.4863C41.4026 25.7332 40.9164 24.8449 40.6833 23.833C40.6705 23.7654 40.656 23.7036 40.6432 23.638C40.5667 23.2363 40.5267 22.8134 40.5267 22.3731C40.5267 21.9329 40.5631 21.5486 40.6341 21.1604C40.8417 20.0482 41.3443 19.0846 42.1511 18.2639C43.2346 17.1574 44.6168 16.6032 46.2959 16.6032C47.6362 16.6032 48.7981 16.9604 49.7833 17.6537C50.6793 18.2928 51.313 19.1328 51.6991 20.1833C51.73 20.2548 51.7574 20.3262 51.781 20.3977V24.3525H51.7792ZM52.4184 33.5462H57.6595V11.1846H52.4184V13.6738C50.7976 11.903 48.6706 10.9297 46.0337 10.7482C42.6446 10.8004 39.8729 11.9223 37.704 14.0986C36.2107 15.5816 35.2109 17.2964 34.7119 19.2333C34.7028 19.2526 34.6992 19.2757 34.6992 19.2951C34.4478 20.2644 34.3258 21.2898 34.3258 22.3731C34.3258 23.5279 34.4661 24.6209 34.7483 25.6463C35.2528 27.531 36.238 29.1955 37.6858 30.6477C39.8547 32.824 42.6136 33.9343 45.9736 34.0019C48.616 33.8301 50.7649 32.8568 52.4166 31.0725V33.5481L52.4184 33.5462ZM67.1966 16.6939H76.1728V11.1924H61.2125V33.552H67.1966V16.692V16.6939ZM94.1179 24.3525C94.096 24.4239 94.0687 24.4954 94.0377 24.5668C93.6517 25.6173 93.0161 26.4554 92.1201 27.0965C91.1349 27.7975 89.9731 28.1412 88.6327 28.1412C86.9537 28.1412 85.5733 27.5928 84.4879 26.4863C83.7413 25.7332 83.255 24.8449 83.0219 23.833C83.0074 23.7654 82.9946 23.7036 82.9819 23.638C82.9054 23.2363 82.8653 22.8134 82.8653 22.3731C82.8653 21.9329 82.9017 21.5486 82.9728 21.1604C83.1804 20.0482 83.683 19.0846 84.4897 18.2639C85.5733 17.1574 86.9555 16.6032 88.6345 16.6032C89.9749 16.6032 91.1367 16.9604 92.1219 17.6537C93.0179 18.2928 93.6517 19.1328 94.0396 20.1833C94.0705 20.2548 94.0978 20.3262 94.1197 20.3977V24.3525H94.1179ZM100 33.5462V11.1846H94.7589V13.6738C93.1399 11.903 91.0111 10.9297 88.3741 10.7482C84.9851 10.8004 82.2134 11.9223 80.0444 14.0986C78.5511 15.5816 77.5514 17.2964 77.0524 19.2333C77.0433 19.2526 77.0378 19.2757 77.0378 19.2951C76.7865 20.2644 76.6645 21.2898 76.6645 22.3731C76.6645 23.5279 76.8029 24.6209 77.087 25.6463C77.5914 27.531 78.5766 29.1955 80.0244 30.6477C82.1933 32.824 84.9523 33.9343 88.3122 34.0019C90.9528 33.8301 93.1035 32.8568 94.7552 31.0725V33.5481H99.9964L100 33.5462Z" fill="#F9F7F4"/></svg>
       </a>
-      <!-- Spacer -->
       <div></div>
     </div>
-
-    <!-- Slide-out menu -->
     <div id="nav-menu" style="position:fixed;left:0;top:0;z-index:200;background:#1a1a1a;width:100%;max-width:400px;height:100vh;transform:translateX(-100%);transition:transform 0.3s ease;padding:5rem 2.5rem 2rem;">
       <button onclick="document.getElementById('nav-menu').classList.remove('nav-visible')" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;cursor:pointer;">
         <svg style="width:2rem;height:2rem;fill:#F9F7F4;" viewBox="0 0 640 640"><path d="M135.5 169C126.1 159.6 126.1 144.4 135.5 135.1C144.9 125.8 160.1 125.7 169.4 135.1L320.4 286.1L471.4 135.1C480.8 125.7 496 125.7 505.3 135.1C514.6 144.5 514.7 159.7 505.3 169L354.3 320L505.3 471C514.7 480.4 514.7 495.6 505.3 504.9C495.9 514.2 480.7 514.3 471.4 504.9L320.4 353.9L169.4 504.9C160 514.3 144.8 514.3 135.5 504.9C126.2 495.5 126.1 480.3 135.5 471L286.5 320L135.5 169z"/></svg>
       </button>
       <ul style="list-style:none;padding:0;margin:0;">
         <li style="border-bottom:1px solid rgba(255,255,255,0.15);padding:1rem 0;">
-          <a href="varfor-clara.html" style="color:#F9F7F4;text-decoration:none;font-size:1.25rem;font-weight:600;">Varför Clara</a>
+          <a href="varfor-clara.html" style="color:#F9F7F4;text-decoration:none;font-size:1.25rem;font-weight:600;">Varf&#246;r Clara</a>
         </li>
       </ul>
     </div>
-    <!-- Overlay -->
     <div id="nav-overlay" onclick="document.getElementById('nav-menu').classList.remove('nav-visible')" style="position:fixed;inset:0;z-index:150;background:rgba(0,0,0,0.5);opacity:0;pointer-events:none;transition:opacity 0.3s;"></div>
   </nav>
   <style>
@@ -484,59 +573,98 @@
   <!-- Spacer for fixed navbar -->
   <div style="height:72px;"></div>
 
-  <!-- Section 1: center text -->
-  <div class="section">
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <video src="Clara-3D-Animation-1920X1080-1.mp4" muted autoplay loop playsinline preload="auto"></video>
+    <div class="hero-overlay">
+      <h1>Mer &#228;n f&#246;r<br>syns skull</h1>
+      <p>Inget snack om att ljus g&#246;r m&#228;nniskor piggare, friskare och effektivare. &#196;nd&#229; visar forskning att bara 20 procent av alla som jobbar p&#229; kontor kan reglera belysningen eller ljusstyrkan. Det gick vi i taket p&#229; och designade armaturer som utg&#229;r ifr&#229;n att varje person f&#246;rtj&#228;nar att l&#228;tt kunna st&#228;lla in sitt unikt b&#228;sta arbetsljus.</p>
+    </div>
+  </section>
+
+  <div class="sections-scroll" id="sections-scroll">
+  <div class="sections-wrapper">
+
+  <!-- ===== SECTION 1: Plats- och rumsljus ===== -->
+  <div class="section" id="sec-1">
     <div class="sticky">
-      <video src="scroll-video-1.mp4" muted autoplay playsinline preload="auto"></video>
-      <div class="overlay pos-center">
-        <div class="text" style="transform: translateY(50px);">
-          <h2>Ljusare tider<br>f&#246;r flexibla kontor</h2>
-          <p>Gl&#246;m nedpendlande lampor. Gl&#246;m fasta installationer. Gl&#246;m statiska milj&#246;er.
-            Vi p&#229; Clara g&#246;r ljusergonomi tillg&#228;nglig f&#246;r alla, &#228;ven p&#229; de mest ombytliga
-            kontoren. V&#229;ra funktionella, minimalistiskt designade armaturer ger optimalt
-            arbetsljus &#8211; p&#229; r&#228;tt plats, i r&#228;tt h&#246;jd och med r&#228;tt ljustemperatur.
-            Samtidigt skapar upplyst en sk&#246;n k&#228;nsla av rymd vid varje individuell
-            arbetsplats s&#229;v&#228;l som i hela rummet.</p>
+      <!-- Text panel (left, grey) -->
+      <div class="panel bg-grey">
+        <div class="panel-text">
+          <div class="accent-line rv"></div>
+          <h2 class="heading rv d1">Plats- och<br>rumsljus</h2>
+          <p class="desc rv d2">Nedljus och uppljus kan justeras separat till &#246;nskad ljusniv&#229; och f&#228;rgtemperatur. Installeras enkelt i bord eller sk&#228;rm, f&#246;ljer med n&#228;r man h&#246;jer s&#228;nker eller flyttar.</p>
+          <div class="btn-row rv d3">
+            <a href="https://clarasweden.se/#produkter" class="btn btn-orange">Produkter</a>
+            <a href="https://clarasweden.se/#om-oss" class="btn btn-orange">Om oss</a>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Section 2 -->
-  <div class="section">
-    <div class="sticky">
-      <video src="scroll-video-3.mp4" muted autoplay playsinline preload="auto" data-vh-per-second="20"></video>
-      <div class="overlay pos-right">
-        <div class="text" style="transform: translateX(60px);">
-          <div class="accent-line"></div>
-          <h2>Enkel att installera</h2>
-          <p>Att installera en lampa ska vara enkelt och s&#229;klart ska den f&#246;lja med n&#228;r man h&#246;jer, s&#228;nker eller flyttar bordet. Allt annat tillh&#246;r en tidigare generation. Clara installeras ihop och installeras p&#229; n&#229;gra minuter. Ingen elektriker.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Section 3 -->
-  <div class="section">
-    <div class="sticky">
-      <video src="scroll-video-2.mp4" muted autoplay playsinline preload="auto" data-vh-per-second="60"></video>
-      <div class="overlay pos-left">
-        <div class="text" style="transform: translateX(-60px);">
-          <div class="accent-line"></div>
-          <p class="chapter">N&#228;rvarostyrd</p>
-          <h2>Sm&#229; detaljer,<br>stor skillnad</h2>
-          <p>Armaturerna f&#246;renar form och teknik med ett starkt anv&#228;ndarperspektiv. Varje funktion &#228;r designad f&#246;r att s&#228;kra individuellt r&#228;tt ljus f&#246;r jobbet och f&#246;r att uppfylla behovet av medvetet valda, h&#229;llbara arbetsredskap.</p>
+      <!-- Video panel (right, dark) -->
+      <div class="panel panel-video bg-dark">
+        <video src="scroll-video-1.mp4" muted autoplay playsinline preload="auto"></video>
+        <div class="vid-gradient vid-gradient-bottom"></div>
+        <div class="float-label rv d4" style="bottom:5rem;right:4rem;text-align:left;">
+          <p class="float-heading">H&#246;j, s&#228;nk,<br>flytta&#8230;</p>
+          <p class="float-sub">Clara f&#246;ljer med</p>
         </div>
       </div>
     </div>
   </div>
 
 
+  <!-- ===== SECTION 2: Enkel installation ===== -->
+  <div class="section" id="sec-2">
+    <div class="sticky">
+      <!-- Video panel (left) -->
+      <div class="panel panel-video bg-dark">
+        <video src="scroll-video-3.mp4" muted autoplay playsinline preload="auto" data-vh-per-second="20"></video>
+      </div>
+      <!-- Text panel (right, orange) -->
+      <div class="panel bg-orange">
+        <div class="panel-text">
+          <div class="accent-line rv" style="background:rgba(255,255,255,0.3);"></div>
+          <h2 class="heading rv d1">Enkel<br>installation</h2>
+          <p class="desc on-orange rv d2">Monteras ihop och installeras p&#229; n&#229;gra minuter. Ingen elektriker kr&#228;vs.</p>
+          <div class="btn-row rv d3">
+            <a href="mailto:kontakt@clarasweden.se?subject=Boka%20demo" class="btn btn-white">Boka demo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- LightSwitcher -->
+
+  <!-- ===== SECTION 3: Sm&#229; detaljer, stor skillnad ===== -->
+  <div class="section" id="sec-3">
+    <div class="sticky">
+      <!-- Text panel (left, cream) -->
+      <div class="panel bg-cream">
+        <div class="panel-text">
+          <div class="accent-line dark rv"></div>
+          <h2 class="heading rv d1" style="color:#1a1a1a;">Sm&#229; detaljer,<br>stor skillnad</h2>
+          <p class="desc on-dark rv d2">Armaturerna f&#246;renar form och teknik med ett starkt anv&#228;ndarperspektiv. Varje funktion &#228;r designad f&#246;r att s&#228;kra individuellt r&#228;tt ljus f&#246;r jobbet och f&#246;r att uppfylla behovet av medvetet valda, h&#229;llbara arbetsredskap.</p>
+          <div class="btn-row rv d3">
+            <a href="https://clarasweden.se/#produkter" class="btn btn-orange">Produkter</a>
+            <a href="https://clarasweden.se/#aterforsal" class="btn btn-orange">&#197;terf&#246;rs&#228;ljare</a>
+          </div>
+        </div>
+      </div>
+      <!-- Video panel (right, dark) -->
+      <div class="panel panel-video bg-dark">
+        <video src="scroll-video-2.mp4" muted autoplay playsinline preload="auto" data-vh-per-second="60"></video>
+        <div class="vid-gradient vid-gradient-bottom"></div>
+        <div class="float-label rv d4" style="bottom:5rem;right:4rem;text-align:left;">
+          <p class="float-tag">N&#228;rvarostyrd</p>
+          <p class="float-tag-desc">Lyser inte<br>i on&#246;dan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="light-switcher-wrapper" id="light-switcher-wrapper">
+  <!-- ===== SECTION 4: LightSwitcher ===== -->
   <section class="light-switcher" id="light-switcher">
-
-    <!-- Fullscreen lamp images -->
     <div class="lamp-container" id="lamp-container">
       <img src="lamp-off.jpg"        data-lamp="off"        alt="Clara lampa &#8211; sl&#228;ckt">
       <img src="lamp-up-cold.jpg"    data-lamp="up-cold"    alt="Clara lampa &#8211; uppljus kallt">
@@ -546,133 +674,293 @@
       <img src="lamp-both-cold.jpg"  data-lamp="both-cold"  alt="Clara lampa &#8211; b&#229;da kallt">
       <img src="lamp-both-warm.jpg"  data-lamp="both-warm"  alt="Clara lampa &#8211; b&#229;da varmt">
     </div>
-
-    <!-- Text overlay: bottom-right -->
     <div class="light-switcher-intro">
       <h2>Mer &#228;n f&#246;r syns skull</h2>
       <p>Inget snack om att ljus g&#246;r m&#228;nniskor piggare, friskare och effektivare. &#196;nd&#229; visar forskning att bara 20 procent av alla som jobbar p&#229; kontor kan reglera belysningen eller ljusstyrkan. Det gick vi i taket p&#229; och designade armaturer som utg&#229;r ifr&#229;n att varje person f&#246;rtj&#228;nar att l&#228;tt kunna st&#228;lla in sitt unikt b&#228;sta arbetsljus.</p>
     </div>
-
-    <!-- Controls overlay: center-bottom -->
     <div class="light-switcher-controls">
       <p class="subtitle">Tryck f&#246;r att t&#228;nda. H&#229;ll inne f&#246;r att dimma.</p>
-
       <div class="controls">
         <div class="dimmer-touch" id="dimmer-up">
-          <svg class="ring" viewBox="0 0 68 68">
-            <circle class="ring-bg" cx="34" cy="34" r="30"/>
-            <circle class="ring-fill" cx="34" cy="34" r="30"/>
-          </svg>
-          <svg class="dimmer-icon" viewBox="0 0 40 40" width="22" height="22">
-            <circle cx="20" cy="20" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M11,20 a9,9 0 0,1 18,0 Z" fill="currentColor"/>
-          </svg>
+          <svg class="ring" viewBox="0 0 68 68"><circle class="ring-bg" cx="34" cy="34" r="30"/><circle class="ring-fill" cx="34" cy="34" r="30"/></svg>
+          <svg class="dimmer-icon" viewBox="0 0 40 40" width="22" height="22"><circle cx="20" cy="20" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11,20 a9,9 0 0,1 18,0 Z" fill="currentColor"/></svg>
           <span class="dimmer-pct"></span>
         </div>
-
         <button class="temp-btn cold" id="btn-temp" type="button">
           <svg class="temp-icon" viewBox="0 0 40 40" width="26" height="26">
-            <line x1="20" y1="3"  x2="20" y2="8"  stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="20" y1="3" x2="20" y2="8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
             <line x1="20" y1="32" x2="20" y2="37" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="3"  y1="20" x2="8"  y2="20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="3" y1="20" x2="8" y2="20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
             <line x1="32" y1="20" x2="37" y2="20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="8"  y1="8"  x2="11.5" y2="11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="8" y1="8" x2="11.5" y2="11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
             <line x1="28.5" y1="28.5" x2="32" y2="32" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="8"  y1="32" x2="11.5" y2="28.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="28.5" y1="11.5" x2="32" y2="8"  stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="8" y1="32" x2="11.5" y2="28.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="28.5" y1="11.5" x2="32" y2="8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
             <circle cx="20" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/>
             <path d="M20,13 a7,7 0 0,0 0,14 Z" fill="currentColor"/>
           </svg>
         </button>
-
         <div class="dimmer-touch" id="dimmer-down">
-          <svg class="ring" viewBox="0 0 68 68">
-            <circle class="ring-bg" cx="34" cy="34" r="30"/>
-            <circle class="ring-fill" cx="34" cy="34" r="30"/>
-          </svg>
-          <svg class="dimmer-icon" viewBox="0 0 40 40" width="22" height="22">
-            <circle cx="20" cy="20" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M11,20 a9,9 0 0,0 18,0 Z" fill="currentColor"/>
-          </svg>
+          <svg class="ring" viewBox="0 0 68 68"><circle class="ring-bg" cx="34" cy="34" r="30"/><circle class="ring-fill" cx="34" cy="34" r="30"/></svg>
+          <svg class="dimmer-icon" viewBox="0 0 40 40" width="22" height="22"><circle cx="20" cy="20" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11,20 a9,9 0 0,0 18,0 Z" fill="currentColor"/></svg>
           <span class="dimmer-pct"></span>
         </div>
       </div>
-
       <p class="status-text" id="status-text">Sl&#228;ckt</p>
     </div>
-
   </section>
+  </div><!-- /light-switcher-wrapper -->
+
+  </div><!-- /sections-wrapper -->
+  </div><!-- /sections-scroll -->
+
 
   <script>
-    /* -- Scroll-video logic -- */
-    var sections = document.querySelectorAll('.section');
-    var MAX_STEP = 0.1;
-    var VH_PER_SECOND = 50;
-    var state = [];
-    sections.forEach(function (section) {
-      var video = section.querySelector('video');
-      var vhps = video.hasAttribute('data-vh-per-second') ? Number(video.getAttribute('data-vh-per-second')) : VH_PER_SECOND;
-      var s = { video: video, vhps: vhps, smoothTime: 0, ready: false, seeking: false, pendingTime: null };
-      state.push(s);
-      video.addEventListener('playing', function () {
-        video.pause();
-        video.currentTime = 0;
-        s.ready = true;
-        sizeSections();
-      }, { once: true });
-      video.addEventListener('seeked', function () {
-        s.seeking = false;
-        if (s.pendingTime !== null) {
-          var next = s.pendingTime;
-          s.pendingTime = null;
-          if (Math.abs(video.currentTime - next) > 0.01) {
-            s.seeking = true;
-            video.currentTime = next;
+    /* ==========================================================
+       SCROLL-SCRUB VIDEO (stacked sections, push-transition)
+       ========================================================== */
+    (function () {
+      var isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+      var scrollContainer = document.getElementById('sections-scroll');
+      var wrapper = document.querySelector('.sections-wrapper');
+      var sectionEls = Array.prototype.slice.call(document.querySelectorAll('.section'));
+      var STICKY_TOP = 72;
+      var DEFAULT_VH_PER_SEC = 40;
+      var TRANSITION_RATIO = 0.1; /* last 10% of each video zone drives the transition */
+      var AUTO_SCROLL_DURATION = 1200; /* ms for auto-glide to next section */
+      var state = [];
+      var zones = [];
+      var autoScrolling = false;
+      var lastZoneIdx = -1;
+      var prevScrollProgress = 0;
+
+      sectionEls.forEach(function (section, i) {
+        var video = section.querySelector('video');
+        var vhPerSec = parseFloat(video.getAttribute('data-vh-per-second')) || DEFAULT_VH_PER_SEC;
+
+        var s = {
+          section: section,
+          video: video,
+          vhPerSec: vhPerSec,
+          ready: false,
+          seeking: false,
+          pendingTime: null
+        };
+        state.push(s);
+
+        function init() {
+          if (s.ready) return;
+          video.pause();
+          video.currentTime = 0;
+          s.ready = true;
+          buildZones();
+        }
+
+        video.addEventListener('loadedmetadata', init, { once: true });
+        video.addEventListener('canplay', init, { once: true });
+        video.addEventListener('playing', function () { video.pause(); init(); }, { once: true });
+        if (video.readyState >= 1) init();
+
+        video.addEventListener('seeked', function () {
+          s.seeking = false;
+          if (s.pendingTime !== null) {
+            var next = s.pendingTime;
+            s.pendingTime = null;
+            if (Math.abs(video.currentTime - next) > 0.01) {
+              s.seeking = true;
+              video.currentTime = next;
+            }
+          }
+        });
+      });
+
+      function buildZones() {
+        for (var i = 0; i < state.length; i++) {
+          if (!state[i].ready || !state[i].video.duration) return;
+        }
+        var vh = window.innerHeight;
+        zones = [];
+        var offset = 0;
+
+        for (var i = 0; i < state.length; i++) {
+          var scrollPx = state[i].video.duration * state[i].vhPerSec * vh / 100;
+          zones.push({ start: offset, end: offset + scrollPx, secIdx: i });
+          offset += scrollPx;
+        }
+
+        scrollContainer.style.height = (wrapper.offsetHeight + offset) + 'px';
+        update();
+      }
+
+      function seekTo(s, time) {
+        time = Math.max(0, Math.min(time, s.video.duration));
+        if (s.seeking) {
+          s.pendingTime = time;
+        } else if (Math.abs(s.video.currentTime - time) > 0.01) {
+          s.seeking = true;
+          s.video.currentTime = time;
+        }
+      }
+
+      function update() {
+        if (zones.length === 0) return;
+        var containerRect = scrollContainer.getBoundingClientRect();
+        var scrollProgress = Math.max(0, STICKY_TOP - containerRect.top);
+        var maxScroll = zones[zones.length - 1].end;
+        scrollProgress = Math.min(scrollProgress, maxScroll);
+
+        /* Find active zone */
+        var zone = zones[zones.length - 1];
+        for (var z = 0; z < zones.length; z++) {
+          if (scrollProgress <= zones[z].end) { zone = zones[z]; break; }
+        }
+
+        var range = zone.end - zone.start;
+        var t = range > 0 ? (scrollProgress - zone.start) / range : 0;
+        t = Math.max(0, Math.min(1, t));
+
+        /* Video scrub — map full 0-1 to video time */
+        seekTo(state[zone.secIdx], t * state[zone.secIdx].video.duration);
+
+        /* Detect when video reaches end — trigger auto-scroll to next zone (only when scrolling down) */
+        var currentZoneIdx = zones.indexOf(zone);
+        var scrollingDown = scrollProgress > prevScrollProgress;
+        if (t >= 1 - TRANSITION_RATIO && scrollingDown && !autoScrolling && currentZoneIdx !== lastZoneIdx) {
+          lastZoneIdx = currentZoneIdx;
+          autoGlide(zone);
+        }
+        /* Reset trigger when scrolled back before the threshold */
+        if (t < 1 - TRANSITION_RATIO && currentZoneIdx === lastZoneIdx) {
+          lastZoneIdx = -1;
+        }
+        prevScrollProgress = scrollProgress;
+
+        /* Transition happens in last TRANSITION_RATIO of each zone */
+        var transT = 0; /* 0 = no transition yet, 1 = fully transitioned */
+        var transStart = 1 - TRANSITION_RATIO;
+        if (t > transStart && zone.secIdx < state.length - 1) {
+          transT = (t - transStart) / TRANSITION_RATIO;
+        }
+        /* sec-3 also transitions to light-switcher */
+        var lsTransT = 0;
+        if (t > transStart && zone.secIdx === state.length - 1) {
+          lsTransT = (t - transStart) / TRANSITION_RATIO;
+        }
+
+        var lsWrapper = document.getElementById('light-switcher-wrapper');
+
+        /* Compute layout percentages */
+        var pct = [0, 0, 0, 0]; /* sec-1, sec-2, sec-3, ls */
+        if (isMobile) {
+          if (zone.secIdx === 0) {
+            pct[0] = 100 * (1 - transT); pct[1] = 100 * transT;
+          } else if (zone.secIdx === 1) {
+            pct[1] = 100 * (1 - transT); pct[2] = 100 * transT;
+          } else {
+            pct[2] = 100 * (1 - lsTransT); pct[3] = 100 * lsTransT;
+          }
+        } else {
+          if (zone.secIdx === 0) {
+            pct[0] = 60 * (1 - transT); pct[1] = 100 - pct[0];
+          } else if (zone.secIdx === 1) {
+            pct[1] = 100 * (1 - transT); pct[2] = 70 * transT; pct[3] = 30 * transT;
+          } else {
+            pct[2] = 70 * (1 - lsTransT); pct[3] = 100 - pct[2];
           }
         }
-      });
-    });
-    var lastWidth = window.innerWidth;
-    function sizeSections() {
-      var vh = window.innerHeight;
-      state.forEach(function (s, i) {
-        if (!s.ready) return;
-        sections[i].style.height = (vh + s.video.duration * vh * s.vhps / 100) + 'px';
-      });
-    }
-    window.addEventListener('resize', function () {
-      if (window.innerWidth !== lastWidth) {
-        lastWidth = window.innerWidth;
-        sizeSections();
-      }
-    });
-    function tick() {
-      var vh = window.innerHeight;
-      sections.forEach(function (section, i) {
-        var s = state[i];
-        if (!s.ready) return;
-        var text = section.querySelector('.text');
-        var rect = section.getBoundingClientRect();
-        var scrollRange = rect.height - vh;
-        var progress = Math.max(0, Math.min(1, -rect.top / scrollRange));
-        var targetTime = progress * s.video.duration;
-        var diff = targetTime - s.smoothTime;
-        s.smoothTime += Math.sign(diff) * Math.min(Math.abs(diff), MAX_STEP);
-        var newTime = Math.max(0, Math.min(s.smoothTime, s.video.duration));
-        if (s.seeking) {
-          s.pendingTime = newTime;
-        } else if (Math.abs(s.video.currentTime - newTime) > 0.01) {
-          s.seeking = true;
-          s.video.currentTime = newTime;
-        }
-        var active = rect.top <= 0 && rect.bottom >= vh;
-        text.classList.toggle('visible', active);
-      });
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
 
-    /* -- LightSwitcher with touch-hold dimming -- */
+        /* Apply layout */
+        state[0].section.style.flex = '0 0 ' + pct[0] + '%';
+        state[1].section.style.flex = '0 0 ' + pct[1] + '%';
+        state[2].section.style.flex = '0 0 ' + pct[2] + '%';
+        lsWrapper.style.flex = '0 0 ' + pct[3] + '%';
+
+        /* Hide collapsed sections to prevent subpixel bleed */
+        for (var i = 0; i < state.length; i++) {
+          state[i].section.style.visibility = pct[i] > 0.1 ? 'visible' : 'hidden';
+        }
+        lsWrapper.style.visibility = pct[3] > 0.1 ? 'visible' : 'hidden';
+
+        /* Toggle in-view for reveal animations */
+        for (var i = 0; i < state.length; i++) {
+          var secRect = state[i].section.getBoundingClientRect();
+          var visible = secRect.height > 10 && secRect.top < window.innerHeight && secRect.bottom > 0;
+          state[i].section.classList.toggle('in-view', visible);
+        }
+
+        /* Toggle borders: only show when both neighbours have real percentage */
+        var borderStyle = '2px solid #fff';
+        state[1].section.style.borderTop = (pct[0] > 0.5 && pct[1] > 0.5) ? borderStyle : 'none';
+        state[2].section.style.borderTop = (pct[1] > 0.5 && pct[2] > 0.5) ? borderStyle : 'none';
+        lsWrapper.style.borderTop = (pct[2] > 0.5 && pct[3] > 0.5) ? borderStyle : 'none';
+      }
+
+      function autoGlide(zone) {
+        autoScrolling = true;
+        var containerTop = scrollContainer.getBoundingClientRect().top + window.pageYOffset;
+        var startScroll = window.pageYOffset;
+        var targetScroll = containerTop - STICKY_TOP + zone.end;
+        var distance = targetScroll - startScroll;
+        if (Math.abs(distance) < 2) { autoScrolling = false; return; }
+        var startTime = performance.now();
+
+        function step(now) {
+          var elapsed = now - startTime;
+          var p = Math.min(elapsed / AUTO_SCROLL_DURATION, 1);
+          /* ease-in-out cubic */
+          var ease = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+          window.scrollTo(0, startScroll + distance * ease);
+          if (p < 1) {
+            requestAnimationFrame(step);
+          } else {
+            autoScrolling = false;
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      function autoGlideTo(element) {
+        autoScrolling = true;
+        var startScroll = window.pageYOffset;
+        var targetScroll = element.getBoundingClientRect().top + window.pageYOffset - STICKY_TOP;
+        var distance = targetScroll - startScroll;
+        if (Math.abs(distance) < 2) { autoScrolling = false; return; }
+        var startTime = performance.now();
+
+        function step(now) {
+          var elapsed = now - startTime;
+          var p = Math.min(elapsed / AUTO_SCROLL_DURATION, 1);
+          var ease = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+          window.scrollTo(0, startScroll + distance * ease);
+          if (p < 1) {
+            requestAnimationFrame(step);
+          } else {
+            autoScrolling = false;
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      var ticking = false;
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          requestAnimationFrame(function () { update(); ticking = false; });
+          ticking = true;
+        }
+      });
+
+      /* Cancel auto-glide on manual scroll input */
+      window.addEventListener('wheel', function () { if (autoScrolling) { autoScrolling = false; } }, { passive: true });
+      window.addEventListener('touchstart', function () { if (autoScrolling) { autoScrolling = false; } }, { passive: true });
+
+      window.addEventListener('resize', buildZones);
+    })();
+
+
+    /* ==========================================================
+       LIGHTSWITCHER — touch-hold dimming
+       ========================================================== */
     (function () {
       var HOLD_THRESHOLD = 300;
       var DIM_SPEED      = 0.6;
@@ -691,14 +979,11 @@
       var statusEl = document.getElementById('status-text');
 
       function render() {
-        var upOn  = lamp.upLevel > 0;
-        var downOn = lamp.downLevel > 0;
-
+        var upOn = lamp.upLevel > 0, downOn = lamp.downLevel > 0;
         var opacities = {
-          'off': 1,
-          'up-cold': 0, 'up-warm': 0,
-          'down-cold': 0, 'down-warm': 0,
-          'both-cold': 0, 'both-warm': 0
+          'off':1, 'up-cold':0, 'up-warm':0,
+          'down-cold':0, 'down-warm':0,
+          'both-cold':0, 'both-warm':0
         };
 
         if (upOn && !downOn) {
@@ -706,187 +991,119 @@
         } else if (!upOn && downOn) {
           opacities[lamp.warm ? 'down-warm' : 'down-cold'] = lamp.downLevel;
         } else if (upOn && downOn) {
-          var minDim = Math.min(lamp.upLevel, lamp.downLevel);
-          opacities[lamp.warm ? 'both-warm' : 'both-cold'] = minDim;
-          if (lamp.upLevel > lamp.downLevel) {
+          var m = Math.min(lamp.upLevel, lamp.downLevel);
+          opacities[lamp.warm ? 'both-warm' : 'both-cold'] = m;
+          if (lamp.upLevel > lamp.downLevel)
             opacities[lamp.warm ? 'up-warm' : 'up-cold'] = lamp.upLevel - lamp.downLevel;
-          } else if (lamp.downLevel > lamp.upLevel) {
+          else if (lamp.downLevel > lamp.upLevel)
             opacities[lamp.warm ? 'down-warm' : 'down-cold'] = lamp.downLevel - lamp.upLevel;
-          }
         }
 
         imgs.forEach(function (img) {
-          var key = img.dataset.lamp;
-          img.style.opacity = opacities[key] != null ? opacities[key] : 0;
+          img.style.opacity = opacities[img.dataset.lamp] != null
+            ? opacities[img.dataset.lamp] : 0;
         });
-
-        updateRing('dimmer-up',   lamp.upLevel);
+        updateRing('dimmer-up', lamp.upLevel);
         updateRing('dimmer-down', lamp.downLevel);
-
         btnTemp.className = 'temp-btn ' + (lamp.warm ? 'warm' : 'cold');
 
-        if (!upOn && !downOn) {
-          statusEl.textContent = 'Sl\u00e4ckt';
-        } else {
-          var parts = [];
-          if (upOn)  parts.push('Uppljus ' + Math.round(lamp.upLevel * 100) + '%');
-          if (downOn) parts.push('Nedljus ' + Math.round(lamp.downLevel * 100) + '%');
-          statusEl.textContent = parts.join(' + ') + ' \u2014 '
-            + (lamp.warm ? 'Varmt' : 'Kallt') + ' ljus';
+        if (!upOn && !downOn) { statusEl.textContent = 'Sl\u00e4ckt'; }
+        else {
+          var p = [];
+          if (upOn) p.push('Uppljus ' + Math.round(lamp.upLevel*100) + '%');
+          if (downOn) p.push('Nedljus ' + Math.round(lamp.downLevel*100) + '%');
+          statusEl.textContent = p.join(' + ') + ' \u2014 ' + (lamp.warm ? 'Varmt' : 'Kallt') + ' ljus';
         }
       }
 
       function updateRing(id, level) {
-        var el   = document.getElementById(id);
-        var fill = el.querySelector('.ring-fill');
-        var pct  = el.querySelector('.dimmer-pct');
-        fill.style.strokeDashoffset = CIRC * (1 - level);
+        var el = document.getElementById(id);
+        el.querySelector('.ring-fill').style.strokeDashoffset = CIRC * (1 - level);
         el.classList.toggle('active', level > 0);
-        pct.textContent = level > 0 ? Math.round(level * 100) + '%' : '';
+        el.querySelector('.dimmer-pct').textContent = level > 0 ? Math.round(level*100)+'%' : '';
       }
 
       function setupDimmer(elementId, levelKey, lastKey, dirKey) {
-        var el        = document.getElementById(elementId);
-        var holdTimer = null;
-        var isHolding = false;
-        var rafId     = 0;
-        var lastFrame = 0;
+        var el = document.getElementById(elementId);
+        var holdTimer, isHolding = false, rafId, lastFrame;
 
         function startDim() {
           isHolding = true;
           el.classList.add('holding');
           lampContainer.classList.add('dimming');
           lastFrame = performance.now();
-
-          if (lamp[levelKey] === 0) {
-            lamp[levelKey] = MIN_DIM;
-            lamp[dirKey]   = 1;
-          } else {
-            if (lamp[levelKey] >= 1)            lamp[dirKey] = -1;
+          if (lamp[levelKey] === 0) { lamp[levelKey] = MIN_DIM; lamp[dirKey] = 1; }
+          else {
+            if (lamp[levelKey] >= 1) lamp[dirKey] = -1;
             else if (lamp[levelKey] <= MIN_DIM) lamp[dirKey] = 1;
           }
-
           dimLoop();
         }
-
         function dimLoop() {
-          var now = performance.now();
-          var dt  = (now - lastFrame) / 1000;
+          var now = performance.now(), dt = (now - lastFrame) / 1000;
           lastFrame = now;
-
           lamp[levelKey] += lamp[dirKey] * DIM_SPEED * dt;
-
-          if (lamp[levelKey] >= 1)            lamp[levelKey] = 1;
+          if (lamp[levelKey] >= 1) lamp[levelKey] = 1;
           else if (lamp[levelKey] <= MIN_DIM) lamp[levelKey] = MIN_DIM;
-
           lamp[lastKey] = lamp[levelKey];
           render();
-
-          if (isHolding) {
-            rafId = requestAnimationFrame(dimLoop);
-          }
+          if (isHolding) rafId = requestAnimationFrame(dimLoop);
         }
-
         function onDown(e) {
-          e.preventDefault();
-          isHolding = false;
+          e.preventDefault(); isHolding = false;
           holdTimer = setTimeout(startDim, HOLD_THRESHOLD);
         }
-
         function onUp(e) {
-          e.preventDefault();
-          clearTimeout(holdTimer);
-          el.classList.remove('holding');
-          lampContainer.classList.remove('dimming');
-
+          e.preventDefault(); clearTimeout(holdTimer);
+          el.classList.remove('holding'); lampContainer.classList.remove('dimming');
           if (isHolding) {
-            isHolding = false;
-            cancelAnimationFrame(rafId);
-            lamp[lastKey] = lamp[levelKey];
-            lamp[dirKey]  = -lamp[dirKey];
+            isHolding = false; cancelAnimationFrame(rafId);
+            lamp[lastKey] = lamp[levelKey]; lamp[dirKey] = -lamp[dirKey];
           } else {
-            if (lamp[levelKey] > 0) {
-              lamp[lastKey]  = lamp[levelKey];
-              lamp[levelKey] = 0;
-            } else {
-              lamp[levelKey] = lamp[lastKey];
-            }
+            if (lamp[levelKey] > 0) { lamp[lastKey] = lamp[levelKey]; lamp[levelKey] = 0; }
+            else { lamp[levelKey] = lamp[lastKey]; }
           }
           render();
         }
-
         function onCancel() {
           clearTimeout(holdTimer);
-          el.classList.remove('holding');
-          lampContainer.classList.remove('dimming');
-          if (isHolding) {
-            isHolding = false;
-            cancelAnimationFrame(rafId);
-          }
+          el.classList.remove('holding'); lampContainer.classList.remove('dimming');
+          if (isHolding) { isHolding = false; cancelAnimationFrame(rafId); }
         }
-
-        el.addEventListener('pointerdown',   onDown);
-        el.addEventListener('pointerup',     onUp);
+        el.addEventListener('pointerdown', onDown);
+        el.addEventListener('pointerup', onUp);
         el.addEventListener('pointercancel', onCancel);
-        el.addEventListener('pointerleave',  onCancel);
+        el.addEventListener('pointerleave', onCancel);
         el.addEventListener('contextmenu', function (e) { e.preventDefault(); });
       }
 
       setupDimmer('dimmer-up',   'upLevel',   'upLast',   'upDir');
       setupDimmer('dimmer-down', 'downLevel', 'downLast', 'downDir');
-
-      btnTemp.addEventListener('click', function () {
-        lamp.warm = !lamp.warm;
-        render();
-      });
-
+      btnTemp.addEventListener('click', function () { lamp.warm = !lamp.warm; render(); });
       render();
     })();
 
-    /* -- Fade-in intro text and controls when light-switcher scrolls into view -- */
+
+    /* ==========================================================
+       LIGHTSWITCHER — fade-in intro + controls
+       ========================================================== */
     (function () {
       var intro = document.querySelector('.light-switcher-intro');
       var controls = document.querySelector('.light-switcher-controls');
       var section = document.getElementById('light-switcher');
-
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            setTimeout(function () {
-              intro.classList.add('visible');
-            }, 500);
-            setTimeout(function () {
-              controls.classList.add('visible');
-            }, 900);
+            setTimeout(function () { intro.classList.add('visible'); }, 500);
+            setTimeout(function () { controls.classList.add('visible'); }, 900);
           } else {
             intro.classList.remove('visible');
             controls.classList.remove('visible');
           }
         });
       }, { threshold: 0.3 });
-
       observer.observe(section);
     })();
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
