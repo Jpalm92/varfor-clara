@@ -537,6 +537,60 @@
       }
       .light-switcher-controls.visible { transform: none; }
     }
+
+    /* ===== LAMP HOTSPOTS (desktop only) ===== */
+    .lamp-hotspots { display: none; }
+    @media (min-width: 769px) {
+      .lamp-hotspots {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        pointer-events: none;
+      }
+      .lamp-hotspot {
+        position: absolute;
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+        pointer-events: auto;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: none;
+        transition: background 0.3s, box-shadow 0.3s;
+      }
+      .lamp-hotspot:hover {
+        background: transparent;
+      }
+      .lamp-hotspot:active {
+        background: transparent;
+      }
+      .hotspot-annotation {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        pointer-events: none;
+        transition: opacity 1.5s ease;
+        opacity: 0;
+      }
+      .hotspot-annotation.visible { opacity: 1; }
+      .hotspot-annotation.hidden { opacity: 0 !important; transition: opacity 0.6s ease; }
+      .hotspot-annotation-box {
+        background: rgba(0,0,0,0.6);
+        border: 1.5px solid #f15a25;
+        border-radius: 10px;
+        padding: 0.65rem 1.1rem;
+        font-size: 0.88rem;
+        font-weight: 500;
+        line-height: 1.65;
+        color: #f15a25;
+        white-space: nowrap;
+      }
+      .hotspot-hand-icon { flex-shrink: 0; }
+    }
   </style>
 </head>
 <body>
@@ -673,6 +727,25 @@
       <img src="lamp-down-warm.jpg"  data-lamp="down-warm"  alt="Clara lampa &#8211; nedljus varmt">
       <img src="lamp-both-cold.jpg"  data-lamp="both-cold"  alt="Clara lampa &#8211; b&#229;da kallt">
       <img src="lamp-both-warm.jpg"  data-lamp="both-warm"  alt="Clara lampa &#8211; b&#229;da varmt">
+      <!-- Desktop: clickable hotspots over physical lamp buttons -->
+      <div class="lamp-hotspots" id="lamp-hotspots">
+        <!-- data-ix / data-iy = position in the ORIGINAL image (0-1) -->
+        <div class="lamp-hotspot" id="hotspot-up"   data-ix="0.4206" data-iy="0.4244"></div>
+        <div class="lamp-hotspot" id="hotspot-temp" data-ix="0.4507" data-iy="0.4034"></div>
+        <div class="lamp-hotspot" id="hotspot-down" data-ix="0.4808" data-iy="0.3831"></div>
+        <div class="hotspot-annotation" id="hotspot-annotation" data-ix="0.28" data-iy="0.3847">
+          <div class="hotspot-annotation-box">
+            Tryck f&#246;r att t&#228;nda/sl&#228;cka<br>
+            H&#229;ll in f&#246;r att dimmra
+          </div>
+          <svg class="hotspot-hand-icon" viewBox="0 0 64 48" width="52" height="40" fill="none">
+            <g fill="#f15a25" opacity="0.9">
+              <rect x="0" y="18" width="44" height="12" rx="6"/>
+              <polygon points="44,12 64,24 44,36"/>
+            </g>
+          </svg>
+        </div>
+      </div>
     </div>
     <div class="light-switcher-intro">
       <h2>Mer &#228;n f&#246;r syns skull</h2>
@@ -968,8 +1041,8 @@
       var CIRC           = 2 * Math.PI * 30;
 
       var lamp = {
-        upLevel: 0, downLevel: 0, warm: false,
-        upLast: 0.30, downLast: 0.30,
+        upLevel: 0.6, downLevel: 0.6, warm: false,
+        upLast: 0.6, downLast: 0.6,
         upDir: 1, downDir: 1
       };
 
@@ -1080,9 +1153,115 @@
       setupDimmer('dimmer-up',   'upLevel',   'upLast',   'upDir');
       setupDimmer('dimmer-down', 'downLevel', 'downLast', 'downDir');
       btnTemp.addEventListener('click', function () { lamp.warm = !lamp.warm; render(); });
+
+      /* Desktop hotspot dimmers on actual lamp buttons */
+      if (window.matchMedia('(min-width: 769px)').matches) {
+        function setupHotspotDimmer(el, levelKey, lastKey, dirKey) {
+          if (!el) return;
+          var holdTimer, isHolding = false, rafId, lastFrame;
+          function startDim() {
+            isHolding = true;
+            lampContainer.classList.add('dimming');
+            lastFrame = performance.now();
+            if (lamp[levelKey] === 0) { lamp[levelKey] = MIN_DIM; lamp[dirKey] = 1; }
+            else {
+              if (lamp[levelKey] >= 1) lamp[dirKey] = -1;
+              else if (lamp[levelKey] <= MIN_DIM) lamp[dirKey] = 1;
+            }
+            hDimLoop();
+          }
+          function hDimLoop() {
+            var now = performance.now(), dt = (now - lastFrame) / 1000;
+            lastFrame = now;
+            lamp[levelKey] += lamp[dirKey] * DIM_SPEED * dt;
+            if (lamp[levelKey] >= 1) lamp[levelKey] = 1;
+            else if (lamp[levelKey] <= MIN_DIM) lamp[levelKey] = MIN_DIM;
+            lamp[lastKey] = lamp[levelKey];
+            render();
+            if (isHolding) rafId = requestAnimationFrame(hDimLoop);
+          }
+          function hideAnn() {
+            var a = document.getElementById('hotspot-annotation');
+            if (a) a.classList.add('hidden');
+          }
+          function onDown(e) {
+            e.preventDefault(); isHolding = false;
+            holdTimer = setTimeout(startDim, HOLD_THRESHOLD);
+          }
+          function onUp(e) {
+            e.preventDefault(); clearTimeout(holdTimer);
+            lampContainer.classList.remove('dimming');
+            if (isHolding) {
+              isHolding = false; cancelAnimationFrame(rafId);
+              lamp[lastKey] = lamp[levelKey]; lamp[dirKey] = -lamp[dirKey];
+            } else {
+              if (lamp[levelKey] > 0) { lamp[lastKey] = lamp[levelKey]; lamp[levelKey] = 0; }
+              else { lamp[levelKey] = lamp[lastKey]; }
+            }
+            render(); hideAnn();
+          }
+          function onCancel() {
+            clearTimeout(holdTimer);
+            lampContainer.classList.remove('dimming');
+            if (isHolding) { isHolding = false; cancelAnimationFrame(rafId); }
+          }
+          el.addEventListener('pointerdown', onDown);
+          el.addEventListener('pointerup', onUp);
+          el.addEventListener('pointercancel', onCancel);
+          el.addEventListener('pointerleave', onCancel);
+          el.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        }
+        setupHotspotDimmer(document.getElementById('hotspot-up'), 'upLevel', 'upLast', 'upDir');
+        setupHotspotDimmer(document.getElementById('hotspot-down'), 'downLevel', 'downLast', 'downDir');
+        var hotspotTemp = document.getElementById('hotspot-temp');
+        if (hotspotTemp) {
+          hotspotTemp.addEventListener('click', function() {
+            lamp.warm = !lamp.warm; render();
+            var a = document.getElementById('hotspot-annotation');
+            if (a) a.classList.add('hidden');
+          });
+        }
+      }
+
       render();
     })();
 
+
+    /* ==========================================================
+       HOTSPOT POSITIONING – accounts for object-fit:cover
+       ========================================================== */
+    (function () {
+      if (!window.matchMedia('(min-width: 769px)').matches) return;
+      var container = document.getElementById('lamp-container');
+      var hotspotsEl = document.getElementById('lamp-hotspots');
+      var items = hotspotsEl.querySelectorAll('[data-ix]');
+      var refImg = container.querySelector('img');
+
+      function reposition() {
+        if (!refImg || !refImg.naturalWidth) return;
+        var cW = container.offsetWidth, cH = container.offsetHeight;
+        var iW = refImg.naturalWidth, iH = refImg.naturalHeight;
+        /* compute object-fit: cover dimensions */
+        var scale = Math.max(cW / iW, cH / iH);
+        var rW = iW * scale, rH = iH * scale;
+        var offX = (cW - rW) / 2, offY = (cH - rH) / 2;
+
+        items.forEach(function (el) {
+          var ix = parseFloat(el.dataset.ix);
+          var iy = parseFloat(el.dataset.iy);
+          var px = offX + ix * rW;
+          var py = offY + iy * rH;
+          el.style.left = px + 'px';
+          el.style.top = py + 'px';
+        });
+      }
+
+      refImg.addEventListener('load', reposition);
+      window.addEventListener('resize', reposition);
+      reposition();
+      /* re-run after a brief delay in case images load late */
+      setTimeout(reposition, 500);
+    })();
 
     /* ==========================================================
        LIGHTSWITCHER — fade-in intro + controls
@@ -1096,9 +1275,15 @@
           if (entry.isIntersecting) {
             setTimeout(function () { intro.classList.add('visible'); }, 500);
             setTimeout(function () { controls.classList.add('visible'); }, 900);
+            setTimeout(function () {
+              var ann = document.getElementById('hotspot-annotation');
+              if (ann && !ann.classList.contains('hidden')) ann.classList.add('visible');
+            }, 1200);
           } else {
             intro.classList.remove('visible');
             controls.classList.remove('visible');
+            var ann = document.getElementById('hotspot-annotation');
+            if (ann) ann.classList.remove('visible');
           }
         });
       }, { threshold: 0.3 });
