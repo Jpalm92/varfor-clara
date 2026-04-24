@@ -62,12 +62,20 @@
     .btn-orange:hover { background: #f15a25; color: #f7f5f2; }
     .btn-white:hover { background: rgba(255,255,255,0.08); border-color: #f7f5f2; }
     /* Reveal animations */
-    .rv { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25,1,0.5,1), transform 0.8s cubic-bezier(0.25,1,0.5,1); }
-    .rv.d1 { transition-delay: 0.1s; }
-    .rv.d2 { transition-delay: 0.2s; }
-    .rv.d3 { transition-delay: 0.35s; }
-    .rv.d4 { transition-delay: 0.5s; }
+    .rv { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.25,1,0.5,1), transform 1s cubic-bezier(0.25,1,0.5,1); }
+    .rv.d1 { transition-delay: 0.15s; }
+    .rv.d2 { transition-delay: 0.35s; }
+    .rv.d3 { transition-delay: 0.55s; }
+    .rv.d4 { transition-delay: 0.75s; }
     .section.in-view .rv { opacity: 1; transform: translateY(0); }
+    /* Float-label scroll fade */
+    .scroll-fade { opacity: 0; transform: translateY(20px); transition: opacity 1.2s cubic-bezier(0.25,1,0.5,1), transform 1.2s cubic-bezier(0.25,1,0.5,1); }
+    .scroll-fade.visible { opacity: 1; transform: translateY(0); }
+    /* Hero text fade */
+    .hero-fade { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.25,1,0.5,1), transform 1s cubic-bezier(0.25,1,0.5,1); }
+    .hero-fade.d1 { transition-delay: 0.3s; }
+    .hero-fade.d2 { transition-delay: 0.6s; }
+    .hero-fade.visible { opacity: 1; transform: translateY(0); }
     /* LS states */
     .light-switcher-intro { transition: opacity 1.2s ease, transform 1.2s ease; }
     .light-switcher-intro.visible { opacity: 1; transform: translateY(0); }
@@ -80,7 +88,6 @@
     .dimmer-touch.active .ring-fill { stroke: #f7f5f2; }
     .dimmer-touch.holding { transform: scale(1.08); }
     .dimmer-touch.active .dimmer-icon { color: #f7f5f2; }
-    .dimmer-touch.active .dimmer-pct { color: #f7f5f2; }
     .temp-btn.cold { border-color: rgba(147,197,253,0.5); background: rgba(147,197,253,0.1); color: rgb(191,219,254); }
     .temp-btn.warm { border-color: rgb(251,191,36); background: rgba(251,191,36,0.2); color: rgb(252,211,77); }
     /* Nav */
@@ -117,11 +124,11 @@
       .heading { font-size: clamp(1.8rem, 7vw, 2.5rem); }
       .float-label { bottom: 1.5rem !important; right: 1.5rem !important; left: auto !important; top: auto !important; }
       .light-switcher-wrapper { border-top: none !important; }
-      .light-switcher { height: auto; min-height: calc(100vh - 72px); min-height: calc(100dvh - 72px); display: flex; flex-direction: column; overflow: hidden; }
+      .light-switcher { height: calc(100vh - 72px); height: calc(100dvh - 72px); min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
       .light-switcher .lamp-container { position: relative; inset: auto; width: 100%; height: 30dvh; flex-shrink: 0; min-height: 0; overflow: hidden; }
-      .light-switcher-intro { position: relative; bottom: auto; right: auto; left: auto; padding: 2rem 1.5rem 1rem; max-width: none; opacity: 1; transform: none; }
+      .light-switcher-intro { position: relative; bottom: auto; right: auto; left: auto; padding: 2rem 1.5rem 1rem; max-width: none; opacity: 1; transform: none; display: none; }
       .light-switcher-intro.visible { transform: none; }
-      .light-switcher-controls { position: relative; bottom: auto; left: auto; transform: none; padding: 1.5rem; width: 100%; opacity: 1; }
+      .light-switcher-controls { position: relative; bottom: auto; left: auto; transform: none; padding: 1.5rem; width: 100%; opacity: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1 1 0; min-height: 0; }
       .light-switcher-controls.visible { transform: none; }
       .lamp-hotspots { display: none; }
     }
@@ -161,8 +168,8 @@
   <section class="hero tw-relative tw-h-[80vh] tw-overflow-hidden tw-border-b-2 tw-border-cream">
     <video src="Clara-3D-Animation-1920X1080-1.mp4" muted autoplay loop playsinline preload="auto" class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"></video>
     <div class="hero-overlay tw-absolute tw-inset-0 tw-flex tw-flex-col tw-justify-center tw-items-start tw-px-[clamp(4rem,10vw,12rem)] tw-py-[clamp(2rem,4vw,4rem)]">
-      <h1 class="tw-text-[clamp(2rem,4vw,3.2rem)] tw-font-semibold tw-leading-[1.1] tw-mb-5" style="text-shadow:0 2px 30px rgba(0,0,0,0.5)">Mer &#228;n f&#246;r<br>syns skull</h1>
-      <p class="tw-text-[clamp(0.8rem,1vw,0.95rem)] tw-font-light tw-leading-[1.7] tw-text-cream tw-max-w-[620px]">Inget snack om att ljus g&#246;r m&#228;nniskor piggare, friskare och effektivare. &#196;nd&#229; visar forskning att bara 20 procent av alla som jobbar p&#229; kontor kan reglera belysningen eller ljusstyrkan. Det gick vi i taket p&#229; och designade armaturer som utg&#229;r ifr&#229;n att varje person f&#246;rtj&#228;nar att l&#228;tt kunna st&#228;lla in sitt unikt b&#228;sta arbetsljus.</p>
+      <h1 class="hero-fade tw-text-[clamp(2rem,4vw,3.2rem)] tw-font-semibold tw-leading-[1.1] tw-mb-5" style="text-shadow:0 2px 30px rgba(0,0,0,0.5)">Mer &#228;n f&#246;r<br>syns skull</h1>
+      <p class="hero-fade d1 tw-text-[clamp(0.8rem,1vw,0.95rem)] tw-font-light tw-leading-[1.7] tw-text-cream tw-max-w-[620px]">Inget snack om att ljus g&#246;r m&#228;nniskor piggare, friskare och effektivare. &#196;nd&#229; visar forskning att bara 20 procent av alla som jobbar p&#229; kontor kan reglera belysningen eller ljusstyrkan. Det gick vi i taket p&#229; och designade armaturer som utg&#229;r ifr&#229;n att varje person f&#246;rtj&#228;nar att l&#228;tt kunna st&#228;lla in sitt unikt b&#228;sta arbetsljus.</p>
     </div>
   </section>
 
@@ -187,7 +194,7 @@
       <div class="panel panel-video bg-dark tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-clara-dark">
         <video src="scroll-video-1.mp4" muted autoplay playsinline preload="auto" class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"></video>
         <div class="vid-gradient vid-gradient-bottom tw-absolute tw-inset-0 tw-pointer-events-none"></div>
-        <div class="float-label rv d4 tw-absolute tw-z-[2] tw-flex tw-items-baseline tw-gap-12" style="bottom:5rem;left:4rem;text-align:left;">
+        <div class="float-label scroll-fade tw-absolute tw-z-[2] tw-flex tw-items-center tw-gap-12" style="bottom:5rem;left:4rem;text-align:left;">
           <p class="float-heading tw-text-[clamp(1.4rem,2.5vw,2rem)] tw-font-semibold tw-leading-[1.2] tw-text-cream">H&#246;j, s&#228;nk,<br>flytta</p>
           <p class="float-sub tw-text-cream tw-text-[0.95rem] tw-font-light">Clara f&#246;ljer med</p>
         </div>
@@ -197,7 +204,7 @@
 
 
   <!-- ===== SECTION 2: Enkel installation ===== -->
-  <div class="section tw-relative tw-w-full" id="sec-2">
+  <div class="section tw-relative tw-w-full tw-border-t-2 tw-border-cream" id="sec-2">
     <div class="sticky tw-w-full tw-overflow-hidden">
       <!-- Video panel (left) -->
       <div class="panel panel-video bg-dark tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-clara-dark">
@@ -219,7 +226,7 @@
 
 
   <!-- ===== SECTION 3: Sm&#229; detaljer, stor skillnad ===== -->
-  <div class="section tw-relative tw-w-full" id="sec-3">
+  <div class="section tw-relative tw-w-full tw-border-t-2 tw-border-cream" id="sec-3">
     <div class="sticky tw-w-full tw-overflow-hidden">
       <!-- Text panel (left, cream) -->
       <div class="panel bg-cream tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-cream tw-text-[#1a1a1a]">
@@ -235,9 +242,9 @@
       </div>
       <!-- Video panel (right, dark) -->
       <div class="panel panel-video bg-dark tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-clara-dark">
-        <video src="scroll-video-2.mp4" muted autoplay playsinline preload="auto" data-vh-per-second="60" class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"></video>
+        <video src="scroll-video-2.mp4" muted autoplay playsinline preload="auto" data-vh-per-second="48" class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"></video>
         <div class="vid-gradient vid-gradient-bottom tw-absolute tw-inset-0 tw-pointer-events-none"></div>
-        <div class="float-label rv d4 tw-absolute tw-z-[2] tw-flex tw-items-baseline tw-gap-12" style="bottom:5rem;left:4rem;text-align:left;">
+        <div class="float-label scroll-fade tw-absolute tw-z-[2] tw-flex tw-items-center tw-gap-12" style="bottom:5rem;left:4rem;text-align:left;">
           <p class="float-tag tw-text-[clamp(1.4rem,2.5vw,2rem)] tw-font-semibold tw-leading-[1.2] tw-tracking-tight">N&#228;rvaro-<br>styrd</p>
           <p class="float-tag-desc tw-text-[0.95rem] tw-font-light tw-text-cream tw-leading-normal">Lyser inte i on&#246;dan.</p>
         </div>
@@ -266,30 +273,17 @@
     </div>
     <div class="light-switcher-controls tw-absolute tw-bottom-8 tw-left-1/2 tw-z-[3] tw-flex tw-flex-col tw-items-center tw-opacity-0" style="transform:translateX(-50%) translateY(20px)">
       <p class="subtitle tw-text-cream tw-text-[0.9rem] tw-font-light tw-mb-4 tw-text-center">Tryck f&#246;r att t&#228;nda. H&#229;ll inne f&#246;r att dimma.</p>
-      <div class="controls tw-flex tw-items-center tw-gap-6">
-        <div class="dimmer-touch tw-relative tw-w-20 tw-h-20 tw-cursor-pointer tw-flex tw-flex-col tw-items-center tw-justify-center tw-select-none tw-touch-none tw-transition-transform tw-duration-200" id="dimmer-up">
+      <div class="controls tw-flex tw-items-center tw-gap-6 tw-rounded-full tw-px-3 tw-py-2">
+        <div class="dimmer-touch tw-relative tw-w-14 tw-h-14 tw-cursor-pointer tw-flex tw-flex-col tw-items-center tw-justify-center tw-select-none tw-touch-none tw-transition-transform tw-duration-200" id="dimmer-up">
           <svg class="ring tw-absolute tw-inset-0 tw-w-full tw-h-full -tw-rotate-90" viewBox="0 0 68 68"><circle class="ring-bg tw-fill-none tw-stroke-white/[0.12]" style="stroke-width:2" cx="34" cy="34" r="30"/><circle class="ring-fill" cx="34" cy="34" r="30"/></svg>
-          <svg class="dimmer-icon tw-z-[1] tw-pointer-events-none tw-text-cream tw-transition-colors tw-duration-300" viewBox="0 0 40 40" width="22" height="22"><circle cx="20" cy="20" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11,20 a9,9 0 0,1 18,0 Z" fill="currentColor"/></svg>
-          <span class="dimmer-pct tw-text-[9px] tw-text-cream tw-z-[1] tw-pointer-events-none tw-mt-px tw-min-h-[13px]"></span>
+          <svg class="dimmer-icon tw-z-[1] tw-pointer-events-none tw-text-cream tw-transition-colors tw-duration-300" viewBox="0 0 40 40" width="28" height="28"><circle cx="20" cy="20" r="13" fill="currentColor"/><circle cx="20" cy="20" r="10.5" fill="#221f21"/><path d="M13,20 a7,7 0 0,1 14,0 z" fill="currentColor"/></svg>
         </div>
-        <button class="temp-btn cold tw-w-20 tw-h-20 tw-rounded-full tw-border-2 tw-cursor-pointer tw-flex tw-items-center tw-justify-center tw-transition-all tw-duration-500 tw-bg-transparent" id="btn-temp" type="button">
-          <svg class="temp-icon tw-pointer-events-none" viewBox="0 0 40 40" width="26" height="26">
-            <line x1="20" y1="3" x2="20" y2="8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="20" y1="32" x2="20" y2="37" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="3" y1="20" x2="8" y2="20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="32" y1="20" x2="37" y2="20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="8" y1="8" x2="11.5" y2="11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="28.5" y1="28.5" x2="32" y2="32" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="8" y1="32" x2="11.5" y2="28.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="28.5" y1="11.5" x2="32" y2="8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <circle cx="20" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M20,13 a7,7 0 0,0 0,14 Z" fill="currentColor"/>
-          </svg>
+        <button class="temp-btn cold tw-w-14 tw-h-14 tw-rounded-full tw-border-2 tw-cursor-pointer tw-flex tw-items-center tw-justify-center tw-transition-all tw-duration-500 tw-bg-transparent" id="btn-temp" type="button">
+          <svg class="temp-icon tw-pointer-events-none" viewBox="-95 -100 190 200" width="22" height="22"><g transform="translate(-1162,1306) scale(1,-1)"><path d="m 1245.53,1266.27 -21.18,12.23 c 2.96,6.66 4.76,13.36 5.52,20.61 h 24.46 v 14.17 h -24.46 c -0.76,7.25 -2.56,13.95 -5.52,20.61 l 21.18,12.23 -7.08,12.27 -21.19,-12.23 c -4.28,5.9 -9.19,10.81 -15.09,15.09 l 12.24,21.18 -12.28,7.09 -12.23,-21.18 c -6.66,2.96 -13.36,4.76 -20.61,5.52 v 24.46 h -14.17 v -24.46 c -7.25,-0.76 -13.95,-2.56 -20.61,-5.52 l -12.23,21.18 -12.27,-7.09 12.23,-21.18 c -5.9,-4.28 -10.81,-9.19 -15.09,-15.09 l -21.18,12.23 -7.09,-12.27 21.19,-12.23 c -2.97,-6.66 -4.77,-13.36 -5.53,-20.61 h -24.46 v -14.17 h 24.46 c 0.76,-7.25 2.56,-13.95 5.53,-20.61 l -21.19,-12.23 7.09,-12.27 21.18,12.23 c 4.28,-5.9 9.19,-10.81 15.09,-15.09 l -12.23,-21.18 12.27,-7.09 12.23,21.18 c 6.66,-2.96 13.36,-4.76 20.61,-5.51 v -24.47 h 14.17 v 24.47 c 7.25,0.75 13.95,2.55 20.61,5.51 l 12.23,-21.18 12.28,7.09 -12.24,21.18 c 5.9,4.28 10.81,9.19 15.09,15.09 l 21.19,-12.23 7.08,12.27" fill="currentColor" fill-rule="nonzero"/><path d="m 1213.23,1306.2 c 0,-28.18 -22.85,-51.03 -51.02,-51.03 -28.18,0 -51.03,22.85 -51.03,51.03 0,28.18 22.85,51.02 51.03,51.02 28.17,0 51.02,-22.84 51.02,-51.02" fill="#221f21"/><path d="m 1162.21,1272.18 c -18.78,0 -34.01,15.23 -34.01,34.02 0,18.78 15.23,34.01 34.01,34.01 v -68.03" fill="currentColor"/></g></svg>
         </button>
-        <div class="dimmer-touch tw-relative tw-w-20 tw-h-20 tw-cursor-pointer tw-flex tw-flex-col tw-items-center tw-justify-center tw-select-none tw-touch-none tw-transition-transform tw-duration-200" id="dimmer-down">
+        <div class="dimmer-touch tw-relative tw-w-14 tw-h-14 tw-cursor-pointer tw-flex tw-flex-col tw-items-center tw-justify-center tw-select-none tw-touch-none tw-transition-transform tw-duration-200" id="dimmer-down">
           <svg class="ring tw-absolute tw-inset-0 tw-w-full tw-h-full -tw-rotate-90" viewBox="0 0 68 68"><circle class="ring-bg tw-fill-none tw-stroke-white/[0.12]" style="stroke-width:2" cx="34" cy="34" r="30"/><circle class="ring-fill" cx="34" cy="34" r="30"/></svg>
-          <svg class="dimmer-icon tw-z-[1] tw-pointer-events-none tw-text-cream tw-transition-colors tw-duration-300" viewBox="0 0 40 40" width="22" height="22"><circle cx="20" cy="20" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11,20 a9,9 0 0,0 18,0 Z" fill="currentColor"/></svg>
-          <span class="dimmer-pct tw-text-[9px] tw-text-cream tw-z-[1] tw-pointer-events-none tw-mt-px tw-min-h-[13px]"></span>
+          <svg class="dimmer-icon tw-z-[1] tw-pointer-events-none tw-text-cream tw-transition-colors tw-duration-300" viewBox="0 0 40 40" width="28" height="28"><circle cx="20" cy="20" r="13" fill="currentColor"/><circle cx="20" cy="20" r="10.5" fill="#221f21"/><path d="M13,20 a7,7 0 0,0 14,0 z" fill="currentColor"/></svg>
         </div>
       </div>
       <p class="status-text tw-mt-4 tw-text-cream tw-text-sm tw-tracking-wide" id="status-text">Sl&#228;ckt</p>
@@ -430,11 +424,32 @@
           var newTime = Math.max(0, Math.min(s.smoothTime, s.video.duration));
           seekTo(s, newTime);
 
-          s.section.classList.toggle('in-view', visible);
+          s.section.classList.toggle('in-view', visible && progress > 0.02);
+
+          /* Float-label fade: trigger when scroll is ~15% in */
+          var floats = s.section.querySelectorAll('.scroll-fade');
+          for (var i = 0; i < floats.length; i++) {
+            floats[i].classList.toggle('visible', progress > 0.12);
+          }
         });
         requestAnimationFrame(tick);
       }
       requestAnimationFrame(tick);
+    })();
+
+    /* Hero text fade-in on load */
+    (function () {
+      var heroEls = document.querySelectorAll('.hero-fade');
+      if (!heroEls.length) return;
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            heroEls.forEach(function (el) { el.classList.add('visible'); });
+            obs.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+      obs.observe(document.querySelector('.hero'));
     })();
 
 
@@ -501,7 +516,6 @@
         var el = document.getElementById(id);
         el.querySelector('.ring-fill').style.strokeDashoffset = CIRC * (1 - level);
         el.classList.toggle('active', level > 0);
-        el.querySelector('.dimmer-pct').textContent = '';
       }
 
       function setupDimmer(elementId, levelKey, lastKey, dirKey) {
