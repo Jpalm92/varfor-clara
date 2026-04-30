@@ -32,7 +32,7 @@
     ::selection { background: rgba(255,255,255,0.2); color: #f7f5f2; }
     /* Gradient headings */
     .intro-split-inner h2, .cta-section h2, .models-heading, .light-switcher-intro h2 {
-      background: linear-gradient(to bottom, #f7f5f2 30%, rgba(247,245,242,0.6));
+      background: #f7f5f2;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     /* Animations */
@@ -125,23 +125,36 @@
       <video src="Clara-3D-Animation-1920X1080-1.mp4" muted autoplay loop playsinline preload="auto" class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"></video>
       <div class="hero-overlay tw-absolute tw-inset-0 tw-z-[1]" style="background:linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 40%, transparent 70%)"></div>
       <div class="hero-content tw-absolute tw-inset-0 tw-z-[2] tw-flex tw-items-center tw-px-24 tw-pb-[12vh]" id="hero-content">
-        <h1 class="hero-heading tw-font-grotesk tw-text-[clamp(2rem,4vw,3.5rem)] tw-font-medium tw-leading-[1.2] tw-tracking-wide tw-text-cream">Framtidens belysning<br><span class="tw-flex tw-items-center tw-justify-between tw-gap-[0.3em]"><a href="varfor-clara.html" class="btn-inline tw-inline-flex tw-items-center tw-flex-1 tw-justify-center tw-px-[1.2em] tw-py-[0.65em] tw-bg-[#f15a25] tw-text-black tw-font-grotesk tw-text-[0.32em] tw-font-light tw-tracking-[0.15em] tw-no-underline tw-rounded tw-transition-all tw-duration-300 tw-cursor-pointer tw-border-none tw-whitespace-nowrap">Varf&#246;r Clara?</a> <span>f&#246;r kontor</span></span></h1>
+        <h1 class="hero-heading tw-font-grotesk tw-text-[clamp(2rem,4vw,3.5rem)] tw-font-medium tw-leading-[1.2] tw-tracking-widest tw-text-cream">Glöm nedpendlade<br><span class="tw-flex tw-items-center tw-justify-between tw-gap-[0.3em]"><a href="varfor-clara.html" class="tw-uppercase tw-tracking-normal hover:tw-bg-[#f79a6d] tw-inline-flex tw-items-center tw-flex-1 tw-justify-center tw-px-[1.2em] tw-py-[0.65em] tw-bg-[#f15a25] tw-text-[#2e2d2d] tw-font-grotesk tw-text-[0.32em] tw-font-normal tw-no-underline tw-rounded-[6px] tw-transition-all tw-duration-300 tw-cursor-pointer tw-border-none tw-whitespace-nowrap">Varf&#246;r Clara?</a> <span>lampor</span></span></h1>
       </div>
     </div>
   </div>
 
   <!-- Intro split -->
-  <section class="intro-split tw-grid tw-grid-cols-2 tw-bg-[#111] tw-border-t-2 tw-border-b-2 tw-border-cream">
-    <div class="intro-split-image tw-relative tw-overflow-hidden tw-bg-clara-dark tw-flex tw-items-center tw-justify-center tw-border-r-2 tw-border-cream">
-      <img class="tw-w-full tw-h-full tw-object-cover" src="round.webp" alt="Clara lampa &#8211; bordsmonterad" loading="lazy">
-    </div>
-    <div class="intro-split-text tw-flex tw-items-center tw-justify-center tw-p-12 tw-bg-clara-grey">
-      <div class="intro-split-inner tw-max-w-[560px]">
+  <section class="intro-split tw-grid tw-grid-cols-[54.55%_45.45%] tw-bg-[#111] tw-border-t-2 tw-border-b-2 tw-border-cream tw-h-[60vh]">
+  <div class="intro-split-image tw-relative tw-overflow-hidden tw-bg-clara-dark tw-flex tw-items-center tw-justify-center tw-border-r-2 tw-border-cream">
+    <!-- Bild 1 -->
+    <img 
+      class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"
+      src="lamp-off.jpg"
+      alt="Clara lampa"
+      loading="lazy"
+    >
+    <!-- Bild 2 (fade target) -->
+    <img 
+      class="js-lamp-image tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-opacity-0 tw-transition-opacity tw-duration-700"
+      src="lamp-both-cold.jpg"
+      alt="Clara lampa"
+      loading="lazy"
+    >
+  </div>
+    <div class="intro-split-text tw-justify-center tw-items-center tw-flex tw-px-[60px] tw-pt-[120px] tw-pb-[60px] tw-bg-clara-grey">
+      <div class="intro-split-inner tw-max-w-[1000px]">
         <h2 class="fade-in tw-text-[clamp(2rem,3.5vw,3rem)] tw-font-semibold tw-leading-[1.15] tw-tracking-tight tw-mb-8" style="transition-delay:0s">Ljusare tider<br>f&#246;r flexibla kontor</h2>
         <p class="fade-in tw-text-[clamp(0.95rem,1.2vw,1.1rem)] tw-font-light tw-leading-[1.8] tw-text-cream tw-mb-10" style="transition-delay:0.15s">Gl&#246;m nedpendlande lampor. Gl&#246;m fasta installationer. Gl&#246;m statiska milj&#246;er. Vi p&#229; Clara g&#246;r ljusergonomi tillg&#228;nglig f&#246;r alla, &#228;ven p&#229; de mest ombytliga kontoren. V&#229;ra funktionella, minimalistiskt designade armaturer ger optimalt arbetsljus &#8211; p&#229; r&#228;tt plats, i r&#228;tt h&#246;jd och med r&#228;tt ljustemperatur. Samtidigt skapar <a href="#">uppljus</a> en sk&#246;n k&#228;nsla av rymd vid varje individuell arbetsplats s&#229;v&#228;l som i hela rummet.</p>
-        <div class="intro-buttons fade-in tw-flex tw-gap-10 tw-flex-wrap" style="transition-delay:0.3s">
-          <a href="#" class="btn-orange tw-inline-flex tw-items-center tw-justify-center tw-py-3.5 tw-px-9 tw-bg-[#f15a25] tw-text-black tw-font-grotesk tw-text-base tw-font-normal tw-no-underline tw-rounded tw-border-none tw-cursor-pointer tw-transition-all tw-duration-300">Produkter</a>
-          <a href="#" class="btn-orange tw-inline-flex tw-items-center tw-justify-center tw-py-3.5 tw-px-9 tw-bg-[#f15a25] tw-text-black tw-font-grotesk tw-text-base tw-font-normal tw-no-underline tw-rounded tw-border-none tw-cursor-pointer tw-transition-all tw-duration-300">Boka demo</a>
+        <div class="tw-pt-[40px] sm:tw-pt-[60px] tw-border-t-[1px] tw-border-[#f9f7f4 tw-mt-[30px] sm:tw-mt-[80px] intro-buttons fade-in tw-flex tw-gap-10 tw-flex-wrap" style="transition-delay:0.3s">
+          <a href="#" class="tw-w-[190px] hover:tw-bg-[#f79a6d] tw-uppercase tw-inline-flex tw-items-center tw-justify-center tw-py-4 tw-bg-[#f15a25] tw-text-[#2e2d2d] tw-font-grotesk tw-text-base tw-font-normal tw-no-underline tw-rounded-[6px] tw-border-none tw-cursor-pointer tw-transition-all tw-duration-300">Produkter</a>
+          <a href="#" class="tw-w-[190px] hover:tw-bg-[#e3ddd2] tw-uppercase tw-inline-flex tw-items-center tw-justify-center tw-py-4 tw-bg-white tw-text-[#2e2d2d] tw-font-grotesk tw-text-base tw-font-normal tw-no-underline tw-rounded-[6px] tw-border-none tw-cursor-pointer tw-transition-all tw-duration-300">Om oss</a>
         </div>
       </div>
     </div>
@@ -186,53 +199,54 @@
         <img src="round.webp" alt="Rund" class="img-hover tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-opacity-0 tw-transition-opacity tw-duration-500">
         <span class="label-default tw-absolute tw-top-0 tw-left-0 tw-bg-[#f15a25] tw-text-black tw-font-grotesk tw-font-semibold tw-text-2xl tw-w-24 tw-py-2 tw-text-center tw-transition-opacity tw-duration-500">A</span>
         <span class="label-hover tw-absolute tw-top-0 tw-left-0 tw-bg-[#f15a25] tw-text-black tw-font-grotesk tw-font-semibold tw-text-2xl tw-w-24 tw-py-2 tw-text-center tw-opacity-0 tw-transition-opacity tw-duration-500">B</span>
-        <span class="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-bg-black/70 tw-text-cream tw-text-center tw-py-3 tw-text-sm tw-font-light tw-tracking-wide">Fyrkantig/Rund</span>
+        <span class="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-bg-black/40 tw-text-cream tw-text-center tw-py-3 tw-text-sm tw-font-light tw-tracking-wide">Fyrkantig / Rund</span>
       </div>
       <div class="config-card fade-in tw-relative tw-block tw-overflow-hidden tw-aspect-[16/10]">
         <img src="bordsmonterad.webp" alt="Bordsmonterad" class="img-default tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-transition-opacity tw-duration-500">
         <img src="round.webp" alt="Sk&#228;rmmonterad" class="img-hover tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-opacity-0 tw-transition-opacity tw-duration-500">
         <span class="label-default tw-absolute tw-top-0 tw-left-0 tw-bg-[#f15a25] tw-text-black tw-font-grotesk tw-font-semibold tw-text-2xl tw-w-24 tw-py-2 tw-text-center tw-transition-opacity tw-duration-500">01</span>
         <span class="label-hover tw-absolute tw-top-0 tw-left-0 tw-bg-[#f15a25] tw-text-black tw-font-grotesk tw-font-semibold tw-text-2xl tw-w-24 tw-py-2 tw-text-center tw-opacity-0 tw-transition-opacity tw-duration-500">02</span>
-        <span class="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-bg-black/70 tw-text-cream tw-text-center tw-py-3 tw-text-sm tw-font-light tw-tracking-wide">Bord/Sk&#228;rm</span>
+        <span class="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-bg-black/40 tw-text-cream tw-text-center tw-py-3 tw-text-sm tw-font-light tw-tracking-wide">Bord / Sk&#228;rm</span>
       </div>
       <div class="config-card fade-in tw-relative tw-block tw-overflow-hidden tw-aspect-[16/10]">
-        <img src="lamp-both-cold.jpg" alt="Svart" class="img-default tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-transition-opacity tw-duration-500">
-        <img src="a-white.webp" alt="Vit" class="img-hover tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-opacity-0 tw-transition-opacity tw-duration-500">
+        <img src="standingblack.jpg" alt="Svart" class="img-default tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-transition-opacity tw-duration-500">
+        <img src="standingwhite.jpg" alt="Vit" class="img-hover tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-opacity-0 tw-transition-opacity tw-duration-500">
         <span class="label-default tw-absolute tw-top-0 tw-left-0 tw-bg-[#f15a25] tw-text-black tw-font-grotesk tw-font-semibold tw-text-2xl tw-w-24 tw-py-2 tw-text-center tw-transition-opacity tw-duration-500">BLACK</span>
         <span class="label-hover tw-absolute tw-top-0 tw-left-0 tw-bg-[#f15a25] tw-text-black tw-font-grotesk tw-font-semibold tw-text-2xl tw-w-24 tw-py-2 tw-text-center tw-opacity-0 tw-transition-opacity tw-duration-500">WHITE</span>
-        <span class="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-bg-black/70 tw-text-cream tw-text-center tw-py-3 tw-text-sm tw-font-light tw-tracking-wide">Svart/Vit</span>
+        <span class="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-bg-black/40 tw-text-cream tw-text-center tw-py-3 tw-text-sm tw-font-light tw-tracking-wide">Svart / Vit</span>
       </div>
   </section>
 
-  <div class="section-divider tw-w-full tw-h-px" style="background:linear-gradient(to right, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent)"></div>
+  <a href="varfor-clara.html" class="tw-text-[1.0625rem] tw-uppercase hover:tw-bg-[#f79a6d] tw-bg-[#f15a25] tw-text-[#2e2d2d] tw-font-grotesk tw-font-normal tw-no-underline tw-rounded-[6px] tw-cursor-pointer tw-border-none tw-flex tw-w-[20%] tw-mx-auto tw-justify-center tw-py-4 tw-mb-[64px]">Varf&#246;r Clara?</a>
+
 
   <!-- CTA -->
-  <section class="cta-section tw-py-24 tw-px-16 tw-bg-clara-grey">
-    <div class="cta-inner tw-grid tw-grid-cols-[1fr_1.2fr] tw-gap-20">
+  <section class="cta-section tw-pt-[120px] tw-pb-[80px] tw-px-[110px] tw-bg-clara-grey">
+    <div class="cta-inner tw-grid tw-grid-cols-[1fr_1.2fr] tw-gap-[220px]">
       <div class="cta-left fade-in">
-        <h2 class="tw-text-[clamp(1.8rem,3vw,2.5rem)] tw-font-semibold tw-leading-[1.15] tw-mb-6">Fr&#229;n klarhet till klarhet</h2>
-        <p class="tw-text-[clamp(0.95rem,1.1vw,1.05rem)] tw-font-light tw-leading-[1.8] tw-text-cream tw-mb-10">Vi p&#229; Clara v&#228;grar kompromissa n&#228;r det g&#228;ller kvalitet, stil och funktionalitet. Hela id&#233;n &#228;r att aktivt skapa ljusmilj&#246;er som &#228;r tilltalande, inspirerande och ergonomiska.</p>
-        <a href="mailto:kontakt@clarasweden.se?subject=Kontakt" class="tw-inline-flex tw-items-center tw-justify-center tw-py-3.5 tw-px-9 tw-bg-[#f15a25] tw-text-black tw-font-grotesk tw-text-sm tw-font-medium tw-tracking-wider tw-uppercase tw-no-underline tw-rounded tw-border-none tw-cursor-pointer tw-transition-all tw-duration-300 tw-w-full tw-max-w-[280px]">Kontakta oss</a>
+        <h2 class="tw-text-[2.25rem] lg:tw-text-[3rem] tw-leading-[1.15] tw-mb-[28px] lg:tw-mb-[42px] tw-font-normal tw-text-[#f9f7f4]">Fr&#229;n klarhet till klarhet</h2>
+        <p class="tw-text-[1.75rem] tw-leading-[2.25rem] tw-font-normal tw-text-[#f9f7f4] tw-mb-10">Vi p&#229; Clara v&#228;grar kompromissa n&#228;r det g&#228;ller kvalitet, stil och funktionalitet. Hela id&#233;n &#228;r att aktivt skapa ljusmilj&#246;er som &#228;r tilltalande, inspirerande och ergonomiska.</p>
+        <a href="mailto:kontakt@clarasweden.se?subject=Kontakt" class="tw-inline-flex tw-items-center tw-justify-center tw-py-3.5 tw-px-9 tw-bg-[#f15a25] hover:tw-bg-[#f79a6d] tw-text-[#2e2d2d] tw-font-grotesk tw-text-[1.0625rem] tw-font-normal tw-uppercase tw-no-underline tw-rounded-[6px] tw-border-none tw-cursor-pointer tw-transition-all tw-duration-300 tw-w-full tw-w-1/4 xl:tw-w-1/2">Kontakta oss</a>
       </div>
       <div class="cta-right fade-in tw-flex tw-flex-col tw-justify-center">
-        <div class="tw-py-6 tw-border-b tw-border-white/[0.12]">
-          <h4 class="tw-text-lg tw-font-semibold tw-mb-2">Specialister p&#229; unikt arbetsljus</h4>
-          <p class="tw-text-sm tw-font-light tw-leading-[1.7] tw-text-cream">Genom att f&#246;rst&#229; hur ljus f&#246;rb&#228;ttrar produktivitet och v&#228;lm&#229;ende p&#229; arbetsplatser, optimerar vi varje l&#246;sning.</p>
+        <div class="tw-pb-[28px] lg:tw-pb-[40px] tw-mb-[32px] lg:tw-mb-[40px] tw-border-b tw-border-[#f9f7f4]">
+          <h4 class="tw-text-[1.75rem] tw-leading-[2.25rem] tw-font-normal tw-mb-[18px] tw-text-[#f9f7f4]">Specialister p&#229; unikt arbetsljus</h4>
+          <p class="tw-text-[1.25rem] tw-leading-[1.75rem] tw-font-normal tw-leading-[1.7] tw-text-[#f9f7f4]">Genom att f&#246;rst&#229; hur ljus f&#246;rb&#228;ttrar produktivitet och v&#228;lm&#229;ende p&#229; arbetsplatser, optimerar vi varje l&#246;sning.</p>
         </div>
-        <div class="tw-py-6 tw-border-b tw-border-white/[0.12]">
-          <h4 class="tw-text-lg tw-font-semibold tw-mb-2">Del av n&#229;got st&#246;rre</h4>
-          <p class="tw-text-sm tw-font-light tw-leading-[1.7] tw-text-cream">Clara &#228;r ett sj&#228;lvst&#228;ndigt varum&#228;rke inom Agolux som ing&#229;r i OEM-koncernen. Det inneb&#228;r tillg&#229;ng till marknadsledande kunskap, teknik och kvalitetss&#228;krad produktion.</p>
+        <div class="tw-pb-[28px] lg:tw-pb-[40px] tw-mb-[32px] lg:tw-mb-[40px] tw-border-b tw-border-[#f9f7f4]">
+          <h4 class="tw-text-[1.75rem] tw-leading-[2.25rem] tw-font-normal tw-mb-[18px] tw-text-[#f9f7f4]">Del av n&#229;got st&#246;rre</h4>
+          <p class="tw-text-[1.25rem] tw-leading-[1.75rem] tw-font-normal tw-text-[#f9f7f4]">Clara &#228;r ett sj&#228;lvst&#228;ndigt varum&#228;rke inom Agolux som ing&#229;r i OEM-koncernen. Det inneb&#228;r tillg&#229;ng till marknadsledande kunskap, teknik och kvalitetss&#228;krad produktion.</p>
         </div>
-        <div class="tw-py-6 tw-border-b tw-border-white/[0.12]">
-          <h4 class="tw-text-lg tw-font-semibold tw-mb-2">Snyggare, smartare, sundare</h4>
-          <p class="tw-text-sm tw-font-light tw-leading-[1.7] tw-text-cream">H&#229;ll med om att en h&#229;llbar och vacker vardag bidrar till en ljusare framtid. Vi visar g&#228;rna konkreta siffror p&#229; det.</p>
+        <div class="tw-pb-[28px] lg:tw-pb-[40px] tw-mb-[32px] lg:tw-mb-[40px] tw-border-b tw-border-[#f9f7f4]">
+          <h4 class="tw-text-[1.75rem] tw-leading-[2.25rem] tw-font-normal tw-mb-[18px] tw-text-[#f9f7f4]">Snyggare, smartare, sundare</h4>
+          <p class="tw-text-[1.25rem] tw-leading-[1.75rem] tw-font-normal tw-text-[#f9f7f4]">H&#229;ll med om att en h&#229;llbar och vacker vardag bidrar till en ljusare framtid. Vi visar g&#228;rna konkreta siffror p&#229; det.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="site-footer tw-bg-[#f15a25] tw-text-black tw-pt-16 tw-pb-10 tw-px-16">
+  <footer class="site-footer tw-bg-[#f15a25] tw-text-black tw-pt-[100px] tw-pb-[80px] tw-px-[80px]">
     <div class="tw-flex tw-justify-center tw-mb-12">
       <svg width="120" height="40" viewBox="0 0 100 34" fill="none"><path d="M7.82525 26.4863C6.73988 25.3837 6.20083 24.0145 6.20083 22.3731C6.20083 20.7318 6.73988 19.3626 7.82525 18.26C8.90516 17.1574 10.2874 16.6051 11.9701 16.6051C13.3104 16.6051 14.4722 16.9585 15.452 17.6595C16.4336 18.3566 17.1074 19.3008 17.4771 20.4884L22.8092 17.2481C21.9952 15.487 20.7714 14.0271 19.1288 12.8724C17.1219 11.455 14.7327 10.7444 11.9701 10.7444C8.46445 10.7444 5.59805 11.8663 3.37995 14.0986C1.12544 16.3367 0 19.0942 0 22.3731C0 25.6521 1.11997 28.4135 3.35628 30.6458C5.59258 32.8839 8.46263 34 11.9682 34C13.966 34 15.767 33.6331 17.3678 32.8935C17.9851 32.6077 18.5697 32.2678 19.127 31.8778C20.7696 30.7191 21.997 29.2573 22.8129 27.4924L17.4807 24.2521C17.4497 24.3621 17.4133 24.4664 17.3678 24.5707C16.9854 25.6154 16.3462 26.4515 15.4502 27.0907C14.4686 27.7917 13.3086 28.1412 11.9682 28.1412C10.2855 28.1412 8.90516 27.5928 7.82343 26.4863M25.5627 33.552H31.545V0L25.5627 3.6381V33.552ZM51.7792 24.3525C51.7574 24.4239 51.73 24.4954 51.6973 24.5668C51.3112 25.6173 50.6756 26.4554 49.7815 27.0965C48.7963 27.7975 47.6344 28.1412 46.2941 28.1412C44.615 28.1412 43.2346 27.5928 42.1493 26.4863C41.4026 25.7332 40.9164 24.8449 40.6833 23.833C40.6705 23.7654 40.656 23.7036 40.6432 23.638C40.5667 23.2363 40.5267 22.8134 40.5267 22.3731C40.5267 21.9329 40.5631 21.5486 40.6341 21.1604C40.8417 20.0482 41.3443 19.0846 42.1511 18.2639C43.2346 17.1574 44.6168 16.6032 46.2959 16.6032C47.6362 16.6032 48.7981 16.9604 49.7833 17.6537C50.6793 18.2928 51.313 19.1328 51.6991 20.1833C51.73 20.2548 51.7574 20.3262 51.781 20.3977V24.3525H51.7792ZM52.4184 33.5462H57.6595V11.1846H52.4184V13.6738C50.7976 11.903 48.6706 10.9297 46.0337 10.7482C42.6446 10.8004 39.8729 11.9223 37.704 14.0986C36.2107 15.5816 35.2109 17.2964 34.7119 19.2333C34.7028 19.2526 34.6992 19.2757 34.6992 19.2951C34.4478 20.2644 34.3258 21.2898 34.3258 22.3731C34.3258 23.5279 34.4661 24.6209 34.7483 25.6463C35.2528 27.531 36.238 29.1955 37.6858 30.6477C39.8547 32.824 42.6136 33.9343 45.9736 34.0019C48.616 33.8301 50.7649 32.8568 52.4166 31.0725V33.5481L52.4184 33.5462ZM67.1966 16.6939H76.1728V11.1924H61.2125V33.552H67.1966V16.692V16.6939ZM94.1179 24.3525C94.096 24.4239 94.0687 24.4954 94.0377 24.5668C93.6517 25.6173 93.0161 26.4554 92.1201 27.0965C91.1349 27.7975 89.9731 28.1412 88.6327 28.1412C86.9537 28.1412 85.5733 27.5928 84.4879 26.4863C83.7413 25.7332 83.255 24.8449 83.0219 23.833C83.0074 23.7654 82.9946 23.7036 82.9819 23.638C82.9054 23.2363 82.8653 22.8134 82.8653 22.3731C82.8653 21.9329 82.9017 21.5486 82.9728 21.1604C83.1804 20.0482 83.683 19.0846 84.4897 18.2639C85.5733 17.1574 86.9555 16.6032 88.6345 16.6032C89.9749 16.6032 91.1367 16.9604 92.1219 17.6537C93.0179 18.2928 93.6517 19.1328 94.0396 20.1833C94.0705 20.2548 94.0978 20.3262 94.1197 20.3977V24.3525H94.1179ZM100 33.5462V11.1846H94.7589V13.6738C93.1399 11.903 91.0111 10.9297 88.3741 10.7482C84.9851 10.8004 82.2134 11.9223 80.0444 14.0986C78.5511 15.5816 77.5514 17.2964 77.0524 19.2333C77.0433 19.2526 77.0378 19.2757 77.0378 19.2951C76.7865 20.2644 76.6645 21.2898 76.6645 22.3731C76.6645 23.5279 76.8029 24.6209 77.087 25.6463C77.5914 27.531 78.5766 29.1955 80.0244 30.6477C82.1933 32.824 84.9523 33.9343 88.3122 34.0019C90.9528 33.8301 93.1035 32.8568 94.7552 31.0725V33.5481H99.9964L100 33.5462Z" fill="#000"/></svg>
     </div>
@@ -289,6 +303,38 @@
         });
       });
     }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const section = document.querySelector(".intro-split");
+  const image = document.querySelector(".js-lamp-image");
+
+  if (!section || !image) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+
+        // när sektionen är "aktiv i mitten"
+        if (entry.isIntersecting) {
+          image.classList.remove("tw-opacity-0");
+          image.classList.add("tw-opacity-100");
+        } 
+        // när du scrollar förbi (upp eller ner)
+        else {
+          image.classList.remove("tw-opacity-100");
+          image.classList.add("tw-opacity-0");
+        }
+
+      });
+    },
+    {
+      threshold: 0,
+      rootMargin: "-40% 0px -40% 0px" // 👈 gör området smalt i mitten
+    }
+  );
+
+  observer.observe(section);
+});
 
   </script>
 </body>
