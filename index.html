@@ -131,34 +131,82 @@
   </div>
 
   <!-- Intro split -->
-  <section class="intro-split xl:tw-grid xl:tw-grid-cols-[54.55%_45.45%] tw-bg-[#111] tw-border-t-2 tw-border-b-2 tw-border-cream tw-h-[60vh]">
-  <div class="intro-split-image tw-relative tw-overflow-hidden tw-bg-clara-dark tw-flex tw-items-center tw-justify-center tw-border-r-2 tw-border-cream">
-    <!-- Bild 1 -->
+<section class="intro-split 
+  2xl:tw-grid 2xl:tw-grid-cols-[54.55%_45.45%] 
+  tw-bg-[#111] tw-border-t-2 tw-border-b-2 tw-border-cream 2xl:tw-h-[60vh]">
+
+  <!-- IMAGE -->
+  <div class="intro-split-image 
+    tw-relative tw-overflow-hidden tw-bg-clara-dark 
+    tw-flex tw-items-center tw-justify-center 
+    xl:tw-border-r-2 tw-border-b-2 xl:tw-border-b-0 tw-border-cream
+    tw-h-[40vh] sm:tw-h-[50vh] xl:tw-h-auto">
+
     <img 
       class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"
       src="lamp-off.jpg"
       alt="Clara lampa"
       loading="lazy"
     >
-    <!-- Bild 2 (fade target) -->
+
     <img 
-      class="js-lamp-image tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-opacity-0 tw-transition-opacity tw-duration-700"
+      class="js-lamp-image tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-transition-opacity tw-duration-700 tw-opacity-100"
       src="lamp-both-cold.jpg"
       alt="Clara lampa"
       loading="lazy"
     >
   </div>
-    <div class="intro-split-text tw-justify-center tw-items-center tw-flex tw-px-[60px] tw-pt-[120px] tw-pb-[60px] tw-bg-clara-grey">
-      <div class="intro-split-inner tw-max-w-[1000px]">
-        <h2 class="fade-in tw-text-[clamp(2rem,3.5vw,3rem)] tw-font-semibold tw-leading-[1.15] tw-tracking-tight tw-mb-8" style="transition-delay:0s">Ljusare tider<br>f&#246;r flexibla kontor</h2>
-        <p class="fade-in tw-text-[clamp(0.95rem,1.2vw,1.1rem)] tw-font-light tw-leading-[1.8] tw-text-cream tw-mb-10" style="transition-delay:0.15s">Gl&#246;m nedpendlande lampor. Gl&#246;m fasta installationer. Gl&#246;m statiska milj&#246;er. Vi p&#229; Clara g&#246;r ljusergonomi tillg&#228;nglig f&#246;r alla, &#228;ven p&#229; de mest ombytliga kontoren. V&#229;ra funktionella, minimalistiskt designade armaturer ger optimalt arbetsljus &#8211; p&#229; r&#228;tt plats, i r&#228;tt h&#246;jd och med r&#228;tt ljustemperatur. Samtidigt skapar <a href="#">uppljus</a> en sk&#246;n k&#228;nsla av rymd vid varje individuell arbetsplats s&#229;v&#228;l som i hela rummet.</p>
-        <div class="tw-pt-[40px] sm:tw-pt-[60px] tw-border-t-[1px] tw-border-[#f9f7f4 tw-mt-[30px] sm:tw-mt-[80px] intro-buttons fade-in tw-flex tw-gap-10 tw-flex-wrap" style="transition-delay:0.3s">
-          <a href="#" class="tw-w-[190px] hover:tw-bg-[#f79a6d] tw-uppercase tw-inline-flex tw-items-center tw-justify-center tw-py-4 tw-bg-[#f15a25] tw-text-[#2e2d2d] tw-font-grotesk tw-text-base tw-font-normal tw-no-underline tw-rounded-[6px] tw-border-none tw-cursor-pointer tw-transition-all tw-duration-300">Produkter</a>
-          <a href="#" class="tw-w-[190px] hover:tw-bg-[#e3ddd2] tw-uppercase tw-inline-flex tw-items-center tw-justify-center tw-py-4 tw-bg-white tw-text-[#2e2d2d] tw-font-grotesk tw-text-base tw-font-normal tw-no-underline tw-rounded-[6px] tw-border-none tw-cursor-pointer tw-transition-all tw-duration-300">Om oss</a>
-        </div>
+
+  <!-- TEXT -->
+  <div class="intro-split-text 
+    tw-flex tw-items-center 
+    tw-bg-clara-grey
+    tw-px-6 sm:tw-px-10 xl:tw-px-[60px]
+    tw-py-10 sm:tw-py-16 xl:tw-pt-[120px] xl:tw-pb-[60px]">
+
+    <div class="intro-split-inner tw-max-w-[1000px]">
+
+      <h2 class="fade-in 
+        tw-text-[clamp(1.6rem,6vw,3rem)] 
+        tw-font-semibold tw-leading-[1.15] 
+        tw-tracking-tight tw-mb-6 sm:tw-mb-8">
+        Ljusare tider<br>för flexibla kontor
+      </h2>
+
+      <p class="fade-in 
+        tw-text-[clamp(0.9rem,3.5vw,1.1rem)] 
+        tw-font-light tw-leading-[1.7] 
+        tw-text-cream tw-mb-8 sm:tw-mb-10">
+        Glöm nedpendlande lampor. Glöm fasta installationer. Glöm statiska miljöer. Vi på Clara gör ljusergonomi tillgänglig för alla, även på de mest ombytliga kontoren. Våra funktionella, minimalistiskt designade armaturer ger optimalt arbetsljus – på rätt plats, i rätt höjd och med rätt ljustemperatur. Samtidigt skapar <a href="#">uppljus</a> en skön känsla av rymd vid varje individuell arbetsplats såväl som i hela rummet
+      </p>
+
+      <div class="tw-pt-6 sm:tw-pt-10 
+        tw-border-t tw-border-[#f9f7f4] 
+        tw-mt-6 sm:tw-mt-10 
+        tw-flex tw-flex-col sm:tw-flex-row 
+        tw-gap-4 sm:tw-gap-6">
+
+        <a href="#" class="tw-w-full sm:tw-w-[190px] 
+          hover:tw-bg-[#f79a6d] 
+          tw-uppercase tw-inline-flex tw-items-center tw-justify-center 
+          tw-py-4 tw-bg-[#f15a25] tw-text-[#2e2d2d] 
+          tw-rounded-[6px] tw-transition-all tw-duration-300">
+          Produkter
+        </a>
+
+        <a href="#" class="tw-w-full sm:tw-w-[190px] 
+          hover:tw-bg-[#e3ddd2] 
+          tw-uppercase tw-inline-flex tw-items-center tw-justify-center 
+          tw-py-4 tw-bg-white tw-text-[#2e2d2d] 
+          tw-rounded-[6px] tw-transition-all tw-duration-300">
+          Om oss
+        </a>
+
       </div>
     </div>
-  </section>
+  </div>
+
+</section>
 
   <div class="section-divider tw-w-full tw-h-px" style="background:linear-gradient(to right, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent)"></div>
 
@@ -217,7 +265,7 @@
       </div>
   </section>
 
-  <a href="varfor-clara.html" class="tw-text-[1.0625rem] tw-uppercase hover:tw-bg-[#f79a6d] tw-bg-[#f15a25] tw-text-[#2e2d2d] tw-font-grotesk tw-font-normal tw-no-underline tw-rounded-[6px] tw-cursor-pointer tw-border-none tw-flex tw-w-[20%] tw-mx-auto tw-justify-center tw-py-4 tw-mb-[64px]">Varf&#246;r Clara?</a>
+  <a href="varfor-clara.html" class="tw-text-[1.0625rem] tw-uppercase hover:tw-bg-[#f79a6d] tw-bg-[#f15a25] tw-text-[#2e2d2d] tw-font-grotesk tw-font-normal tw-no-underline tw-rounded-[6px] tw-cursor-pointer tw-border-none tw-flex tw-w-[20vw] tw-min-w-[230px] tw-mx-auto tw-justify-center tw-py-4 tw-mb-[64px]">Varf&#246;r Clara?</a>
 
 
     <!-- CTA -->
