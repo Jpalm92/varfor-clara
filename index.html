@@ -77,7 +77,7 @@
     .temp-btn.warm { border-color: rgb(251,191,36); background: rgba(251,191,36,0.2); color: rgb(252,211,77); }
     /* Mobile */
     @media (max-width: 768px) {
-      .hero-content { padding: 0 1.5rem !important; }
+      /* .hero-content { padding: 0 1.5rem !important; } */
       .hero-heading { font-size: clamp(2.2rem, 8vw, 3.5rem) !important; }
       .intro-split { grid-template-columns: 1fr !important; min-height: auto !important; }
       .intro-split-image { min-height: 50vw; border-right: none !important; border-bottom: 2px solid #f7f5f2; }
@@ -89,9 +89,6 @@
       .config-card { aspect-ratio: 16/9; }
       .cta-inner { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
       .cta-section { padding: 4rem 1.5rem !important; }
-      .site-footer { padding: 3rem 1.5rem 2rem !important; }
-      .site-footer .tw-flex.tw-justify-between { flex-direction: column !important; gap: 0.75rem !important; align-items: center !important; }
-      .site-footer .tw-flex.tw-justify-between > div { gap: 1.5rem !important; justify-content: center !important; flex-wrap: wrap !important; }
     }
     @media (max-width: 480px) {
       .hero-heading { font-size: clamp(1.8rem, 8vw, 2.5rem) !important; }
@@ -124,8 +121,18 @@
     <div class="hero tw-relative tw-w-full tw-h-[calc(100vh-72px)] tw-overflow-hidden" id="hero">
       <video src="Clara-3D-Animation-1920X1080-1.mp4" muted autoplay loop playsinline preload="auto" class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"></video>
       <div class="hero-overlay tw-absolute tw-inset-0 tw-z-[1]" style="background:linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 40%, transparent 70%)"></div>
-      <div class="hero-content tw-absolute tw-inset-0 tw-z-[2] tw-flex tw-items-center tw-px-24 tw-pb-[12vh]" id="hero-content">
-        <h1 class="hero-heading tw-font-grotesk tw-text-[clamp(2rem,4vw,3.5rem)] tw-font-medium tw-leading-[1.2] tw-tracking-widest tw-text-cream">Glöm nedpendlade<br><span class="tw-flex tw-items-center tw-justify-between tw-gap-[0.3em]"><a href="varfor-clara.html" class="tw-uppercase tw-tracking-normal hover:tw-bg-[#f79a6d] tw-inline-flex tw-items-center tw-flex-1 tw-justify-center tw-px-[1.2em] tw-py-[0.65em] tw-bg-[#f15a25] tw-text-[#2e2d2d] tw-font-grotesk tw-text-[0.32em] tw-font-normal tw-no-underline tw-rounded-[6px] tw-transition-all tw-duration-300 tw-cursor-pointer tw-border-none tw-whitespace-nowrap">Varf&#246;r Clara?</a> <span>lampor</span></span></h1>
+      <div class="hero-content tw-absolute tw-inset-0 tw-z-[2] tw-flex tw-justify-center lg:tw-justify-start tw-items-end lg:tw-items-center lg:tw-px-24 tw-pb-[12vh]" id="hero-content">
+        <h1 class="hero-heading tw-font-grotesk tw-text-[clamp(2rem,4vw,3.5rem)] tw-font-medium tw-leading-[1.2] tw-tracking-widest tw-text-cream">Glöm nedpendlade<br><span class="tw-flex tw-items-center tw-justify-between tw-gap-[0.3em]">
+          <a href="varfor-clara.html"
+   class="tw-uppercase tw-tracking-normal hover:tw-bg-[#f79a6d]
+   tw-inline-flex tw-items-center tw-flex-1 tw-justify-center
+   tw-px-[1.2em] tw-py-[0.65em]
+   tw-bg-[#f15a25] tw-text-[#2e2d2d]
+   tw-font-grotesk tw-text-sm md:tw-text-base lg:tw-text-[0.32em]
+   tw-font-normal tw-no-underline tw-rounded-[6px]
+   tw-transition-all tw-duration-300 tw-cursor-pointer tw-border-none tw-whitespace-nowrap">
+  Varför Clara?
+</a><span>lampor</span></span></h1>
       </div>
     </div>
   </div>
@@ -135,27 +142,16 @@
   2xl:tw-grid 2xl:tw-grid-cols-[54.55%_45.45%] 
   tw-bg-[#111] tw-border-t-2 tw-border-b-2 tw-border-cream 2xl:tw-h-[60vh]">
 
-  <!-- IMAGE -->
-  <div class="intro-split-image 
-    tw-relative tw-overflow-hidden tw-bg-clara-dark 
-    tw-flex tw-items-center tw-justify-center 
-    xl:tw-border-r-2 tw-border-b-2 xl:tw-border-b-0 tw-border-cream
-    tw-h-[40vh] sm:tw-h-[50vh] xl:tw-h-auto">
+<div class="intro-split-image 
+  tw-relative tw-overflow-hidden tw-bg-clara-dark 
+  tw-flex tw-items-center tw-justify-center 
+  xl:tw-border-r-2 tw-border-b-2 xl:tw-border-b-0 tw-border-cream
+  tw-h-[28vh] sm:tw-h-[38vh] md:tw-h-[45vh] xl:tw-h-auto">
 
-    <img 
-      class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"
-      src="lamp-off.jpg"
-      alt="Clara lampa"
-      loading="lazy"
-    >
+  <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-off.jpg" alt="Clara lampa" loading="lazy">
 
-    <img 
-      class="js-lamp-image tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-transition-opacity tw-duration-700 tw-opacity-100"
-      src="lamp-both-cold.jpg"
-      alt="Clara lampa"
-      loading="lazy"
-    >
-  </div>
+  <img class="js-lamp-image tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-transition-opacity tw-duration-700 tw-opacity-100" src="lamp-both-cold.jpg" alt="Clara lampa" loading="lazy">
+</div>
 
   <!-- TEXT -->
   <div class="intro-split-text 
@@ -265,7 +261,7 @@
       </div>
   </section>
 
-  <a href="varfor-clara.html" class="tw-text-[1.0625rem] tw-uppercase hover:tw-bg-[#f79a6d] tw-bg-[#f15a25] tw-text-[#2e2d2d] tw-font-grotesk tw-font-normal tw-no-underline tw-rounded-[6px] tw-cursor-pointer tw-border-none tw-flex tw-w-[20vw] tw-min-w-[230px] tw-mx-auto tw-justify-center tw-py-4 tw-mb-[64px]">Varf&#246;r Clara?</a>
+  <a href="varfor-clara.html" class="max-md:tw-mt-[24px] tw-text-[1.0625rem] tw-uppercase hover:tw-bg-[#f79a6d] tw-bg-[#f15a25] tw-text-[#2e2d2d] tw-font-grotesk tw-font-normal tw-no-underline tw-rounded-[6px] tw-cursor-pointer tw-border-none tw-flex tw-w-[20vw] tw-min-w-[230px] tw-mx-auto tw-justify-center tw-py-4 tw-mb-[64px]">Varf&#246;r Clara?</a>
 
 
     <!-- CTA -->
@@ -273,42 +269,62 @@
     <div class="cta-inner xl:tw-grid xl:tw-grid-cols-[1fr_1.2fr] xl:tw-gap-[220px]" >
       <div class="cta-left fade-in">
         <h2 class="tw-text-[2.25rem] lg:tw-text-[3rem] tw-leading-[1.15] tw-mb-[28px] lg:tw-mb-[42px] tw-font-normal tw-text-[#f9f7f4]">Fr&#229;n klarhet till klarhet</h2>
-        <p class="tw-text-[1.75rem] tw-leading-[2.25rem] tw-font-normal tw-text-[#f9f7f4] tw-mb-10">Vi p&#229; Clara v&#228;grar kompromissa n&#228;r det g&#228;ller kvalitet, stil och funktionalitet. Hela id&#233;n &#228;r att aktivt skapa ljusmilj&#246;er som &#228;r tilltalande, inspirerande och ergonomiska.</p>
+        <p class="tw-text-[1.25rem] lg:tw-text-[1.75rem] tw-leading-[1.5rem] lg:tw-leading-[2.25rem] tw-font-normal tw-text-[#f9f7f4] tw-mb-10">Vi p&#229; Clara v&#228;grar kompromissa n&#228;r det g&#228;ller kvalitet, stil och funktionalitet. Hela id&#233;n &#228;r att aktivt skapa ljusmilj&#246;er som &#228;r tilltalande, inspirerande och ergonomiska.</p>
         <a href="mailto:kontakt@clarasweden.se?subject=Kontakt" class="tw-inline-flex tw-items-center tw-justify-center tw-py-3.5 tw-px-9 tw-bg-[#f15a25] hover:tw-bg-[#f79a6d] tw-text-[#2e2d2d] tw-font-grotesk tw-text-[1.0625rem] tw-font-normal tw-uppercase tw-no-underline tw-rounded-[6px] tw-border-none tw-cursor-pointer tw-transition-all tw-duration-300 tw-w-full tw-w-1/4 xl:tw-w-1/2">Kontakta oss</a>
       </div>
-      <div class="cta-right fade-in tw-flex tw-flex-col tw-justify-center tw-mt-[120px] xl:tw-mt-[0px]">
+      <div class="cta-right fade-in tw-flex tw-flex-col tw-justify-center tw-mt-[60px] lg:tw-mt-[120px] xl:tw-mt-[0px]">
         <div class="tw-pb-[28px] lg:tw-pb-[40px] tw-mb-[32px] lg:tw-mb-[40px] tw-border-b tw-border-[#f9f7f4]">
-          <h4 class="tw-text-[1.75rem] tw-leading-[2.25rem] tw-font-normal tw-mb-[18px] tw-text-[#f9f7f4]">Specialister p&#229; unikt arbetsljus</h4>
-          <p class="tw-text-[1.25rem] tw-leading-[1.75rem] tw-font-normal tw-leading-[1.7] tw-text-[#f9f7f4]">Genom att f&#246;rst&#229; hur ljus f&#246;rb&#228;ttrar produktivitet och v&#228;lm&#229;ende p&#229; arbetsplatser, optimerar vi varje l&#246;sning.</p>
+          <h4 class="tw-text-[1.5rem] lg:tw-text-[1.75rem] tw-leading-[1.6875rem] lg:tw-leading-[2.25rem] tw-font-normal tw-mb-[8px] lg:tw-mb-[18px] tw-text-[#f9f7f4]">Specialister p&#229; unikt arbetsljus</h4>
+          <p class="tw-text-[.875rem] lg:tw-text-[1.25rem] tw-leading-[1.25rem] lg:tw-leading-[1.75rem] tw-font-normal tw-leading-[1.7] tw-text-[#f9f7f4]">Genom att f&#246;rst&#229; hur ljus f&#246;rb&#228;ttrar produktivitet och v&#228;lm&#229;ende p&#229; arbetsplatser, optimerar vi varje l&#246;sning.</p>
         </div>
         <div class="tw-pb-[28px] lg:tw-pb-[40px] tw-mb-[32px] lg:tw-mb-[40px] tw-border-b tw-border-[#f9f7f4]">
-          <h4 class="tw-text-[1.75rem] tw-leading-[2.25rem] tw-font-normal tw-mb-[18px] tw-text-[#f9f7f4]">Del av n&#229;got st&#246;rre</h4>
-          <p class="tw-text-[1.25rem] tw-leading-[1.75rem] tw-font-normal tw-text-[#f9f7f4]">Clara &#228;r ett sj&#228;lvst&#228;ndigt varum&#228;rke inom Agolux som ing&#229;r i OEM-koncernen. Det inneb&#228;r tillg&#229;ng till marknadsledande kunskap, teknik och kvalitetss&#228;krad produktion.</p>
+          <h4 class="tw-text-[1.5rem] lg:tw-text-[1.75rem] tw-leading-[1.6875rem] lg:tw-leading-[2.25rem] tw-font-normal tw-mb-[8px] lg:tw-mb-[18px] tw-text-[#f9f7f4]">Del av n&#229;got st&#246;rre</h4>
+          <p class="tw-text-[.875rem] lg:tw-text-[1.25rem] tw-leading-[1.25rem] lg:tw-leading-[1.75rem] tw-font-normal tw-text-[#f9f7f4]">Clara &#228;r ett sj&#228;lvst&#228;ndigt varum&#228;rke inom Agolux som ing&#229;r i OEM-koncernen. Det inneb&#228;r tillg&#229;ng till marknadsledande kunskap, teknik och kvalitetss&#228;krad produktion.</p>
         </div>
         <div class="tw-pb-[28px] lg:tw-pb-[40px] tw-mb-[32px] lg:tw-mb-[40px] tw-border-b tw-border-[#f9f7f4]">
-          <h4 class="tw-text-[1.75rem] tw-leading-[2.25rem] tw-font-normal tw-mb-[18px] tw-text-[#f9f7f4]">Snyggare, smartare, sundare</h4>
-          <p class="tw-text-[1.25rem] tw-leading-[1.75rem] tw-font-normal tw-text-[#f9f7f4]">H&#229;ll med om att en h&#229;llbar och vacker vardag bidrar till en ljusare framtid. Vi visar g&#228;rna konkreta siffror p&#229; det.</p>
+          <h4 class="tw-text-[1.5rem] lg:tw-text-[1.75rem] tw-leading-[1.6875rem] lg:tw-leading-[2.25rem] tw-font-normal tw-mb-[8px] lg:tw-mb-[18px] tw-text-[#f9f7f4]">Snyggare, smartare, sundare</h4>
+          <p class="tw-text-[.875rem] lg:tw-text-[1.25rem] tw-leading-[1.25rem] lg:tw-leading-[1.75rem] tw-font-normal tw-text-[#f9f7f4]">H&#229;ll med om att en h&#229;llbar och vacker vardag bidrar till en ljusare framtid. Vi visar g&#228;rna konkreta siffror p&#229; det.</p>
         </div>
       </div>
     </div>
   </section>
   <!-- Footer -->
-  <footer class="site-footer tw-bg-[#f15a25] tw-text-black tw-pt-[100px] tw-pb-[80px] tw-px-[80px]">
+  <footer class="site-footer tw-bg-[#f15a25] tw-text-black tw-pt-[100px] tw-pb-[80px] tw-px-[20px] lg:tw-px-[80px]">
     <div class="tw-flex tw-justify-center tw-mb-12">
       <svg width="149" height="48" viewBox="0 0 100 34" fill="none"><path d="M7.82525 26.4863C6.73988 25.3837 6.20083 24.0145 6.20083 22.3731C6.20083 20.7318 6.73988 19.3626 7.82525 18.26C8.90516 17.1574 10.2874 16.6051 11.9701 16.6051C13.3104 16.6051 14.4722 16.9585 15.452 17.6595C16.4336 18.3566 17.1074 19.3008 17.4771 20.4884L22.8092 17.2481C21.9952 15.487 20.7714 14.0271 19.1288 12.8724C17.1219 11.455 14.7327 10.7444 11.9701 10.7444C8.46445 10.7444 5.59805 11.8663 3.37995 14.0986C1.12544 16.3367 0 19.0942 0 22.3731C0 25.6521 1.11997 28.4135 3.35628 30.6458C5.59258 32.8839 8.46263 34 11.9682 34C13.966 34 15.767 33.6331 17.3678 32.8935C17.9851 32.6077 18.5697 32.2678 19.127 31.8778C20.7696 30.7191 21.997 29.2573 22.8129 27.4924L17.4807 24.2521C17.4497 24.3621 17.4133 24.4664 17.3678 24.5707C16.9854 25.6154 16.3462 26.4515 15.4502 27.0907C14.4686 27.7917 13.3086 28.1412 11.9682 28.1412C10.2855 28.1412 8.90516 27.5928 7.82343 26.4863M25.5627 33.552H31.545V0L25.5627 3.6381V33.552ZM51.7792 24.3525C51.7574 24.4239 51.73 24.4954 51.6973 24.5668C51.3112 25.6173 50.6756 26.4554 49.7815 27.0965C48.7963 27.7975 47.6344 28.1412 46.2941 28.1412C44.615 28.1412 43.2346 27.5928 42.1493 26.4863C41.4026 25.7332 40.9164 24.8449 40.6833 23.833C40.6705 23.7654 40.656 23.7036 40.6432 23.638C40.5667 23.2363 40.5267 22.8134 40.5267 22.3731C40.5267 21.9329 40.5631 21.5486 40.6341 21.1604C40.8417 20.0482 41.3443 19.0846 42.1511 18.2639C43.2346 17.1574 44.6168 16.6032 46.2959 16.6032C47.6362 16.6032 48.7981 16.9604 49.7833 17.6537C50.6793 18.2928 51.313 19.1328 51.6991 20.1833C51.73 20.2548 51.7574 20.3262 51.781 20.3977V24.3525H51.7792ZM52.4184 33.5462H57.6595V11.1846H52.4184V13.6738C50.7976 11.903 48.6706 10.9297 46.0337 10.7482C42.6446 10.8004 39.8729 11.9223 37.704 14.0986C36.2107 15.5816 35.2109 17.2964 34.7119 19.2333C34.7028 19.2526 34.6992 19.2757 34.6992 19.2951C34.4478 20.2644 34.3258 21.2898 34.3258 22.3731C34.3258 23.5279 34.4661 24.6209 34.7483 25.6463C35.2528 27.531 36.238 29.1955 37.6858 30.6477C39.8547 32.824 42.6136 33.9343 45.9736 34.0019C48.616 33.8301 50.7649 32.8568 52.4166 31.0725V33.5481L52.4184 33.5462ZM67.1966 16.6939H76.1728V11.1924H61.2125V33.552H67.1966V16.692V16.6939ZM94.1179 24.3525C94.096 24.4239 94.0687 24.4954 94.0377 24.5668C93.6517 25.6173 93.0161 26.4554 92.1201 27.0965C91.1349 27.7975 89.9731 28.1412 88.6327 28.1412C86.9537 28.1412 85.5733 27.5928 84.4879 26.4863C83.7413 25.7332 83.255 24.8449 83.0219 23.833C83.0074 23.7654 82.9946 23.7036 82.9819 23.638C82.9054 23.2363 82.8653 22.8134 82.8653 22.3731C82.8653 21.9329 82.9017 21.5486 82.9728 21.1604C83.1804 20.0482 83.683 19.0846 84.4897 18.2639C85.5733 17.1574 86.9555 16.6032 88.6345 16.6032C89.9749 16.6032 91.1367 16.9604 92.1219 17.6537C93.0179 18.2928 93.6517 19.1328 94.0396 20.1833C94.0705 20.2548 94.0978 20.3262 94.1197 20.3977V24.3525H94.1179ZM100 33.5462V11.1846H94.7589V13.6738C93.1399 11.903 91.0111 10.9297 88.3741 10.7482C84.9851 10.8004 82.2134 11.9223 80.0444 14.0986C78.5511 15.5816 77.5514 17.2964 77.0524 19.2333C77.0433 19.2526 77.0378 19.2757 77.0378 19.2951C76.7865 20.2644 76.6645 21.2898 76.6645 22.3731C76.6645 23.5279 76.8029 24.6209 77.087 25.6463C77.5914 27.531 78.5766 29.1955 80.0244 30.6477C82.1933 32.824 84.9523 33.9343 88.3122 34.0019C90.9528 33.8301 93.1035 32.8568 94.7552 31.0725V33.5481H99.9964L100 33.5462Z" fill="#000"/></svg>
     </div>
     <div class="tw-border-t tw-border-[#111] tw-mb-0"></div>
-    <div class="tw-flex tw-justify-between tw-flex-col lg:tw-flex-row tw-items-center tw-py-6 tw-mx-3.5 tw-gap-4">
-      <div class="tw-flex tw-gap-24">
-        <a href="mailto:kontakt@clarasweden.se?subject=Kontakt" class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-light">Kontakt</a>
-        <a href="#" class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-light">Dokument</a>
-      </div>
-      <div class="tw-flex tw-gap-12">
-        <a href="https://clarasweden.se/cookies/" class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-light">Cookies</a>
-        <a href="https://www.agolux.se/om-oss/policies" class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-light">Privacy Policy</a>
-        <a href="#" class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-light">Terms of Service</a>
-      </div>
-    </div>
+    <div class="tw-flex tw-flex-col lg:tw-flex-row tw-items-center tw-justify-between tw-py-6 lg:tw-mx-3.5 tw-gap-6">
+
+  <!-- Rad 1 -->
+  <div class="tw-flex tw-justify-center tw-gap-8 lg:tw-gap-24 tw-w-full lg:tw-w-auto">
+    <a href="mailto:kontakt@clarasweden.se?subject=Kontakt"
+       class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
+      Kontakt
+    </a>
+    <a href="#"
+       class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
+      Dokument
+    </a>
+  </div>
+
+  <!-- Rad 2 -->
+  <div class="tw-flex tw-justify-center tw-flex-wrap tw-gap-6 lg:tw-gap-12 tw-w-full lg:tw-w-auto">
+    <a href="https://clarasweden.se/cookies/"
+       class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
+      Cookies
+    </a>
+    <a href="https://www.agolux.se/om-oss/policies"
+       class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
+      Privacy Policy
+    </a>
+    <a href="#"
+       class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
+      Terms of Service
+    </a>
+  </div>
+
+</div>
     <div class="tw-border-t tw-border-[#111] tw-mb-8"></div>
     <div class="footer-social tw-flex tw-justify-center tw-gap-4 tw-mb-6">
       <a href="https://www.linkedin.com/company/clarasweden/" target="_blank" rel="noopener" class="tw-w-11 tw-h-11 tw-rounded-full tw-bg-black tw-flex tw-items-center tw-justify-center"><svg viewBox="0 0 24 24" width="18" height="18" fill="#f15a25"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
