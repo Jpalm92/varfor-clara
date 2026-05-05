@@ -1,11 +1,13 @@
 ﻿<html lang="sv">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Clara</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -27,9 +29,20 @@
   </script>
   <style>
     /* Base reset */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     /* Each section owns its own sticky scrub zone */
-    .section { position: relative; width: 100%; }
+    .section {
+      position: relative;
+      width: 100%;
+    }
+
     .section .sticky {
       position: sticky;
       top: 72px;
@@ -38,161 +51,493 @@
       width: 100%;
       overflow: hidden;
     }
+
     /* Panel grid defaults */
-    #sec-1 .sticky { display: grid; grid-template-columns: 40% 60%; }
-    #sec-2 .sticky { display: grid; grid-template-columns: 70% 30%; }
-    #sec-3 .sticky { display: grid; grid-template-columns: 35% 65%; }
+    #sec-1 .sticky {
+      display: grid;
+      grid-template-columns: 40% 60%;
+    }
+
+    #sec-2 .sticky {
+      display: grid;
+      grid-template-columns: 70% 30%;
+    }
+
+    #sec-3 .sticky {
+      display: grid;
+      grid-template-columns: 35% 65%;
+    }
+
     /* Panels fill the sticky but content sits higher for a lighter feel */
-/* 
+    /* 
     .section .sticky .panel-video .float-label {
       margin-bottom: clamp(2rem, 8vh, 6rem);
     } */
     /* Complex selectors */
-    .sticky > .panel + .panel { border-left: 2px solid #f7f5f2; }
-    .panel-text .btn-row { padding-top: 2rem; border-top: 2px solid #f7f5f2; }
-    .bg-cream .btn-row { border-top-color: rgba(0,0,0,0.15); }
-    .bg-orange .btn-row { border-top-color: rgba(255,255,255,0.4); }
+    .sticky>.panel+.panel {
+      border-left: 2px solid #f7f5f2;
+    }
+
+    .panel-text .btn-row {
+      padding-top: 2rem;
+      border-top: 2px solid #f7f5f2;
+    }
+
+    .bg-cream .btn-row {
+      border-top-color: rgba(0, 0, 0, 0.15);
+    }
+
+    .bg-orange .btn-row {
+      border-top-color: rgba(255, 255, 255, 0.4);
+    }
+
     /* Gradients */
-    .hero-overlay { background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.15) 100%); }
-    .vid-gradient-bottom { background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, transparent 50%); }
-    .vid-gradient-left { background: linear-gradient(90deg, rgba(0,0,0,0.35) 0%, transparent 40%); }
+    .hero-overlay {
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.25) 40%, rgba(0, 0, 0, 0.15) 100%);
+    }
+
+    .vid-gradient-bottom {
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, transparent 50%);
+    }
+
+    .vid-gradient-left {
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.35) 0%, transparent 40%);
+    }
+
     /* Hover */
-    .btn-orange:hover { background: #f15a25; color: #f7f5f2; }
-    .btn-white:hover { background: rgba(255,255,255,0.08); border-color: #f7f5f2; }
+    .btn-orange:hover {
+      background: #f15a25;
+      color: #f7f5f2;
+    }
+
+    .btn-white:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: #f7f5f2;
+    }
+
     /* Reveal animations */
-    .rv { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.25,1,0.5,1), transform 1s cubic-bezier(0.25,1,0.5,1); }
-    .rv.d1 { transition-delay: 0.15s; }
-    .rv.d2 { transition-delay: 0.35s; }
-    .rv.d3 { transition-delay: 0.55s; }
-    .rv.d4 { transition-delay: 0.75s; }
-    .section.in-view .rv { opacity: 1; transform: translateY(0); }
+    .rv {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .rv.d1 {
+      transition-delay: 0.15s;
+    }
+
+    .rv.d2 {
+      transition-delay: 0.35s;
+    }
+
+    .rv.d3 {
+      transition-delay: 0.55s;
+    }
+
+    .rv.d4 {
+      transition-delay: 0.75s;
+    }
+
+    .section.in-view .rv {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* Float-label scroll fade */
-    .scroll-fade { opacity: 0; transform: translateY(20px); transition: opacity 1.2s cubic-bezier(0.25,1,0.5,1), transform 1.2s cubic-bezier(0.25,1,0.5,1); }
-    .scroll-fade.visible { opacity: 1; transform: translateY(0); }
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .scroll-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* Hero text fade */
-    .hero-fade { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.25,1,0.5,1), transform 1s cubic-bezier(0.25,1,0.5,1); }
-    .hero-fade.d1 { transition-delay: 0.3s; }
-    .hero-fade.d2 { transition-delay: 0.6s; }
-    .hero-fade.visible { opacity: 1; transform: translateY(0); }
+    .hero-fade {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .hero-fade.d1 {
+      transition-delay: 0.3s;
+    }
+
+    .hero-fade.d2 {
+      transition-delay: 0.6s;
+    }
+
+    .hero-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* LS states */
-    .light-switcher-intro { transition: opacity 1.2s ease, transform 1.2s ease; }
-    .light-switcher-intro.visible { opacity: 1; transform: translateY(0); }
-    .light-switcher-controls { transition: opacity 1.2s ease, transform 1.2s ease; }
-    .light-switcher-controls.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
-    .light-switcher .lamp-container img { transition: opacity 0.15s linear; }
-    .light-switcher .lamp-container.dimming img { transition: none; }
+    .light-switcher-intro {
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    .light-switcher-intro.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .light-switcher-controls {
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    .light-switcher-controls.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .light-switcher .lamp-container img {
+      transition: opacity 0.15s linear;
+    }
+
+    .light-switcher .lamp-container.dimming img {
+      transition: none;
+    }
+
     /* Dimmer */
-    .dimmer-touch .ring-fill { fill: none; stroke: rgba(255,255,255,0.8); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 188.5; stroke-dashoffset: 188.5; }
-    .dimmer-touch.active .ring-fill { stroke: #f7f5f2; }
-    .dimmer-touch.holding { transform: scale(1.08); }
-    .dimmer-touch.active .dimmer-icon { color: #f7f5f2; }
-    .temp-btn.cold { border-color: rgba(147,197,253,0.5); background: rgba(147,197,253,0.1); color: rgb(191,219,254); }
-    .temp-btn.warm { border-color: rgb(251,191,36); background: rgba(251,191,36,0.2); color: rgb(252,211,77); }
+    .dimmer-touch .ring-fill {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.8);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-dasharray: 188.5;
+      stroke-dashoffset: 188.5;
+    }
+
+    .dimmer-touch.active .ring-fill {
+      stroke: #f7f5f2;
+    }
+
+    .dimmer-touch.holding {
+      transform: scale(1.08);
+    }
+
+    .dimmer-touch.active .dimmer-icon {
+      color: #f7f5f2;
+    }
+
+    .temp-btn.cold {
+      border-color: rgba(147, 197, 253, 0.5);
+      background: rgba(147, 197, 253, 0.1);
+      color: rgb(191, 219, 254);
+    }
+
+    .temp-btn.warm {
+      border-color: rgb(251, 191, 36);
+      background: rgba(251, 191, 36, 0.2);
+      color: rgb(252, 211, 77);
+    }
+
     /* Nav */
-    #nav-menu.nav-visible { transform: translateX(0) !important; }
-    #nav-menu.nav-visible ~ #nav-overlay { opacity: 1 !important; pointer-events: auto !important; }
+    #nav-menu.nav-visible {
+      transform: translateX(0) !important;
+    }
+
+    #nav-menu.nav-visible~#nav-overlay {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
     /* Hotspots */
     @media (min-width: 769px) {
-      .lamp-hotspots { display: block; position: absolute; inset: 0; z-index: 5; pointer-events: none; }
-      .lamp-hotspot { position: absolute; width: 2.4rem; height: 2.4rem; border-radius: 50%; transform: translate(-50%, -50%); cursor: pointer; pointer-events: auto; user-select: none; -webkit-user-select: none; touch-action: none; transition: background 0.3s, box-shadow 0.3s; }
+      .lamp-hotspots {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        pointer-events: none;
+      }
+
+      .lamp-hotspot {
+        position: absolute;
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+        pointer-events: auto;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: none;
+        transition: background 0.3s, box-shadow 0.3s;
+      }
+
       /* Pulse ring hint */
-      .lamp-hotspot::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1.5px solid rgba(241,90,37,0.6); opacity: 0; animation: hotspot-pulse 2s ease-in-out infinite; animation-delay: 0.8s; }
-      .lamp-hotspot.pulse-done::before { animation: none; opacity: 0; }
-      @keyframes hotspot-pulse { 0%,100% { opacity: 0; transform: scale(1); } 50% { opacity: 1; transform: scale(1.45); } }
+      .lamp-hotspot::before {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(241, 90, 37, 0.6);
+        opacity: 0;
+        animation: hotspot-pulse 2s ease-in-out infinite;
+        animation-delay: 0.8s;
+      }
+
+      .lamp-hotspot.pulse-done::before {
+        animation: none;
+        opacity: 0;
+      }
+
+      @keyframes hotspot-pulse {
+
+        0%,
+        100% {
+          opacity: 0;
+          transform: scale(1);
+        }
+
+        50% {
+          opacity: 1;
+          transform: scale(1.45);
+        }
+      }
+
       /* Hover tooltip */
-      .lamp-hotspot::after { content: attr(data-tip); position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.75); color: #f7f5f2; font-size: 0.72rem; font-weight: 500; white-space: nowrap; padding: 0.35rem 0.7rem; border-radius: 6px; pointer-events: none; opacity: 0; transition: opacity 0.25s ease; }
-      .lamp-hotspot:hover::after { opacity: 1; }
+      .lamp-hotspot::after {
+        content: attr(data-tip);
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.75);
+        color: #f7f5f2;
+        font-size: 0.72rem;
+        font-weight: 500;
+        white-space: nowrap;
+        padding: 0.35rem 0.7rem;
+        border-radius: 6px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+
+      .lamp-hotspot:hover::after {
+        opacity: 1;
+      }
     }
+
     /* Mobile */
     @media (max-width: 768px) {
-       .cta-section { padding: 4rem 1.5rem !important; }
-      .sections-wrapper { border: none; }
-      .section .sticky, #sec-1 .sticky, #sec-2 .sticky, #sec-3 .sticky {
+      .cta-section {
+        padding: 4rem 1.5rem !important;
+      }
+
+      .sections-wrapper {
+        border: none;
+      }
+
+      .section .sticky,
+      #sec-1 .sticky,
+      #sec-2 .sticky,
+      #sec-3 .sticky {
         display: flex !important;
         flex-direction: column;
         grid-template-columns: none;
       }
-      .panel-video { position: relative !important; flex-shrink: 0; order: -1; }
-      .panel-video video { position: relative !important; inset: auto; width: 100%; height: auto; object-fit: cover; }
-      .panel-video { position: relative !important; flex-shrink: 0; order: -1; }
-      .panel-video video { position: relative !important; inset: auto; width: 100%; height: auto; object-fit: cover; }
-      .panel { flex: 1; overflow-y: auto; }
-      .sticky > .panel + .panel { border-left: none !important; border-top: none; }
-      .desc { max-width: none; }
-      .heading { font-size: clamp(1.8rem, 7vw, 2.5rem); }
-      .light-switcher-wrapper { border-top: none !important; }
-      .light-switcher { height: calc(100vh - 72px); height: calc(100dvh - 72px); min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
-      .light-switcher .lamp-container { position: relative; inset: auto; width: 100%; height: 30dvh; flex-shrink: 0; min-height: 0; overflow: hidden; }
-      .light-switcher-intro { position: relative; bottom: auto; right: auto; left: auto; padding: 2rem 1.5rem 1rem; max-width: none; opacity: 1; transform: none; display: none; }
-      .light-switcher-intro.visible { transform: none; }
-      .light-switcher-controls { position: relative; bottom: auto; left: auto; transform: none; padding: 1.5rem; width: 100%; opacity: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1 1 0; min-height: 0; }
-      .light-switcher-controls.visible { transform: none; }
-      .lamp-hotspots { display: none; }
+
+      .panel-video {
+        position: relative !important;
+        flex-shrink: 0;
+        order: -1;
+      }
+
+      .panel-video video {
+        position: relative !important;
+        inset: auto;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+
+      .panel-video {
+        position: relative !important;
+        flex-shrink: 0;
+        order: -1;
+      }
+
+      .panel-video video {
+        position: relative !important;
+        inset: auto;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+
+      .panel {
+        flex: 1;
+        overflow-y: auto;
+      }
+
+      .sticky>.panel+.panel {
+        border-left: none !important;
+        border-top: none;
+      }
+
+      .desc {
+        max-width: none;
+      }
+
+      .heading {
+        font-size: clamp(1.8rem, 7vw, 2.5rem);
+      }
+
+      .light-switcher-wrapper {
+        border-top: none !important;
+      }
+
+      .light-switcher {
+        height: calc(100vh - 72px);
+        height: calc(100dvh - 72px);
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .light-switcher .lamp-container {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        height: 30dvh;
+        flex-shrink: 0;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      .light-switcher-intro {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        left: auto;
+        padding: 2rem 1.5rem 1rem;
+        max-width: none;
+        opacity: 1;
+        transform: none;
+        display: none;
+      }
+
+      .light-switcher-intro.visible {
+        transform: none;
+      }
+
+      .light-switcher-controls {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        padding: 1.5rem;
+        width: 100%;
+        opacity: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1 1 0;
+        min-height: 0;
+      }
+
+      .light-switcher-controls.visible {
+        transform: none;
+      }
+
+      .lamp-hotspots {
+        display: none;
+      }
     }
   </style>
 </head>
+
 <body class="tw-bg-black tw-text-[#f7f5f2] tw-font-grotesk">
 
   <!-- ===== NAVBAR ===== -->
   <nav style="position:fixed;top:0;left:0;width:100%;z-index:100;">
-    <div style="background:#000;padding:0.75rem 1.5rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;">
+    <div
+      style="background:#000;padding:0.75rem 1.5rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;">
       <div style="justify-self:start;">
-        <button id="nav-open-btn" onclick="document.getElementById('nav-menu').classList.add('nav-visible')" style="background:none;border:none;cursor:pointer;padding:0.5rem;">
-          <svg style="width:2rem;height:2rem;fill:#f7f5f2;" viewBox="0 0 640 640"><path d="M96 152C96 138.7 106.7 128 120 128L520 128C533.3 128 544 138.7 544 152C544 165.3 533.3 176 520 176L120 176C106.7 176 96 165.3 96 152zM96 320C96 306.7 106.7 296 120 296L520 296C533.3 296 544 306.7 544 320C544 333.3 533.3 344 520 344L120 344C106.7 344 96 333.3 96 320zM544 488C544 501.3 533.3 512 520 512L120 512C106.7 512 96 501.3 96 488C96 474.7 106.7 464 120 464L520 464C533.3 464 544 474.7 544 488z"/></svg>
+        <button id="nav-open-btn" onclick="document.getElementById('nav-menu').classList.add('nav-visible')"
+          style="background:none;border:none;cursor:pointer;padding:0.5rem;">
+          <svg style="width:2rem;height:2rem;fill:#f7f5f2;" viewBox="0 0 640 640">
+            <path
+              d="M96 152C96 138.7 106.7 128 120 128L520 128C533.3 128 544 138.7 544 152C544 165.3 533.3 176 520 176L120 176C106.7 176 96 165.3 96 152zM96 320C96 306.7 106.7 296 120 296L520 296C533.3 296 544 306.7 544 320C544 333.3 533.3 344 520 344L120 344C106.7 344 96 333.3 96 320zM544 488C544 501.3 533.3 512 520 512L120 512C106.7 512 96 501.3 96 488C96 474.7 106.7 464 120 464L520 464C533.3 464 544 474.7 544 488z" />
+          </svg>
         </button>
       </div>
       <a href="index.html" style="justify-self:center;display:flex;align-items:center;">
-        <svg width="100" height="34" viewBox="0 0 100 34" fill="none"><path d="M7.82525 26.4863C6.73988 25.3837 6.20083 24.0145 6.20083 22.3731C6.20083 20.7318 6.73988 19.3626 7.82525 18.26C8.90516 17.1574 10.2874 16.6051 11.9701 16.6051C13.3104 16.6051 14.4722 16.9585 15.452 17.6595C16.4336 18.3566 17.1074 19.3008 17.4771 20.4884L22.8092 17.2481C21.9952 15.487 20.7714 14.0271 19.1288 12.8724C17.1219 11.455 14.7327 10.7444 11.9701 10.7444C8.46445 10.7444 5.59805 11.8663 3.37995 14.0986C1.12544 16.3367 0 19.0942 0 22.3731C0 25.6521 1.11997 28.4135 3.35628 30.6458C5.59258 32.8839 8.46263 34 11.9682 34C13.966 34 15.767 33.6331 17.3678 32.8935C17.9851 32.6077 18.5697 32.2678 19.127 31.8778C20.7696 30.7191 21.997 29.2573 22.8129 27.4924L17.4807 24.2521C17.4497 24.3621 17.4133 24.4664 17.3678 24.5707C16.9854 25.6154 16.3462 26.4515 15.4502 27.0907C14.4686 27.7917 13.3086 28.1412 11.9682 28.1412C10.2855 28.1412 8.90516 27.5928 7.82343 26.4863M25.5627 33.552H31.545V0L25.5627 3.6381V33.552ZM51.7792 24.3525C51.7574 24.4239 51.73 24.4954 51.6973 24.5668C51.3112 25.6173 50.6756 26.4554 49.7815 27.0965C48.7963 27.7975 47.6344 28.1412 46.2941 28.1412C44.615 28.1412 43.2346 27.5928 42.1493 26.4863C41.4026 25.7332 40.9164 24.8449 40.6833 23.833C40.6705 23.7654 40.656 23.7036 40.6432 23.638C40.5667 23.2363 40.5267 22.8134 40.5267 22.3731C40.5267 21.9329 40.5631 21.5486 40.6341 21.1604C40.8417 20.0482 41.3443 19.0846 42.1511 18.2639C43.2346 17.1574 44.6168 16.6032 46.2959 16.6032C47.6362 16.6032 48.7981 16.9604 49.7833 17.6537C50.6793 18.2928 51.313 19.1328 51.6991 20.1833C51.73 20.2548 51.7574 20.3262 51.781 20.3977V24.3525H51.7792ZM52.4184 33.5462H57.6595V11.1846H52.4184V13.6738C50.7976 11.903 48.6706 10.9297 46.0337 10.7482C42.6446 10.8004 39.8729 11.9223 37.704 14.0986C36.2107 15.5816 35.2109 17.2964 34.7119 19.2333C34.7028 19.2526 34.6992 19.2757 34.6992 19.2951C34.4478 20.2644 34.3258 21.2898 34.3258 22.3731C34.3258 23.5279 34.4661 24.6209 34.7483 25.6463C35.2528 27.531 36.238 29.1955 37.6858 30.6477C39.8547 32.824 42.6136 33.9343 45.9736 34.0019C48.616 33.8301 50.7649 32.8568 52.4166 31.0725V33.5481L52.4184 33.5462ZM67.1966 16.6939H76.1728V11.1924H61.2125V33.552H67.1966V16.692V16.6939ZM94.1179 24.3525C94.096 24.4239 94.0687 24.4954 94.0377 24.5668C93.6517 25.6173 93.0161 26.4554 92.1201 27.0965C91.1349 27.7975 89.9731 28.1412 88.6327 28.1412C86.9537 28.1412 85.5733 27.5928 84.4879 26.4863C83.7413 25.7332 83.255 24.8449 83.0219 23.833C83.0074 23.7654 82.9946 23.7036 82.9819 23.638C82.9054 23.2363 82.8653 22.8134 82.8653 22.3731C82.8653 21.9329 82.9017 21.5486 82.9728 21.1604C83.1804 20.0482 83.683 19.0846 84.4897 18.2639C85.5733 17.1574 86.9555 16.6032 88.6345 16.6032C89.9749 16.6032 91.1367 16.9604 92.1219 17.6537C93.0179 18.2928 93.6517 19.1328 94.0396 20.1833C94.0705 20.2548 94.0978 20.3262 94.1197 20.3977V24.3525H94.1179ZM100 33.5462V11.1846H94.7589V13.6738C93.1399 11.903 91.0111 10.9297 88.3741 10.7482C84.9851 10.8004 82.2134 11.9223 80.0444 14.0986C78.5511 15.5816 77.5514 17.2964 77.0524 19.2333C77.0433 19.2526 77.0378 19.2757 77.0378 19.2951C76.7865 20.2644 76.6645 21.2898 76.6645 22.3731C76.6645 23.5279 76.8029 24.6209 77.087 25.6463C77.5914 27.531 78.5766 29.1955 80.0244 30.6477C82.1933 32.824 84.9523 33.9343 88.3122 34.0019C90.9528 33.8301 93.1035 32.8568 94.7552 31.0725V33.5481H99.9964L100 33.5462Z" fill="#f7f5f2"/></svg>
+        <svg width="100" height="34" viewBox="0 0 100 34" fill="none">
+          <path
+            d="M7.82525 26.4863C6.73988 25.3837 6.20083 24.0145 6.20083 22.3731C6.20083 20.7318 6.73988 19.3626 7.82525 18.26C8.90516 17.1574 10.2874 16.6051 11.9701 16.6051C13.3104 16.6051 14.4722 16.9585 15.452 17.6595C16.4336 18.3566 17.1074 19.3008 17.4771 20.4884L22.8092 17.2481C21.9952 15.487 20.7714 14.0271 19.1288 12.8724C17.1219 11.455 14.7327 10.7444 11.9701 10.7444C8.46445 10.7444 5.59805 11.8663 3.37995 14.0986C1.12544 16.3367 0 19.0942 0 22.3731C0 25.6521 1.11997 28.4135 3.35628 30.6458C5.59258 32.8839 8.46263 34 11.9682 34C13.966 34 15.767 33.6331 17.3678 32.8935C17.9851 32.6077 18.5697 32.2678 19.127 31.8778C20.7696 30.7191 21.997 29.2573 22.8129 27.4924L17.4807 24.2521C17.4497 24.3621 17.4133 24.4664 17.3678 24.5707C16.9854 25.6154 16.3462 26.4515 15.4502 27.0907C14.4686 27.7917 13.3086 28.1412 11.9682 28.1412C10.2855 28.1412 8.90516 27.5928 7.82343 26.4863M25.5627 33.552H31.545V0L25.5627 3.6381V33.552ZM51.7792 24.3525C51.7574 24.4239 51.73 24.4954 51.6973 24.5668C51.3112 25.6173 50.6756 26.4554 49.7815 27.0965C48.7963 27.7975 47.6344 28.1412 46.2941 28.1412C44.615 28.1412 43.2346 27.5928 42.1493 26.4863C41.4026 25.7332 40.9164 24.8449 40.6833 23.833C40.6705 23.7654 40.656 23.7036 40.6432 23.638C40.5667 23.2363 40.5267 22.8134 40.5267 22.3731C40.5267 21.9329 40.5631 21.5486 40.6341 21.1604C40.8417 20.0482 41.3443 19.0846 42.1511 18.2639C43.2346 17.1574 44.6168 16.6032 46.2959 16.6032C47.6362 16.6032 48.7981 16.9604 49.7833 17.6537C50.6793 18.2928 51.313 19.1328 51.6991 20.1833C51.73 20.2548 51.7574 20.3262 51.781 20.3977V24.3525H51.7792ZM52.4184 33.5462H57.6595V11.1846H52.4184V13.6738C50.7976 11.903 48.6706 10.9297 46.0337 10.7482C42.6446 10.8004 39.8729 11.9223 37.704 14.0986C36.2107 15.5816 35.2109 17.2964 34.7119 19.2333C34.7028 19.2526 34.6992 19.2757 34.6992 19.2951C34.4478 20.2644 34.3258 21.2898 34.3258 22.3731C34.3258 23.5279 34.4661 24.6209 34.7483 25.6463C35.2528 27.531 36.238 29.1955 37.6858 30.6477C39.8547 32.824 42.6136 33.9343 45.9736 34.0019C48.616 33.8301 50.7649 32.8568 52.4166 31.0725V33.5481L52.4184 33.5462ZM67.1966 16.6939H76.1728V11.1924H61.2125V33.552H67.1966V16.692V16.6939ZM94.1179 24.3525C94.096 24.4239 94.0687 24.4954 94.0377 24.5668C93.6517 25.6173 93.0161 26.4554 92.1201 27.0965C91.1349 27.7975 89.9731 28.1412 88.6327 28.1412C86.9537 28.1412 85.5733 27.5928 84.4879 26.4863C83.7413 25.7332 83.255 24.8449 83.0219 23.833C83.0074 23.7654 82.9946 23.7036 82.9819 23.638C82.9054 23.2363 82.8653 22.8134 82.8653 22.3731C82.8653 21.9329 82.9017 21.5486 82.9728 21.1604C83.1804 20.0482 83.683 19.0846 84.4897 18.2639C85.5733 17.1574 86.9555 16.6032 88.6345 16.6032C89.9749 16.6032 91.1367 16.9604 92.1219 17.6537C93.0179 18.2928 93.6517 19.1328 94.0396 20.1833C94.0705 20.2548 94.0978 20.3262 94.1197 20.3977V24.3525H94.1179ZM100 33.5462V11.1846H94.7589V13.6738C93.1399 11.903 91.0111 10.9297 88.3741 10.7482C84.9851 10.8004 82.2134 11.9223 80.0444 14.0986C78.5511 15.5816 77.5514 17.2964 77.0524 19.2333C77.0433 19.2526 77.0378 19.2757 77.0378 19.2951C76.7865 20.2644 76.6645 21.2898 76.6645 22.3731C76.6645 23.5279 76.8029 24.6209 77.087 25.6463C77.5914 27.531 78.5766 29.1955 80.0244 30.6477C82.1933 32.824 84.9523 33.9343 88.3122 34.0019C90.9528 33.8301 93.1035 32.8568 94.7552 31.0725V33.5481H99.9964L100 33.5462Z"
+            fill="#f7f5f2" />
+        </svg>
       </a>
       <div></div>
     </div>
-    <div id="nav-menu" style="position:fixed;left:0;top:0;z-index:200;background:#1a1a1a;width:100%;max-width:400px;height:100vh;transform:translateX(-100%);transition:transform 0.3s ease;padding:5rem 2.5rem 2rem;">
-      <button onclick="document.getElementById('nav-menu').classList.remove('nav-visible')" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;cursor:pointer;">
-        <svg style="width:2rem;height:2rem;fill:#f7f5f2;" viewBox="0 0 640 640"><path d="M135.5 169C126.1 159.6 126.1 144.4 135.5 135.1C144.9 125.8 160.1 125.7 169.4 135.1L320.4 286.1L471.4 135.1C480.8 125.7 496 125.7 505.3 135.1C514.6 144.5 514.7 159.7 505.3 169L354.3 320L505.3 471C514.7 480.4 514.7 495.6 505.3 504.9C495.9 514.2 480.7 514.3 471.4 504.9L320.4 353.9L169.4 504.9C160 514.3 144.8 514.3 135.5 504.9C126.2 495.5 126.1 480.3 135.5 471L286.5 320L135.5 169z"/></svg>
+    <div id="nav-menu"
+      style="position:fixed;left:0;top:0;z-index:200;background:#1a1a1a;width:100%;max-width:400px;height:100vh;transform:translateX(-100%);transition:transform 0.3s ease;padding:5rem 2.5rem 2rem;">
+      <button onclick="document.getElementById('nav-menu').classList.remove('nav-visible')"
+        style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;cursor:pointer;">
+        <svg style="width:2rem;height:2rem;fill:#f7f5f2;" viewBox="0 0 640 640">
+          <path
+            d="M135.5 169C126.1 159.6 126.1 144.4 135.5 135.1C144.9 125.8 160.1 125.7 169.4 135.1L320.4 286.1L471.4 135.1C480.8 125.7 496 125.7 505.3 135.1C514.6 144.5 514.7 159.7 505.3 169L354.3 320L505.3 471C514.7 480.4 514.7 495.6 505.3 504.9C495.9 514.2 480.7 514.3 471.4 504.9L320.4 353.9L169.4 504.9C160 514.3 144.8 514.3 135.5 504.9C126.2 495.5 126.1 480.3 135.5 471L286.5 320L135.5 169z" />
+        </svg>
       </button>
       <ul style="list-style:none;padding:0;margin:0;">
         <li style="border-bottom:1px solid rgba(255,255,255,0.15);padding:1rem 0;">
-          <a href="varfor-clara.html" style="color:#f7f5f2;text-decoration:none;font-size:1.25rem;font-weight:600;">Varf&#246;r Clara</a>
+          <a href="varfor-clara.html"
+            style="color:#f7f5f2;text-decoration:none;font-size:1.25rem;font-weight:600;">Varf&#246;r Clara</a>
         </li>
       </ul>
     </div>
-    <div id="nav-overlay" onclick="document.getElementById('nav-menu').classList.remove('nav-visible')" style="position:fixed;inset:0;z-index:150;background:rgba(0,0,0,0.5);opacity:0;pointer-events:none;transition:opacity 0.3s;"></div>
+    <div id="nav-overlay" onclick="document.getElementById('nav-menu').classList.remove('nav-visible')"
+      style="position:fixed;inset:0;z-index:150;background:rgba(0,0,0,0.5);opacity:0;pointer-events:none;transition:opacity 0.3s;">
+    </div>
   </nav>
   <!-- Spacer for fixed navbar -->
   <div class="tw-h-[72px]"></div>
 
   <!-- ===== HERO ===== -->
   <section class="hero tw-relative tw-h-[80vh] tw-overflow-hidden tw-border-b-2 tw-border-cream">
-    <video src="Clara-3D-Animation-1920X1080-1.mp4" muted autoplay loop playsinline preload="auto" class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"></video>
-  <div class="hero-overlay tw-absolute tw-inset-0 
+    <video src="Clara-3D-Animation-1920X1080-1.mp4" muted autoplay loop playsinline preload="auto"
+      class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"></video>
+    <div class="hero-overlay tw-absolute tw-inset-0 
   tw-flex tw-flex-col tw-justify-end lg:tw-justify-center tw-items-start 
   tw-px-6 sm:tw-px-[clamp(4rem,10vw,12rem)] 
   tw-py-10 sm:tw-py-[clamp(2rem,4vw,4rem)]">
 
-  <h2 class="hero-fade 
+      <h2 class="hero-fade 
     tw-text-[1.9rem] sm:tw-text-[2.25rem] lg:tw-text-[4rem] 
     tw-font-normal 
     tw-leading-[1.2] sm:tw-leading-[2.5rem] lg:tw-leading-[4.5rem] 
     tw-mb-5 sm:tw-mb-[30px] 
     tw-max-w-[18ch] sm:tw-max-w-none 
-    visible"
-    style="text-shadow:0 2px 30px rgba(0,0,0,0.5)">
-    Mer än för<br>syns skull
-  </h2>
+    visible" style="text-shadow:0 2px 30px rgba(0,0,0,0.5)">
+        Mer än för<br>syns skull
+      </h2>
 
-  <p class="hero-fade d1 
+      <p class="hero-fade d1 
     tw-text-[0.95rem] sm:tw-text-[1rem] lg:tw-text-[1.125rem] 
     tw-font-normal 
     tw-leading-[1.6] sm:tw-leading-[1.25rem] lg:tw-leading-[2rem] 
     tw-text-cream 
     tw-max-w-[520px] sm:tw-max-w-[830px] 
     visible">
-    
-    Inget snack om att ljus gör människor piggare, friskare och effektivare. Ändå visar forskning att bara 20 procent av alla som jobbar på kontor kan reglera belysningen eller ljusstyrkan. Det gick vi i taket på och designade armaturer som utgår ifrån att varje person förtjänar att lätt kunna ställa in sitt unikt bästa arbetsljus.
 
-  </p>
+        Inget snack om att ljus gör människor piggare, friskare och effektivare. Ändå visar forskning att bara 20
+        procent av alla som jobbar på kontor kan reglera belysningen eller ljusstyrkan. Det gick vi i taket på och
+        designade armaturer som utgår ifrån att varje person förtjänar att lätt kunna ställa in sitt unikt bästa
+        arbetsljus.
 
-</div>
+      </p>
+
+    </div>
   </section>
 
 
@@ -201,31 +546,30 @@
   <div class="section tw-relative tw-w-full" id="sec-1">
     <div class="sticky tw-w-full tw-overflow-hidden">
       <!-- Text panel (left, grey) -->
-      <div class="panel bg-grey tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-clara-grey">
+      <div
+        class="panel bg-grey tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-clara-grey max-sm:tw-flex-[2]">
         <div class="panel-text  tw-mx-auto lg:tw-mx-0 tw-px-[32px] lg:tw-px-[60px] tw-w-full">
 
-  <h2 class="heading rv d1 
+          <h2 class="heading rv d1 
     tw-text-[2.25rem] lg:tw-text-[4rem] 
     tw-font-medium tw-leading-[1.1] tw-tracking-tight tw-mb-4 lg:tw-mb-5">
-    Plats- och<br>rumsljus
-  </h2>
+            Plats- och<br>rumsljus
+          </h2>
 
-  <p class="tw-w-full desc rv d2 
+          <p class="tw-w-full desc rv d2 
     tw-text-[1rem] lg:tw-text-[1.125rem] 
     tw-font-normal tw-leading-[1.7] tw-text-cream tw-text-balance 
-    tw-mb-6 lg:tw-mb-8"
-    style="hyphens:auto;">
-    
-    Nedljus och uppljus kan justeras separat till önskad ljusnivå och färgtemperatur. 
-    Installeras enkelt i bord eller skärm, följer med när man höjer, sänker eller flyttar.
-  </p>
+    tw-mb-6 lg:tw-mb-8" style="hyphens:auto;">
 
-<div class="btn-row rv d3 
+            Nedljus och uppljus kan justeras separat till önskad ljusnivå och färgtemperatur.
+            Installeras enkelt i bord eller skärm, följer med när man höjer, sänker eller flyttar.
+          </p>
+
+          <div class="btn-row rv d3 
   tw-flex tw-flex-row 
   tw-gap-3 lg:tw-gap-10">
 
-  <a href="https://clarasweden.se/#produkter"
-     class="tw-text-[1rem] sm:tw-text-[1.0625rem] 
+            <a href="https://clarasweden.se/#produkter" class="tw-text-[1rem] sm:tw-text-[1.0625rem] 
      tw-uppercase hover:tw-bg-[#f79a6d] 
      tw-bg-[#f15a25] tw-text-[#2e2d2d] 
      tw-font-grotesk tw-font-normal 
@@ -234,11 +578,10 @@
      tw-flex tw-justify-center 
      tw-w-full sm:tw-w-auto sm:tw-min-w-[180px] 
      tw-py-4 px-6">
-    Produkter
-  </a>
+              Produkter
+            </a>
 
-  <a href="https://clarasweden.se/#om-oss"
-     class="tw-text-[1rem] sm:tw-text-[1.0625rem] 
+            <a href="https://clarasweden.se/#om-oss" class="tw-text-[1rem] sm:tw-text-[1.0625rem] 
      tw-uppercase hover:tw-bg-[#e3ddd2] 
      tw-bg-white tw-text-[#2e2d2d] 
      tw-font-grotesk tw-font-normal 
@@ -247,19 +590,24 @@
      tw-flex tw-justify-center 
      tw-w-full sm:tw-w-auto sm:tw-min-w-[180px] 
      tw-py-4 px-6">
-    Om oss
-  </a>
+              Om oss
+            </a>
 
-</div>
-</div>
+          </div>
+        </div>
       </div>
       <!-- Video panel (right, dark) -->
-      <div class="panel panel-video bg-dark tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-clara-dark">
-        <video src="scroll-video-1.mp4" muted autoplay playsinline preload="auto" class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"></video>
+      <div
+        class="panel panel-video bg-dark tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-clara-dark">
+        <video src="scroll-video-1.mp4" muted autoplay playsinline preload="auto"
+          class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"></video>
         <div class="vid-gradient vid-gradient-bottom tw-absolute tw-inset-0 tw-pointer-events-none"></div>
-        <div class="float-label scroll-fade tw-absolute tw-z-[2] tw-flex tw-items-center tw-gap-12" style="bottom:5rem;left:4rem;text-align:left;">
-          <p class="float-heading tw-text-[1.5rem] lg:tw-text-[2.25rem] tw-leading-[1.2] tw-text-cream">H&#246;j, s&#228;nk,<br>flytta</p>
-          <p class="float-sub tw-text-cream tw-text-[.875rem] lg:tw-text-[1.25rem] tw-font-normal">Clara f&#246;ljer med</p>
+        <div class="float-label scroll-fade tw-absolute tw-z-[2] tw-flex tw-items-center tw-gap-12"
+          style="bottom:5rem;left:4rem;text-align:left;">
+          <p class="float-heading tw-text-[1.5rem] lg:tw-text-[2.25rem] tw-leading-[1.2] tw-text-cream">H&#246;j,
+            s&#228;nk,<br>flytta</p>
+          <p class="float-sub tw-text-cream tw-text-[.875rem] lg:tw-text-[1.25rem] tw-font-normal">Clara f&#246;ljer med
+          </p>
         </div>
       </div>
     </div>
@@ -270,14 +618,21 @@
   <div class="section tw-relative tw-w-full tw-border-t-2 tw-border-cream" id="sec-2">
     <div class="sticky tw-w-full tw-overflow-hidden">
       <!-- Video panel (left) -->
-      <div class="panel panel-video bg-dark tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-clara-dark">
-        <video id="sec2-video" src="scroll-video-3.mp4" muted playsinline loop preload="auto" data-autoplay-video class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"></video>
+      <div
+        class="panel panel-video bg-dark tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-clara-dark">
+        <video id="sec2-video" src="scroll-video-3.mp4" muted playsinline loop preload="auto" data-autoplay-video
+          class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"></video>
       </div>
       <!-- Text panel (right, orange) -->
-      <div class="panel bg-orange tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-clara-orange">
+      <div
+        class="panel bg-orange tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-clara-orange">
         <div class="panel-text tw-w-full tw-px-[32px] lg:tw-px-[60px] tw-mx-auto lg:tw-mx-0">
-          <h2 class="heading rv d1 tw-text-[2.25rem] lg:tw-text-[4rem] tw-font-medium tw-leading-[1.08] tw-tracking-tight tw-mb-5">Enkel<br>installation</h2>
-          <p class="desc on-orange rv d2 tw-text-[1rem] lg:tw-text-[1.125rem] tw-font-normal tw-leading-[1.7] tw-text-cream tw-mb-8">Monteras ihop och installeras p&#229; n&#229;gra minuter.<br>Ingen elektriker kr&#228;vs.</p>
+          <h2
+            class="heading rv d1 tw-text-[2.25rem] lg:tw-text-[4rem] tw-font-medium tw-leading-[1.08] tw-tracking-tight tw-mb-5">
+            Enkel<br>installation</h2>
+          <p
+            class="desc on-orange rv d2 tw-text-[1rem] lg:tw-text-[1.125rem] tw-font-normal tw-leading-[1.7] tw-text-cream tw-mb-8">
+            Monteras ihop och installeras p&#229; n&#229;gra minuter.<br>Ingen elektriker kr&#228;vs.</p>
           <div class="btn-row rv d3 
   tw-flex tw-flex-row 
   tw-gap-3 lg:tw-gap-10">
@@ -301,10 +656,18 @@
   <div class="section tw-relative tw-w-full tw-border-t-2 tw-border-cream" id="sec-3">
     <div class="sticky tw-w-full tw-overflow-hidden">
       <!-- Text panel (left, cream) -->
-      <div class="panel bg-cream tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-cream tw-text-[#1a1a1a]">
+      <div
+        class="panel bg-cream tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-cream tw-text-[#1a1a1a]">
         <div class="panel-text tw-w-full tw-px-[32px] lg:tw-px-[60px] tw-mx-auto lg:tw-mx-0">
-          <h2 class="heading rv d1 tw-text-[2.25rem] lg:tw-text-[4rem] tw-font-medium tw-leading-[1.08] tw-tracking-tight tw-mb-2" style="color:#1a1a1a;">Sm&#229; detaljer,<br>stor skillnad</h2>
-          <p class="desc on-dark rv d2 tw-text-[1rem] lg:tw-text-[1.125rem] tw-font-normal tw-leading-[1.7] tw-text-[#000] tw-mb-4">Armaturerna f&#246;renar form och teknik med ett starkt anv&#228;ndarperspektiv. Varje <br class="max-lg:tw-hidden"> funktion &#228;r designad f&#246;r att s&#228;kra individuellt r&#228;tt ljus f&#246;r jobbet och f&#246;r att uppfylla <br class="max-lg:tw-hidden"> behovet av medvetet valda, h&#229;llbara arbetsredskap.</p>
+          <h2
+            class="heading rv d1 tw-text-[2.25rem] lg:tw-text-[4rem] tw-font-medium tw-leading-[1.08] tw-tracking-tight tw-mb-2"
+            style="color:#1a1a1a;">Sm&#229; detaljer,<br>stor skillnad</h2>
+          <p
+            class="desc on-dark rv d2 tw-text-[1rem] lg:tw-text-[1.125rem] tw-font-normal tw-leading-[1.7] tw-text-[#000] tw-mb-4">
+            Armaturerna f&#246;renar form och teknik med ett starkt anv&#228;ndarperspektiv. Varje <br
+              class="max-lg:tw-hidden"> funktion &#228;r designad f&#246;r att s&#228;kra individuellt r&#228;tt ljus
+            f&#246;r jobbet och f&#246;r att uppfylla <br class="max-lg:tw-hidden"> behovet av medvetet valda,
+            h&#229;llbara arbetsredskap.</p>
           <div class="btn-row rv d3 
   tw-flex tw-flex-row 
   tw-gap-3 lg:tw-gap-10">
@@ -330,79 +693,158 @@
         </div>
       </div>
       <!-- Video panel (right, dark) -->
-      <div class="panel panel-video bg-dark tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-clara-dark">
-        <video src="scroll-video-2.mp4" muted autoplay playsinline preload="auto" data-vh-per-second="48" class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"></video>
+      <div
+        class="panel panel-video bg-dark tw-relative tw-flex tw-flex-col tw-justify-center tw-items-center tw-overflow-hidden tw-bg-clara-dark">
+        <video src="scroll-video-2.mp4" muted autoplay playsinline preload="auto" data-vh-per-second="48"
+          class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"></video>
         <div class="vid-gradient vid-gradient-bottom tw-absolute tw-inset-0 tw-pointer-events-none"></div>
-        <div class="float-label scroll-fade tw-absolute tw-z-[2] tw-flex tw-items-center tw-gap-12" style="bottom:5rem;left:4rem;text-align:left;">
-          <p class="float-tag tw-text-[1.5rem] lg:tw-text-[2.25rem] tw-font-medium tw-leading-[1.2] tw-tracking-tight">N&#228;rvaro-<br>styrd</p>
-          <p class="float-tag-desc tw-text-[.875rem] lg:tw-text-[1.25rem] tw-font-normal tw-text-cream tw-leading-normal">Lyser inte i on&#246;dan.</p>
+        <div class="float-label scroll-fade tw-absolute tw-z-[2] tw-flex tw-items-center tw-gap-12"
+          style="bottom:5rem;left:4rem;text-align:left;">
+          <p class="float-tag tw-text-[1.5rem] lg:tw-text-[2.25rem] tw-font-medium tw-leading-[1.2] tw-tracking-tight">
+            N&#228;rvaro-<br>styrd</p>
+          <p
+            class="float-tag-desc tw-text-[.875rem] lg:tw-text-[1.25rem] tw-font-normal tw-text-cream tw-leading-normal">
+            Lyser inte i on&#246;dan.</p>
         </div>
       </div>
     </div>
   </div>
 
   <div class="light-switcher-wrapper tw-w-full" id="light-switcher-wrapper">
-  <!-- ===== SECTION 4: LightSwitcher ===== -->
-  <section class="light-switcher tw-h-[calc(100vh-72px)] tw-w-full tw-overflow-hidden tw-relative" id="light-switcher">
-    <div class="lamp-container tw-absolute tw-inset-0 tw-w-full tw-h-full" id="lamp-container">
-      <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-off.jpg"        data-lamp="off"        alt="Clara lampa &#8211; sl&#228;ckt">
-      <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-up-cold.jpg"    data-lamp="up-cold"    alt="Clara lampa &#8211; uppljus kallt">
-      <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-up-warm.jpg"    data-lamp="up-warm"    alt="Clara lampa &#8211; uppljus varmt">
-      <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-down-cold.jpg"  data-lamp="down-cold"  alt="Clara lampa &#8211; nedljus kallt">
-      <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-down-warm.jpg"  data-lamp="down-warm"  alt="Clara lampa &#8211; nedljus varmt">
-      <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-both-cold.jpg"  data-lamp="both-cold"  alt="Clara lampa &#8211; b&#229;da kallt">
-      <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-both-warm.jpg"  data-lamp="both-warm"  alt="Clara lampa &#8211; b&#229;da varmt">
-      <!-- Desktop: clickable hotspots over physical lamp buttons -->
-      <div class="lamp-hotspots" id="lamp-hotspots">
-        <!-- data-ix / data-iy = position in the ORIGINAL image (0-1) -->
-        <div class="lamp-hotspot" id="hotspot-up"   data-ix="0.4206" data-iy="0.4244" data-tip="Uppljus &#8211; tryck / h&#229;ll"></div>
-        <div class="lamp-hotspot" id="hotspot-temp" data-ix="0.4507" data-iy="0.4034" data-tip="F&#228;rgtemperatur"></div>
-        <div class="lamp-hotspot" id="hotspot-down" data-ix="0.4808" data-iy="0.3831" data-tip="Nedljus &#8211; tryck / h&#229;ll"></div>
-      </div>
-    </div>
-    <div class="light-switcher-controls tw-absolute tw-bottom-8 tw-left-1/2 tw-z-[3] tw-flex tw-flex-col tw-items-center tw-opacity-0" style="transform:translateX(-50%) translateY(20px)">
-      <p class="subtitle tw-text-cream tw-text-[0.9rem] tw-font-light tw-mb-4 tw-text-center">Tryck f&#246;r att t&#228;nda. H&#229;ll inne f&#246;r att dimma.</p>
-      <div class="controls tw-flex tw-items-center tw-gap-6 tw-rounded-full tw-px-3 tw-py-2">
-        <div class="dimmer-touch tw-relative tw-w-14 tw-h-14 tw-cursor-pointer tw-flex tw-flex-col tw-items-center tw-justify-center tw-select-none tw-touch-none tw-transition-transform tw-duration-200" id="dimmer-up">
-          <svg class="ring tw-absolute tw-inset-0 tw-w-full tw-h-full -tw-rotate-90" viewBox="0 0 68 68"><circle class="ring-bg tw-fill-none tw-stroke-white/[0.12]" style="stroke-width:2" cx="34" cy="34" r="30"/><circle class="ring-fill" cx="34" cy="34" r="30"/></svg>
-          <svg class="dimmer-icon tw-z-[1] tw-pointer-events-none tw-text-cream tw-transition-colors tw-duration-300" viewBox="0 0 40 40" width="28" height="28"><circle cx="20" cy="20" r="13" fill="currentColor"/><circle cx="20" cy="20" r="10.5" fill="#221f21"/><path d="M13,20 a7,7 0 0,1 14,0 z" fill="currentColor"/></svg>
-        </div>
-        <button class="temp-btn cold tw-w-14 tw-h-14 tw-rounded-full tw-border-2 tw-cursor-pointer tw-flex tw-items-center tw-justify-center tw-transition-all tw-duration-500 tw-bg-transparent" id="btn-temp" type="button">
-          <svg class="temp-icon tw-pointer-events-none" viewBox="-95 -100 190 200" width="22" height="22"><g transform="translate(-1162,1306) scale(1,-1)"><path d="m 1245.53,1266.27 -21.18,12.23 c 2.96,6.66 4.76,13.36 5.52,20.61 h 24.46 v 14.17 h -24.46 c -0.76,7.25 -2.56,13.95 -5.52,20.61 l 21.18,12.23 -7.08,12.27 -21.19,-12.23 c -4.28,5.9 -9.19,10.81 -15.09,15.09 l 12.24,21.18 -12.28,7.09 -12.23,-21.18 c -6.66,2.96 -13.36,4.76 -20.61,5.52 v 24.46 h -14.17 v -24.46 c -7.25,-0.76 -13.95,-2.56 -20.61,-5.52 l -12.23,21.18 -12.27,-7.09 12.23,-21.18 c -5.9,-4.28 -10.81,-9.19 -15.09,-15.09 l -21.18,12.23 -7.09,-12.27 21.19,-12.23 c -2.97,-6.66 -4.77,-13.36 -5.53,-20.61 h -24.46 v -14.17 h 24.46 c 0.76,-7.25 2.56,-13.95 5.53,-20.61 l -21.19,-12.23 7.09,-12.27 21.18,12.23 c 4.28,-5.9 9.19,-10.81 15.09,-15.09 l -12.23,-21.18 12.27,-7.09 12.23,21.18 c 6.66,-2.96 13.36,-4.76 20.61,-5.51 v -24.47 h 14.17 v 24.47 c 7.25,0.75 13.95,2.55 20.61,5.51 l 12.23,-21.18 12.28,7.09 -12.24,21.18 c 5.9,4.28 10.81,9.19 15.09,15.09 l 21.19,-12.23 7.08,12.27" fill="currentColor" fill-rule="nonzero"/><path d="m 1213.23,1306.2 c 0,-28.18 -22.85,-51.03 -51.02,-51.03 -28.18,0 -51.03,22.85 -51.03,51.03 0,28.18 22.85,51.02 51.03,51.02 28.17,0 51.02,-22.84 51.02,-51.02" fill="#221f21"/><path d="m 1162.21,1272.18 c -18.78,0 -34.01,15.23 -34.01,34.02 0,18.78 15.23,34.01 34.01,34.01 v -68.03" fill="currentColor"/></g></svg>
-        </button>
-        <div class="dimmer-touch tw-relative tw-w-14 tw-h-14 tw-cursor-pointer tw-flex tw-flex-col tw-items-center tw-justify-center tw-select-none tw-touch-none tw-transition-transform tw-duration-200" id="dimmer-down">
-          <svg class="ring tw-absolute tw-inset-0 tw-w-full tw-h-full -tw-rotate-90" viewBox="0 0 68 68"><circle class="ring-bg tw-fill-none tw-stroke-white/[0.12]" style="stroke-width:2" cx="34" cy="34" r="30"/><circle class="ring-fill" cx="34" cy="34" r="30"/></svg>
-          <svg class="dimmer-icon tw-z-[1] tw-pointer-events-none tw-text-cream tw-transition-colors tw-duration-300" viewBox="0 0 40 40" width="28" height="28"><circle cx="20" cy="20" r="13" fill="currentColor"/><circle cx="20" cy="20" r="10.5" fill="#221f21"/><path d="M13,20 a7,7 0 0,0 14,0 z" fill="currentColor"/></svg>
+    <!-- ===== SECTION 4: LightSwitcher ===== -->
+    <section class="light-switcher tw-h-[calc(100vh-72px)] tw-w-full tw-overflow-hidden tw-relative"
+      id="light-switcher">
+      <div class="lamp-container tw-absolute tw-inset-0 tw-w-full tw-h-full" id="lamp-container">
+        <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-off.jpg" data-lamp="off"
+          alt="Clara lampa &#8211; sl&#228;ckt">
+        <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-up-cold.jpg"
+          data-lamp="up-cold" alt="Clara lampa &#8211; uppljus kallt">
+        <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-up-warm.jpg"
+          data-lamp="up-warm" alt="Clara lampa &#8211; uppljus varmt">
+        <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-down-cold.jpg"
+          data-lamp="down-cold" alt="Clara lampa &#8211; nedljus kallt">
+        <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-down-warm.jpg"
+          data-lamp="down-warm" alt="Clara lampa &#8211; nedljus varmt">
+        <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-both-cold.jpg"
+          data-lamp="both-cold" alt="Clara lampa &#8211; b&#229;da kallt">
+        <img class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover" src="lamp-both-warm.jpg"
+          data-lamp="both-warm" alt="Clara lampa &#8211; b&#229;da varmt">
+        <!-- Desktop: clickable hotspots over physical lamp buttons -->
+        <div class="lamp-hotspots" id="lamp-hotspots">
+          <!-- data-ix / data-iy = position in the ORIGINAL image (0-1) -->
+          <div class="lamp-hotspot" id="hotspot-up" data-ix="0.4206" data-iy="0.4244"
+            data-tip="Uppljus &#8211; tryck / h&#229;ll"></div>
+          <div class="lamp-hotspot" id="hotspot-temp" data-ix="0.4507" data-iy="0.4034" data-tip="F&#228;rgtemperatur">
+          </div>
+          <div class="lamp-hotspot" id="hotspot-down" data-ix="0.4808" data-iy="0.3831"
+            data-tip="Nedljus &#8211; tryck / h&#229;ll"></div>
         </div>
       </div>
-      <p class="status-text tw-mt-4 tw-text-cream tw-text-sm tw-tracking-wide" id="status-text">Sl&#228;ckt</p>
-    </div>
-  </section>
+      <div
+        class="light-switcher-controls tw-absolute tw-bottom-8 tw-left-1/2 tw-z-[3] tw-flex tw-flex-col tw-items-center tw-opacity-0"
+        style="transform:translateX(-50%) translateY(20px)">
+        <p class="subtitle tw-text-cream tw-text-[0.9rem] tw-font-light tw-mb-4 tw-text-center">Tryck f&#246;r att
+          t&#228;nda. H&#229;ll inne f&#246;r att dimma.</p>
+        <div class="controls tw-flex tw-items-center tw-gap-6 tw-rounded-full tw-px-3 tw-py-2">
+          <div
+            class="dimmer-touch tw-relative tw-w-14 tw-h-14 tw-cursor-pointer tw-flex tw-flex-col tw-items-center tw-justify-center tw-select-none tw-touch-none tw-transition-transform tw-duration-200"
+            id="dimmer-up">
+            <svg class="ring tw-absolute tw-inset-0 tw-w-full tw-h-full -tw-rotate-90" viewBox="0 0 68 68">
+              <circle class="ring-bg tw-fill-none tw-stroke-white/[0.12]" style="stroke-width:2" cx="34" cy="34"
+                r="30" />
+              <circle class="ring-fill" cx="34" cy="34" r="30" />
+            </svg>
+            <svg class="dimmer-icon tw-z-[1] tw-pointer-events-none tw-text-cream tw-transition-colors tw-duration-300"
+              viewBox="0 0 40 40" width="28" height="28">
+              <circle cx="20" cy="20" r="13" fill="currentColor" />
+              <circle cx="20" cy="20" r="10.5" fill="#221f21" />
+              <path d="M13,20 a7,7 0 0,1 14,0 z" fill="currentColor" />
+            </svg>
+          </div>
+          <button
+            class="temp-btn cold tw-w-14 tw-h-14 tw-rounded-full tw-border-2 tw-cursor-pointer tw-flex tw-items-center tw-justify-center tw-transition-all tw-duration-500 tw-bg-transparent"
+            id="btn-temp" type="button">
+            <svg class="temp-icon tw-pointer-events-none" viewBox="-95 -100 190 200" width="22" height="22">
+              <g transform="translate(-1162,1306) scale(1,-1)">
+                <path
+                  d="m 1245.53,1266.27 -21.18,12.23 c 2.96,6.66 4.76,13.36 5.52,20.61 h 24.46 v 14.17 h -24.46 c -0.76,7.25 -2.56,13.95 -5.52,20.61 l 21.18,12.23 -7.08,12.27 -21.19,-12.23 c -4.28,5.9 -9.19,10.81 -15.09,15.09 l 12.24,21.18 -12.28,7.09 -12.23,-21.18 c -6.66,2.96 -13.36,4.76 -20.61,5.52 v 24.46 h -14.17 v -24.46 c -7.25,-0.76 -13.95,-2.56 -20.61,-5.52 l -12.23,21.18 -12.27,-7.09 12.23,-21.18 c -5.9,-4.28 -10.81,-9.19 -15.09,-15.09 l -21.18,12.23 -7.09,-12.27 21.19,-12.23 c -2.97,-6.66 -4.77,-13.36 -5.53,-20.61 h -24.46 v -14.17 h 24.46 c 0.76,-7.25 2.56,-13.95 5.53,-20.61 l -21.19,-12.23 7.09,-12.27 21.18,12.23 c 4.28,-5.9 9.19,-10.81 15.09,-15.09 l -12.23,-21.18 12.27,-7.09 12.23,21.18 c 6.66,-2.96 13.36,-4.76 20.61,-5.51 v -24.47 h 14.17 v 24.47 c 7.25,0.75 13.95,2.55 20.61,5.51 l 12.23,-21.18 12.28,7.09 -12.24,21.18 c 5.9,4.28 10.81,9.19 15.09,15.09 l 21.19,-12.23 7.08,12.27"
+                  fill="currentColor" fill-rule="nonzero" />
+                <path
+                  d="m 1213.23,1306.2 c 0,-28.18 -22.85,-51.03 -51.02,-51.03 -28.18,0 -51.03,22.85 -51.03,51.03 0,28.18 22.85,51.02 51.03,51.02 28.17,0 51.02,-22.84 51.02,-51.02"
+                  fill="#221f21" />
+                <path
+                  d="m 1162.21,1272.18 c -18.78,0 -34.01,15.23 -34.01,34.02 0,18.78 15.23,34.01 34.01,34.01 v -68.03"
+                  fill="currentColor" />
+              </g>
+            </svg>
+          </button>
+          <div
+            class="dimmer-touch tw-relative tw-w-14 tw-h-14 tw-cursor-pointer tw-flex tw-flex-col tw-items-center tw-justify-center tw-select-none tw-touch-none tw-transition-transform tw-duration-200"
+            id="dimmer-down">
+            <svg class="ring tw-absolute tw-inset-0 tw-w-full tw-h-full -tw-rotate-90" viewBox="0 0 68 68">
+              <circle class="ring-bg tw-fill-none tw-stroke-white/[0.12]" style="stroke-width:2" cx="34" cy="34"
+                r="30" />
+              <circle class="ring-fill" cx="34" cy="34" r="30" />
+            </svg>
+            <svg class="dimmer-icon tw-z-[1] tw-pointer-events-none tw-text-cream tw-transition-colors tw-duration-300"
+              viewBox="0 0 40 40" width="28" height="28">
+              <circle cx="20" cy="20" r="13" fill="currentColor" />
+              <circle cx="20" cy="20" r="10.5" fill="#221f21" />
+              <path d="M13,20 a7,7 0 0,0 14,0 z" fill="currentColor" />
+            </svg>
+          </div>
+        </div>
+        <p class="status-text tw-mt-4 tw-text-cream tw-text-sm tw-tracking-wide" id="status-text">Sl&#228;ckt</p>
+      </div>
+    </section>
   </div><!-- /light-switcher-wrapper -->
 
-    <a href="#" class="max-md:tw-mt-[24px] tw-text-[1.0625rem] tw-uppercase hover:tw-bg-[#f79a6d] tw-bg-[#f15a25] tw-text-[#2e2d2d] tw-font-grotesk tw-font-normal tw-no-underline tw-rounded-[6px] tw-cursor-pointer tw-border-none tw-flex tw-w-[20vw] tw-min-w-[230px] tw-mx-auto tw-justify-center tw-py-4 tw-my-[64px]">PRODUKTER</a>
+  <a href="#"
+    class="max-md:tw-mt-[24px] tw-text-[1.0625rem] tw-uppercase hover:tw-bg-[#f79a6d] tw-bg-[#f15a25] tw-text-[#2e2d2d] tw-font-grotesk tw-font-normal tw-no-underline tw-rounded-[6px] tw-cursor-pointer tw-border-none tw-flex tw-w-[20vw] tw-min-w-[230px] tw-mx-auto tw-justify-center tw-py-4 tw-my-[64px]">PRODUKTER</a>
 
 
-     <!-- CTA -->
+  <!-- CTA -->
   <section class="cta-section tw-pt-[120px] tw-pb-[80px] xl:tw-px-[110px] tw-px-[60px] tw-bg-clara-grey">
-    <div class="cta-inner xl:tw-grid xl:tw-grid-cols-[1fr_1.2fr] xl:tw-gap-[220px]" >
+    <div class="cta-inner xl:tw-grid xl:tw-grid-cols-[1fr_1.2fr] xl:tw-gap-[220px]">
       <div class="cta-left fade-in">
-        <h2 class="tw-text-[2.25rem] lg:tw-text-[3rem] tw-leading-[1.15] tw-mb-[28px] lg:tw-mb-[42px] tw-font-normal tw-text-[#f9f7f4]">Fr&#229;n klarhet till klarhet</h2>
-        <p class="tw-text-[1.25rem] lg:tw-text-[1.75rem] tw-leading-[1.5rem] lg:tw-leading-[2.25rem] tw-font-normal tw-text-[#f9f7f4] tw-mb-10">Vi p&#229; Clara v&#228;grar kompromissa n&#228;r det g&#228;ller kvalitet, stil och funktionalitet. Hela id&#233;n &#228;r att aktivt skapa ljusmilj&#246;er som &#228;r tilltalande, inspirerande och ergonomiska.</p>
-        <a href="mailto:kontakt@clarasweden.se?subject=Kontakt" class="tw-inline-flex tw-items-center tw-justify-center tw-py-3.5 tw-px-9 tw-bg-[#f15a25] hover:tw-bg-[#f79a6d] tw-text-[#2e2d2d] tw-font-grotesk tw-text-[1.0625rem] tw-font-normal tw-uppercase tw-no-underline tw-rounded-[6px] tw-border-none tw-cursor-pointer tw-transition-all tw-duration-300 tw-w-full tw-w-1/4 xl:tw-w-1/2">Kontakta oss</a>
+        <h2
+          class="tw-text-[2.25rem] lg:tw-text-[3rem] tw-leading-[1.15] tw-mb-[28px] lg:tw-mb-[42px] tw-font-normal tw-text-[#f9f7f4]">
+          Fr&#229;n klarhet till klarhet</h2>
+        <p
+          class="tw-text-[1.25rem] lg:tw-text-[1.75rem] tw-leading-[1.5rem] lg:tw-leading-[2.25rem] tw-font-normal tw-text-[#f9f7f4] tw-mb-10">
+          Vi p&#229; Clara v&#228;grar kompromissa n&#228;r det g&#228;ller kvalitet, stil och funktionalitet. Hela
+          id&#233;n &#228;r att aktivt skapa ljusmilj&#246;er som &#228;r tilltalande, inspirerande och ergonomiska.</p>
+        <a href="mailto:kontakt@clarasweden.se?subject=Kontakt"
+          class="tw-inline-flex tw-items-center tw-justify-center tw-py-3.5 tw-px-9 tw-bg-[#f15a25] hover:tw-bg-[#f79a6d] tw-text-[#2e2d2d] tw-font-grotesk tw-text-[1.0625rem] tw-font-normal tw-uppercase tw-no-underline tw-rounded-[6px] tw-border-none tw-cursor-pointer tw-transition-all tw-duration-300 tw-w-full tw-w-1/4 xl:tw-w-1/2">Kontakta
+          oss</a>
       </div>
       <div class="cta-right fade-in tw-flex tw-flex-col tw-justify-center tw-mt-[60px] lg:tw-mt-[120px] xl:tw-mt-[0px]">
         <div class="tw-pb-[28px] lg:tw-pb-[40px] tw-mb-[32px] lg:tw-mb-[40px] tw-border-b tw-border-[#f9f7f4]">
-          <h4 class="tw-text-[1.5rem] lg:tw-text-[1.75rem] tw-leading-[1.6875rem] lg:tw-leading-[2.25rem] tw-font-normal tw-mb-[8px] lg:tw-mb-[18px] tw-text-[#f9f7f4]">Specialister p&#229; unikt arbetsljus</h4>
-          <p class="tw-text-[.875rem] lg:tw-text-[1.25rem] tw-leading-[1.25rem] lg:tw-leading-[1.75rem] tw-font-normal tw-leading-[1.7] tw-text-[#f9f7f4]">Genom att f&#246;rst&#229; hur ljus f&#246;rb&#228;ttrar produktivitet och v&#228;lm&#229;ende p&#229; arbetsplatser, optimerar vi varje l&#246;sning.</p>
+          <h4
+            class="tw-text-[1.5rem] lg:tw-text-[1.75rem] tw-leading-[1.6875rem] lg:tw-leading-[2.25rem] tw-font-normal tw-mb-[8px] lg:tw-mb-[18px] tw-text-[#f9f7f4]">
+            Specialister p&#229; unikt arbetsljus</h4>
+          <p
+            class="tw-text-[.875rem] lg:tw-text-[1.25rem] tw-leading-[1.25rem] lg:tw-leading-[1.75rem] tw-font-normal tw-leading-[1.7] tw-text-[#f9f7f4]">
+            Genom att f&#246;rst&#229; hur ljus f&#246;rb&#228;ttrar produktivitet och v&#228;lm&#229;ende p&#229;
+            arbetsplatser, optimerar vi varje l&#246;sning.</p>
         </div>
         <div class="tw-pb-[28px] lg:tw-pb-[40px] tw-mb-[32px] lg:tw-mb-[40px] tw-border-b tw-border-[#f9f7f4]">
-          <h4 class="tw-text-[1.5rem] lg:tw-text-[1.75rem] tw-leading-[1.6875rem] lg:tw-leading-[2.25rem] tw-font-normal tw-mb-[8px] lg:tw-mb-[18px] tw-text-[#f9f7f4]">Del av n&#229;got st&#246;rre</h4>
-          <p class="tw-text-[.875rem] lg:tw-text-[1.25rem] tw-leading-[1.25rem] lg:tw-leading-[1.75rem] tw-font-normal tw-text-[#f9f7f4]">Clara &#228;r ett sj&#228;lvst&#228;ndigt varum&#228;rke inom Agolux som ing&#229;r i OEM-koncernen. Det inneb&#228;r tillg&#229;ng till marknadsledande kunskap, teknik och kvalitetss&#228;krad produktion.</p>
+          <h4
+            class="tw-text-[1.5rem] lg:tw-text-[1.75rem] tw-leading-[1.6875rem] lg:tw-leading-[2.25rem] tw-font-normal tw-mb-[8px] lg:tw-mb-[18px] tw-text-[#f9f7f4]">
+            Del av n&#229;got st&#246;rre</h4>
+          <p
+            class="tw-text-[.875rem] lg:tw-text-[1.25rem] tw-leading-[1.25rem] lg:tw-leading-[1.75rem] tw-font-normal tw-text-[#f9f7f4]">
+            Clara &#228;r ett sj&#228;lvst&#228;ndigt varum&#228;rke inom Agolux som ing&#229;r i OEM-koncernen. Det
+            inneb&#228;r tillg&#229;ng till marknadsledande kunskap, teknik och kvalitetss&#228;krad produktion.</p>
         </div>
         <div class="tw-pb-[28px] lg:tw-pb-[40px] tw-mb-[32px] lg:tw-mb-[40px] tw-border-b tw-border-[#f9f7f4]">
-          <h4 class="tw-text-[1.5rem] lg:tw-text-[1.75rem] tw-leading-[1.6875rem] lg:tw-leading-[2.25rem] tw-font-normal tw-mb-[8px] lg:tw-mb-[18px] tw-text-[#f9f7f4]">Snyggare, smartare, sundare</h4>
-          <p class="tw-text-[.875rem] lg:tw-text-[1.25rem] tw-leading-[1.25rem] lg:tw-leading-[1.75rem] tw-font-normal tw-text-[#f9f7f4]">H&#229;ll med om att en h&#229;llbar och vacker vardag bidrar till en ljusare framtid. Vi visar g&#228;rna konkreta siffror p&#229; det.</p>
+          <h4
+            class="tw-text-[1.5rem] lg:tw-text-[1.75rem] tw-leading-[1.6875rem] lg:tw-leading-[2.25rem] tw-font-normal tw-mb-[8px] lg:tw-mb-[18px] tw-text-[#f9f7f4]">
+            Snyggare, smartare, sundare</h4>
+          <p
+            class="tw-text-[.875rem] lg:tw-text-[1.25rem] tw-leading-[1.25rem] lg:tw-leading-[1.75rem] tw-font-normal tw-text-[#f9f7f4]">
+            H&#229;ll med om att en h&#229;llbar och vacker vardag bidrar till en ljusare framtid. Vi visar g&#228;rna
+            konkreta siffror p&#229; det.</p>
         </div>
       </div>
     </div>
@@ -410,191 +852,203 @@
   <!-- Footer -->
   <footer class="site-footer tw-bg-[#f15a25] tw-text-black tw-pt-[100px] tw-pb-[80px] tw-px-[20px] lg:tw-px-[80px]">
     <div class="tw-flex tw-justify-center tw-mb-12">
-      <svg width="149" height="48" viewBox="0 0 100 34" fill="none"><path d="M7.82525 26.4863C6.73988 25.3837 6.20083 24.0145 6.20083 22.3731C6.20083 20.7318 6.73988 19.3626 7.82525 18.26C8.90516 17.1574 10.2874 16.6051 11.9701 16.6051C13.3104 16.6051 14.4722 16.9585 15.452 17.6595C16.4336 18.3566 17.1074 19.3008 17.4771 20.4884L22.8092 17.2481C21.9952 15.487 20.7714 14.0271 19.1288 12.8724C17.1219 11.455 14.7327 10.7444 11.9701 10.7444C8.46445 10.7444 5.59805 11.8663 3.37995 14.0986C1.12544 16.3367 0 19.0942 0 22.3731C0 25.6521 1.11997 28.4135 3.35628 30.6458C5.59258 32.8839 8.46263 34 11.9682 34C13.966 34 15.767 33.6331 17.3678 32.8935C17.9851 32.6077 18.5697 32.2678 19.127 31.8778C20.7696 30.7191 21.997 29.2573 22.8129 27.4924L17.4807 24.2521C17.4497 24.3621 17.4133 24.4664 17.3678 24.5707C16.9854 25.6154 16.3462 26.4515 15.4502 27.0907C14.4686 27.7917 13.3086 28.1412 11.9682 28.1412C10.2855 28.1412 8.90516 27.5928 7.82343 26.4863M25.5627 33.552H31.545V0L25.5627 3.6381V33.552ZM51.7792 24.3525C51.7574 24.4239 51.73 24.4954 51.6973 24.5668C51.3112 25.6173 50.6756 26.4554 49.7815 27.0965C48.7963 27.7975 47.6344 28.1412 46.2941 28.1412C44.615 28.1412 43.2346 27.5928 42.1493 26.4863C41.4026 25.7332 40.9164 24.8449 40.6833 23.833C40.6705 23.7654 40.656 23.7036 40.6432 23.638C40.5667 23.2363 40.5267 22.8134 40.5267 22.3731C40.5267 21.9329 40.5631 21.5486 40.6341 21.1604C40.8417 20.0482 41.3443 19.0846 42.1511 18.2639C43.2346 17.1574 44.6168 16.6032 46.2959 16.6032C47.6362 16.6032 48.7981 16.9604 49.7833 17.6537C50.6793 18.2928 51.313 19.1328 51.6991 20.1833C51.73 20.2548 51.7574 20.3262 51.781 20.3977V24.3525H51.7792ZM52.4184 33.5462H57.6595V11.1846H52.4184V13.6738C50.7976 11.903 48.6706 10.9297 46.0337 10.7482C42.6446 10.8004 39.8729 11.9223 37.704 14.0986C36.2107 15.5816 35.2109 17.2964 34.7119 19.2333C34.7028 19.2526 34.6992 19.2757 34.6992 19.2951C34.4478 20.2644 34.3258 21.2898 34.3258 22.3731C34.3258 23.5279 34.4661 24.6209 34.7483 25.6463C35.2528 27.531 36.238 29.1955 37.6858 30.6477C39.8547 32.824 42.6136 33.9343 45.9736 34.0019C48.616 33.8301 50.7649 32.8568 52.4166 31.0725V33.5481L52.4184 33.5462ZM67.1966 16.6939H76.1728V11.1924H61.2125V33.552H67.1966V16.692V16.6939ZM94.1179 24.3525C94.096 24.4239 94.0687 24.4954 94.0377 24.5668C93.6517 25.6173 93.0161 26.4554 92.1201 27.0965C91.1349 27.7975 89.9731 28.1412 88.6327 28.1412C86.9537 28.1412 85.5733 27.5928 84.4879 26.4863C83.7413 25.7332 83.255 24.8449 83.0219 23.833C83.0074 23.7654 82.9946 23.7036 82.9819 23.638C82.9054 23.2363 82.8653 22.8134 82.8653 22.3731C82.8653 21.9329 82.9017 21.5486 82.9728 21.1604C83.1804 20.0482 83.683 19.0846 84.4897 18.2639C85.5733 17.1574 86.9555 16.6032 88.6345 16.6032C89.9749 16.6032 91.1367 16.9604 92.1219 17.6537C93.0179 18.2928 93.6517 19.1328 94.0396 20.1833C94.0705 20.2548 94.0978 20.3262 94.1197 20.3977V24.3525H94.1179ZM100 33.5462V11.1846H94.7589V13.6738C93.1399 11.903 91.0111 10.9297 88.3741 10.7482C84.9851 10.8004 82.2134 11.9223 80.0444 14.0986C78.5511 15.5816 77.5514 17.2964 77.0524 19.2333C77.0433 19.2526 77.0378 19.2757 77.0378 19.2951C76.7865 20.2644 76.6645 21.2898 76.6645 22.3731C76.6645 23.5279 76.8029 24.6209 77.087 25.6463C77.5914 27.531 78.5766 29.1955 80.0244 30.6477C82.1933 32.824 84.9523 33.9343 88.3122 34.0019C90.9528 33.8301 93.1035 32.8568 94.7552 31.0725V33.5481H99.9964L100 33.5462Z" fill="#000"/></svg>
+      <svg width="149" height="48" viewBox="0 0 100 34" fill="none">
+        <path
+          d="M7.82525 26.4863C6.73988 25.3837 6.20083 24.0145 6.20083 22.3731C6.20083 20.7318 6.73988 19.3626 7.82525 18.26C8.90516 17.1574 10.2874 16.6051 11.9701 16.6051C13.3104 16.6051 14.4722 16.9585 15.452 17.6595C16.4336 18.3566 17.1074 19.3008 17.4771 20.4884L22.8092 17.2481C21.9952 15.487 20.7714 14.0271 19.1288 12.8724C17.1219 11.455 14.7327 10.7444 11.9701 10.7444C8.46445 10.7444 5.59805 11.8663 3.37995 14.0986C1.12544 16.3367 0 19.0942 0 22.3731C0 25.6521 1.11997 28.4135 3.35628 30.6458C5.59258 32.8839 8.46263 34 11.9682 34C13.966 34 15.767 33.6331 17.3678 32.8935C17.9851 32.6077 18.5697 32.2678 19.127 31.8778C20.7696 30.7191 21.997 29.2573 22.8129 27.4924L17.4807 24.2521C17.4497 24.3621 17.4133 24.4664 17.3678 24.5707C16.9854 25.6154 16.3462 26.4515 15.4502 27.0907C14.4686 27.7917 13.3086 28.1412 11.9682 28.1412C10.2855 28.1412 8.90516 27.5928 7.82343 26.4863M25.5627 33.552H31.545V0L25.5627 3.6381V33.552ZM51.7792 24.3525C51.7574 24.4239 51.73 24.4954 51.6973 24.5668C51.3112 25.6173 50.6756 26.4554 49.7815 27.0965C48.7963 27.7975 47.6344 28.1412 46.2941 28.1412C44.615 28.1412 43.2346 27.5928 42.1493 26.4863C41.4026 25.7332 40.9164 24.8449 40.6833 23.833C40.6705 23.7654 40.656 23.7036 40.6432 23.638C40.5667 23.2363 40.5267 22.8134 40.5267 22.3731C40.5267 21.9329 40.5631 21.5486 40.6341 21.1604C40.8417 20.0482 41.3443 19.0846 42.1511 18.2639C43.2346 17.1574 44.6168 16.6032 46.2959 16.6032C47.6362 16.6032 48.7981 16.9604 49.7833 17.6537C50.6793 18.2928 51.313 19.1328 51.6991 20.1833C51.73 20.2548 51.7574 20.3262 51.781 20.3977V24.3525H51.7792ZM52.4184 33.5462H57.6595V11.1846H52.4184V13.6738C50.7976 11.903 48.6706 10.9297 46.0337 10.7482C42.6446 10.8004 39.8729 11.9223 37.704 14.0986C36.2107 15.5816 35.2109 17.2964 34.7119 19.2333C34.7028 19.2526 34.6992 19.2757 34.6992 19.2951C34.4478 20.2644 34.3258 21.2898 34.3258 22.3731C34.3258 23.5279 34.4661 24.6209 34.7483 25.6463C35.2528 27.531 36.238 29.1955 37.6858 30.6477C39.8547 32.824 42.6136 33.9343 45.9736 34.0019C48.616 33.8301 50.7649 32.8568 52.4166 31.0725V33.5481L52.4184 33.5462ZM67.1966 16.6939H76.1728V11.1924H61.2125V33.552H67.1966V16.692V16.6939ZM94.1179 24.3525C94.096 24.4239 94.0687 24.4954 94.0377 24.5668C93.6517 25.6173 93.0161 26.4554 92.1201 27.0965C91.1349 27.7975 89.9731 28.1412 88.6327 28.1412C86.9537 28.1412 85.5733 27.5928 84.4879 26.4863C83.7413 25.7332 83.255 24.8449 83.0219 23.833C83.0074 23.7654 82.9946 23.7036 82.9819 23.638C82.9054 23.2363 82.8653 22.8134 82.8653 22.3731C82.8653 21.9329 82.9017 21.5486 82.9728 21.1604C83.1804 20.0482 83.683 19.0846 84.4897 18.2639C85.5733 17.1574 86.9555 16.6032 88.6345 16.6032C89.9749 16.6032 91.1367 16.9604 92.1219 17.6537C93.0179 18.2928 93.6517 19.1328 94.0396 20.1833C94.0705 20.2548 94.0978 20.3262 94.1197 20.3977V24.3525H94.1179ZM100 33.5462V11.1846H94.7589V13.6738C93.1399 11.903 91.0111 10.9297 88.3741 10.7482C84.9851 10.8004 82.2134 11.9223 80.0444 14.0986C78.5511 15.5816 77.5514 17.2964 77.0524 19.2333C77.0433 19.2526 77.0378 19.2757 77.0378 19.2951C76.7865 20.2644 76.6645 21.2898 76.6645 22.3731C76.6645 23.5279 76.8029 24.6209 77.087 25.6463C77.5914 27.531 78.5766 29.1955 80.0244 30.6477C82.1933 32.824 84.9523 33.9343 88.3122 34.0019C90.9528 33.8301 93.1035 32.8568 94.7552 31.0725V33.5481H99.9964L100 33.5462Z"
+          fill="#000" />
+      </svg>
     </div>
     <div class="tw-border-t tw-border-[#111] tw-mb-0"></div>
     <div class="tw-flex tw-flex-col lg:tw-flex-row tw-items-center tw-justify-between tw-py-6 lg:tw-mx-3.5 tw-gap-6">
 
-  <!-- Rad 1 -->
-  <div class="tw-flex tw-justify-center tw-gap-8 lg:tw-gap-24 tw-w-full lg:tw-w-auto">
-    <a href="mailto:kontakt@clarasweden.se?subject=Kontakt"
-       class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
-      Kontakt
-    </a>
-    <a href="#"
-       class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
-      Dokument
-    </a>
-  </div>
+      <!-- Rad 1 -->
+      <div class="tw-flex tw-justify-center tw-gap-8 lg:tw-gap-24 tw-w-full lg:tw-w-auto">
+        <a href="mailto:kontakt@clarasweden.se?subject=Kontakt"
+          class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
+          Kontakt
+        </a>
+        <a href="#" class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
+          Dokument
+        </a>
+      </div>
 
-  <!-- Rad 2 -->
-  <div class="tw-flex tw-justify-center tw-flex-wrap tw-gap-6 lg:tw-gap-12 tw-w-full lg:tw-w-auto">
-    <a href="https://clarasweden.se/cookies/"
-       class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
-      Cookies
-    </a>
-    <a href="https://www.agolux.se/om-oss/policies"
-       class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
-      Privacy Policy
-    </a>
-    <a href="#"
-       class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
-      Terms of Service
-    </a>
-  </div>
+      <!-- Rad 2 -->
+      <div class="tw-flex tw-justify-center tw-flex-wrap tw-gap-6 lg:tw-gap-12 tw-w-full lg:tw-w-auto">
+        <a href="https://clarasweden.se/cookies/"
+          class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
+          Cookies
+        </a>
+        <a href="https://www.agolux.se/om-oss/policies"
+          class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
+          Privacy Policy
+        </a>
+        <a href="#" class="tw-text-[#111] tw-no-underline tw-text-[.9375rem] tw-font-normal">
+          Terms of Service
+        </a>
+      </div>
 
-</div>
+    </div>
     <div class="tw-border-t tw-border-[#111] tw-mb-8"></div>
     <div class="footer-social tw-flex tw-justify-center tw-gap-4 tw-mb-6">
-      <a href="https://www.linkedin.com/company/clarasweden/" target="_blank" rel="noopener" class="tw-w-11 tw-h-11 tw-rounded-full tw-bg-black tw-flex tw-items-center tw-justify-center"><svg viewBox="0 0 24 24" width="18" height="18" fill="#f15a25"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-      <a href="https://www.instagram.com/clarasweden.se/" target="_blank" rel="noopener" class="tw-w-11 tw-h-11 tw-rounded-full tw-bg-black tw-flex tw-items-center tw-justify-center"><svg viewBox="0 0 24 24" width="18" height="18" fill="#f15a25"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="https://www.linkedin.com/company/clarasweden/" target="_blank" rel="noopener"
+        class="tw-w-11 tw-h-11 tw-rounded-full tw-bg-black tw-flex tw-items-center tw-justify-center"><svg
+          viewBox="0 0 24 24" width="18" height="18" fill="#f15a25">
+          <path
+            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg></a>
+      <a href="https://www.instagram.com/clarasweden.se/" target="_blank" rel="noopener"
+        class="tw-w-11 tw-h-11 tw-rounded-full tw-bg-black tw-flex tw-items-center tw-justify-center"><svg
+          viewBox="0 0 24 24" width="18" height="18" fill="#f15a25">
+          <path
+            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+        </svg></a>
     </div>
     <p class="tw-text-center tw-text-[0.85rem] tw-text-black tw-font-light">&#169; Clara. 2026.</p>
   </footer>
 
 
   <script>
-    /* ==========================================================
-       SCROLL-SCRUB VIDEO (per-section, reference-style)
-       Each section is a standalone scroll zone:
-         - outer .section gets tall height (viewport + scrub length)
-         - inner .sticky is pinned while scrubbing
-         - autoplay videos: section keeps normal viewport height,
-           video plays/pauses based on visibility (no scrub)
-       ========================================================== */
-    (function () {
-      var MAX_STEP = 0.1;
-      var DEFAULT_VH_PER_SEC = 40;
-      var STICKY_TOP = 72;
-      var STICKY_RATIO = 1.0; /* full viewport below nav */
+      /* ==========================================================
+         SCROLL-SCRUB VIDEO (per-section, reference-style)
+         Each section is a standalone scroll zone:
+           - outer .section gets tall height (viewport + scrub length)
+           - inner .sticky is pinned while scrubbing
+           - autoplay videos: section keeps normal viewport height,
+             video plays/pauses based on visibility (no scrub)
+         ========================================================== */
+      (function () {
+        var MAX_STEP = 0.1;
+        var DEFAULT_VH_PER_SEC = 40;
+        var STICKY_TOP = 72;
+        var STICKY_RATIO = 1.0; /* full viewport below nav */
 
-      var sections = Array.prototype.slice.call(document.querySelectorAll('.section'));
-      var state = [];
+        var sections = Array.prototype.slice.call(document.querySelectorAll('.section'));
+        var state = [];
 
-      sections.forEach(function (section) {
-        var video = section.querySelector('video');
-        if (!video) return;
-        var isAutoplay = video.hasAttribute('data-autoplay-video');
-        var vhps = parseFloat(video.getAttribute('data-vh-per-second')) || DEFAULT_VH_PER_SEC;
+        sections.forEach(function (section) {
+          var video = section.querySelector('video');
+          if (!video) return;
+          var isAutoplay = video.hasAttribute('data-autoplay-video');
+          var vhps = parseFloat(video.getAttribute('data-vh-per-second')) || DEFAULT_VH_PER_SEC;
 
-        var s = {
-          section: section,
-          video: video,
-          vhps: vhps,
-          isAutoplay: isAutoplay,
-          ready: false,
-          seeking: false,
-          pendingTime: null,
-          smoothTime: 0
-        };
-        state.push(s);
+          var s = {
+            section: section,
+            video: video,
+            vhps: vhps,
+            isAutoplay: isAutoplay,
+            ready: false,
+            seeking: false,
+            pendingTime: null,
+            smoothTime: 0
+          };
+          state.push(s);
 
-        if (isAutoplay) {
-          video.loop = true;
-          video.playbackRate = 2;
-          video.pause();
-          s.ready = true;
-          return;
-        }
+          if (isAutoplay) {
+            video.loop = true;
+            video.playbackRate = 2;
+            video.pause();
+            s.ready = true;
+            return;
+          }
 
-        function init() {
-          if (s.ready) return;
-          video.pause();
-          video.currentTime = 0;
-          s.ready = true;
-          sizeSections();
-        }
-        video.addEventListener('loadedmetadata', init, { once: true });
-        video.addEventListener('canplay', init, { once: true });
-        video.addEventListener('playing', function () { video.pause(); init(); }, { once: true });
-        if (video.readyState >= 1) init();
+          function init() {
+            if (s.ready) return;
+            video.pause();
+            video.currentTime = 0;
+            s.ready = true;
+            sizeSections();
+          }
+          video.addEventListener('loadedmetadata', init, { once: true });
+          video.addEventListener('canplay', init, { once: true });
+          video.addEventListener('playing', function () { video.pause(); init(); }, { once: true });
+          if (video.readyState >= 1) init();
 
-        video.addEventListener('seeked', function () {
-          s.seeking = false;
-          if (s.pendingTime !== null) {
-            var next = s.pendingTime;
-            s.pendingTime = null;
-            if (Math.abs(video.currentTime - next) > 0.01) {
-              s.seeking = true;
-              video.currentTime = next;
+          video.addEventListener('seeked', function () {
+            s.seeking = false;
+            if (s.pendingTime !== null) {
+              var next = s.pendingTime;
+              s.pendingTime = null;
+              if (Math.abs(video.currentTime - next) > 0.01) {
+                s.seeking = true;
+                video.currentTime = next;
+              }
             }
-          }
+          });
         });
-      });
 
-      var lastWidth = window.innerWidth;
-      function sizeSections() {
-        var vh = window.innerHeight;
-        var stickyH = vh * STICKY_RATIO - STICKY_TOP;
-        state.forEach(function (s) {
-          if (s.isAutoplay) {
-            /* Autoplay section: just sticky height, no scrub scroll */
-            s.section.style.height = stickyH + 'px';
-            return;
-          }
-          if (!s.ready || !s.video.duration) return;
-          /* Outer section = sticky height + scrub length */
-          var scrubPx = s.video.duration * vh * s.vhps / 100;
-          s.section.style.height = (stickyH + scrubPx) + 'px';
-        });
-      }
-      window.addEventListener('resize', function () {
-        if (window.innerWidth !== lastWidth) {
-          lastWidth = window.innerWidth;
-          sizeSections();
-        }
-      });
-
-      function seekTo(s, time) {
-        time = Math.max(0, Math.min(time, s.video.duration));
-        if (s.seeking) {
-          s.pendingTime = time;
-        } else if (Math.abs(s.video.currentTime - time) > 0.01) {
-          s.seeking = true;
-          s.video.currentTime = time;
-        }
-      }
-
-      function tick() {
-        var vh = window.innerHeight;
-        state.forEach(function (s) {
-          if (!s.ready) return;
-          var rect = s.section.getBoundingClientRect();
-          var visible = rect.bottom > STICKY_TOP && rect.top < vh;
-
-          if (s.isAutoplay) {
-            if (visible && s.video.paused) s.video.play().catch(function () {});
-            if (!visible && !s.video.paused) s.video.pause();
-            s.section.classList.toggle('in-view', visible);
-            return;
-          }
-
-          /* Scrub progress: how far the sticky has been pushed */
+        var lastWidth = window.innerWidth;
+        function sizeSections() {
+          var vh = window.innerHeight;
           var stickyH = vh * STICKY_RATIO - STICKY_TOP;
-          var scrollRange = rect.height - stickyH;
-          var progress = 0;
-          if (scrollRange > 0) {
-            progress = (STICKY_TOP - rect.top) / scrollRange;
-            progress = Math.max(0, Math.min(1, progress));
-          }
-          var targetTime = progress * s.video.duration;
-          var diff = targetTime - s.smoothTime;
-          s.smoothTime += Math.sign(diff) * Math.min(Math.abs(diff), MAX_STEP);
-          var newTime = Math.max(0, Math.min(s.smoothTime, s.video.duration));
-          seekTo(s, newTime);
-
-          s.section.classList.toggle('in-view', visible && progress > 0.02);
-
-          /* Float-label fade: trigger when scroll is ~15% in */
-          var floats = s.section.querySelectorAll('.scroll-fade');
-          for (var i = 0; i < floats.length; i++) {
-            floats[i].classList.toggle('visible', progress > 0.12);
+          state.forEach(function (s) {
+            if (s.isAutoplay) {
+              /* Autoplay section: just sticky height, no scrub scroll */
+              s.section.style.height = stickyH + 'px';
+              return;
+            }
+            if (!s.ready || !s.video.duration) return;
+            /* Outer section = sticky height + scrub length */
+            var scrubPx = s.video.duration * vh * s.vhps / 100;
+            s.section.style.height = (stickyH + scrubPx) + 'px';
+          });
+        }
+        window.addEventListener('resize', function () {
+          if (window.innerWidth !== lastWidth) {
+            lastWidth = window.innerWidth;
+            sizeSections();
           }
         });
+
+        function seekTo(s, time) {
+          time = Math.max(0, Math.min(time, s.video.duration));
+          if (s.seeking) {
+            s.pendingTime = time;
+          } else if (Math.abs(s.video.currentTime - time) > 0.01) {
+            s.seeking = true;
+            s.video.currentTime = time;
+          }
+        }
+
+        function tick() {
+          var vh = window.innerHeight;
+          state.forEach(function (s) {
+            if (!s.ready) return;
+            var rect = s.section.getBoundingClientRect();
+            var visible = rect.bottom > STICKY_TOP && rect.top < vh;
+
+            if (s.isAutoplay) {
+              if (visible && s.video.paused) s.video.play().catch(function () { });
+              if (!visible && !s.video.paused) s.video.pause();
+              s.section.classList.toggle('in-view', visible);
+              return;
+            }
+
+            /* Scrub progress: how far the sticky has been pushed */
+            var stickyH = vh * STICKY_RATIO - STICKY_TOP;
+            var scrollRange = rect.height - stickyH;
+            var progress = 0;
+            if (scrollRange > 0) {
+              progress = (STICKY_TOP - rect.top) / scrollRange;
+              progress = Math.max(0, Math.min(1, progress));
+            }
+            var targetTime = progress * s.video.duration;
+            var diff = targetTime - s.smoothTime;
+            s.smoothTime += Math.sign(diff) * Math.min(Math.abs(diff), MAX_STEP);
+            var newTime = Math.max(0, Math.min(s.smoothTime, s.video.duration));
+            seekTo(s, newTime);
+
+            s.section.classList.toggle('in-view', visible && progress > 0.02);
+
+            /* Float-label fade: trigger when scroll is ~15% in */
+            var floats = s.section.querySelectorAll('.scroll-fade');
+            for (var i = 0; i < floats.length; i++) {
+              floats[i].classList.toggle('visible', progress > 0.12);
+            }
+          });
+          requestAnimationFrame(tick);
+        }
         requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    })();
+      })();
 
     /* Hero text fade-in on load */
     (function () {
@@ -617,9 +1071,9 @@
        ========================================================== */
     (function () {
       var HOLD_THRESHOLD = 300;
-      var DIM_SPEED      = 0.6;
-      var MIN_DIM        = 0.30;
-      var CIRC           = 2 * Math.PI * 30;
+      var DIM_SPEED = 0.6;
+      var MIN_DIM = 0.30;
+      var CIRC = 2 * Math.PI * 30;
 
       var lamp = {
         upLevel: 0.6, downLevel: 0.6, warm: true,
@@ -628,16 +1082,16 @@
       };
 
       var lampContainer = document.getElementById('lamp-container');
-      var imgs     = lampContainer.querySelectorAll('img');
-      var btnTemp  = document.getElementById('btn-temp');
+      var imgs = lampContainer.querySelectorAll('img');
+      var btnTemp = document.getElementById('btn-temp');
       var statusEl = document.getElementById('status-text');
 
       function render() {
         var upOn = lamp.upLevel > 0, downOn = lamp.downLevel > 0;
         var opacities = {
-          'off':1, 'up-cold':0, 'up-warm':0,
-          'down-cold':0, 'down-warm':0,
-          'both-cold':0, 'both-warm':0
+          'off': 1, 'up-cold': 0, 'up-warm': 0,
+          'down-cold': 0, 'down-warm': 0,
+          'both-cold': 0, 'both-warm': 0
         };
 
         if (upOn && !downOn) {
@@ -731,7 +1185,7 @@
         el.addEventListener('contextmenu', function (e) { e.preventDefault(); });
       }
 
-      setupDimmer('dimmer-up',   'upLevel',   'upLast',   'upDir');
+      setupDimmer('dimmer-up', 'upLevel', 'upLast', 'upDir');
       setupDimmer('dimmer-down', 'downLevel', 'downLast', 'downDir');
       btnTemp.addEventListener('click', function () { lamp.warm = !lamp.warm; render(); });
 
@@ -786,13 +1240,13 @@
           el.addEventListener('pointerup', onUp);
           el.addEventListener('pointercancel', onCancel);
           el.addEventListener('pointerleave', onCancel);
-          el.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+          el.addEventListener('contextmenu', function (e) { e.preventDefault(); });
         }
         setupHotspotDimmer(document.getElementById('hotspot-up'), 'upLevel', 'upLast', 'upDir');
         setupHotspotDimmer(document.getElementById('hotspot-down'), 'downLevel', 'downLast', 'downDir');
         var hotspotTemp = document.getElementById('hotspot-temp');
         if (hotspotTemp) {
-          hotspotTemp.addEventListener('click', function() {
+          hotspotTemp.addEventListener('click', function () {
             lamp.warm = !lamp.warm; render();
           });
         }
@@ -864,4 +1318,5 @@
     })();
   </script>
 </body>
+
 </html>
