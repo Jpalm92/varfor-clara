@@ -105,6 +105,28 @@
       box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
     }
 
+    .feature-card {
+      justify-content: flex-start;
+    }
+
+    .feature-card .feature-title {
+      min-height: 2em;
+      line-height: 1.2;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .feature-card .feature-copy {
+      min-height: 5.5em;
+      line-height: 1.45;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      text-align: center;
+    }
+
     @media (hover: hover) {
       .config-card:hover .img-default {
         opacity: 0;
@@ -256,6 +278,11 @@
         padding: 1.5rem 1rem !important;
       }
 
+      .feature-card .feature-title,
+      .feature-card .feature-copy {
+        min-height: 0;
+      }
+
       .config-section {
         grid-template-columns: 1fr !important;
         gap: 1rem !important;
@@ -359,7 +386,7 @@
         class="hero-content tw-absolute tw-inset-0 tw-z-[2] tw-flex tw-justify-center lg:tw-justify-start tw-items-end lg:tw-items-center lg:tw-px-24 tw-pb-[12vh]"
         id="hero-content">
         <h1
-          class="hero-heading tw-font-grotesk tw-text-[clamp(2rem,4vw,3.5rem)] tw-font-medium tw-leading-[1.2] tw-tracking-widest tw-text-cream">
+          class="hero-heading tw-font-grotesk tw-text-[1.9rem] sm:tw-text-[2.25rem] lg:tw-text-[4rem] tw-font-normal tw-leading-[1.2] sm:tw-leading-[2.5rem] lg:tw-leading-[4.5rem] tw-mb-5 sm:tw-mb-[30px] tw-max-w-[18ch] sm:tw-max-w-none visible tw-tracking-[0.2em] tw-text-cream">
           Glöm nedpendlade<br><span class="tw-flex tw-items-center tw-justify-between tw-gap-[0.3em]">
             <a href="varfor-clara.html" class="tw-uppercase tw-tracking-normal hover:tw-bg-[#f79a6d]
    tw-inline-flex tw-items-center tw-flex-1 tw-justify-center
@@ -453,9 +480,9 @@
 
   <!-- Features -->
   <section
-    class="features-section tw-min-h-[60vh] tw-flex tw-flex-col tw-justify-center tw-px-8 tw-bg-clara-grey tw-border-b-2 tw-border-cream"
+    class="features-section tw-min-h-[60vh] tw-flex tw-flex-col tw-justify-center tw-px-8 tw-bg-clara-grey tw-border-b-2 tw-border-cream max-xl:tw-py-12 max-xl:tw-px-2"
     style="background-image:linear-gradient(rgba(247,154,109,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(247,154,109,0.18) 1px, transparent 1px); background-size:180px 180px">
-    <div class="features-grid tw-max-w-[1300px] tw-mx-auto tw-grid tw-grid-cols-4 tw-gap-12">
+    <div class="features-grid tw-max-w-[1300px] tw-mx-auto tw-grid tw-grid-cols-2 xl:tw-grid-cols-4 tw-gap-12">
       <div
         class="feature-card fade-in tw-text-center tw-text-black tw-aspect-square tw-p-6 tw-rounded-none tw-bg-[#f15a25] tw-border tw-border-white/[0.06] tw-transition-all tw-duration-[400ms] tw-backdrop-blur-[20px] tw-flex tw-flex-col tw-items-center tw-justify-center">
         <div class="feature-icon tw-text-black tw-mb-6 tw-flex tw-items-center tw-justify-center"><svg
@@ -464,8 +491,8 @@
             <path d="M16 24l6 6 10-12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
               stroke-linejoin="round" />
           </svg></div>
-        <h4 class="tw-text-xl tw-font-semibold tw-mb-2">Enkel installation</h4>
-        <p class="tw-text-sm">Monteras ihop och installeras p&#229; n&#229;gra minuter. Ingen elektriker kr&#228;vs.</p>
+        <h4 class="feature-title tw-text-xl tw-font-semibold tw-mb-2">Enkel installation</h4>
+        <p class="feature-copy tw-text-sm">Monteras ihop och installeras p&#229; n&#229;gra minuter. Ingen elektriker kr&#228;vs.</p>
       </div>
       <div
         class="feature-card fade-in tw-text-center tw-text-black tw-aspect-square tw-p-6 tw-rounded-none tw-bg-[#f15a25] tw-border tw-border-white/[0.06] tw-transition-all tw-duration-[400ms] tw-backdrop-blur-[20px] tw-flex tw-flex-col tw-items-center tw-justify-center">
@@ -474,8 +501,8 @@
             <circle cx="24" cy="24" r="14" fill="none" stroke="currentColor" stroke-width="1.5" />
             <path d="M18 24h12M24 18v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
           </svg></div>
-        <h4 class="tw-text-xl tw-font-semibold tw-mb-2">Alltid r&#228;tt arbetsljus</h4>
-        <p class="tw-text-sm">Uppfyller Arbetsmilj&#246;verkets krav p&#229; ljusstyrka, bl&#228;ndning och flimmer.
+        <h4 class="feature-title tw-text-xl tw-font-semibold tw-mb-2">Alltid r&#228;tt arbetsljus</h4>
+        <p class="feature-copy tw-text-sm">Uppfyller Arbetsmilj&#246;verkets krav p&#229; ljusstyrka, bl&#228;ndning och flimmer.
           Dessutom st&#228;llbar ljustemperatur.</p>
       </div>
       <div
@@ -487,8 +514,8 @@
               d="M24 4v6M24 38v6M4 24h6M38 24h6M9.86 9.86l4.24 4.24M33.9 33.9l4.24 4.24M9.86 38.14l4.24-4.24M33.9 14.1l4.24-4.24"
               stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
           </svg></div>
-        <h4 class="tw-text-xl tw-font-semibold tw-mb-2">N&#228;rvarosensor</h4>
-        <p class="tw-text-sm">Lyser inte i on&#246;dan. Lampan t&#228;nds automatiskt n&#228;r du sitter vid
+        <h4 class="feature-title tw-text-xl tw-font-semibold tw-mb-2">N&#228;rvarosensor</h4>
+        <p class="feature-copy tw-text-sm">Lyser inte i on&#246;dan. Lampan t&#228;nds automatiskt n&#228;r du sitter vid
           skrivbordet.</p>
       </div>
       <div
@@ -499,8 +526,8 @@
             <path d="M22 38v2M26 38v2M24 20v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
             <rect x="20" y="8" width="8" height="6" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5" />
           </svg></div>
-        <h4 class="tw-text-xl tw-font-semibold tw-mb-2">USB-C-laddning</h4>
-        <p class="tw-text-sm">Inbyggt USB-C-uttag f&#246;r laddning av mobila enheter direkt i armaturen.</p>
+        <h4 class="feature-title tw-text-xl tw-font-semibold tw-mb-2">USB-C-laddning</h4>
+        <p class="feature-copy tw-text-sm">Inbyggt USB-C-uttag f&#246;r laddning av mobila enheter direkt i armaturen.</p>
       </div>
     </div>
   </section>
